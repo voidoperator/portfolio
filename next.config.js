@@ -12,6 +12,7 @@ const nextConfig = {
   // compiler: {
   //   styledComponents: true,
   // },
+  productionBrowserSourceMaps: true,
   experimental: {},
   images: {},
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.

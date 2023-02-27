@@ -21,6 +21,7 @@ export default function App({ Component, pageProps = { title: 'Home' } }) {
           // <Scene className='pointer-events-none' eventSource={ref} eventPrefix='client'>
           //   {Component.canvas(pageProps)}
           // </Scene>
+          // @ts-ignore
           <AsciiTorus className='pointer-events-none' eventSource={ref} eventPrefix='client'>
             {Component.canvas(pageProps)}
           </AsciiTorus>
