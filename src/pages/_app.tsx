@@ -2,12 +2,12 @@ import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Header from '@/config'
 import Layout from '@/components/dom/Layout'
-import '@/styles/index.css'
+import '@/styles/global.css'
 import AsciiTorus from '@/components/canvas/Ascii'
 
 // const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true })
 
-export default function App({ Component, pageProps = { title: 'index' } }) {
+export default function App({ Component, pageProps = { title: 'Home' } }) {
   const ref = useRef()
   return (
     <>
