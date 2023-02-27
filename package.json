@@ -1,9 +1,27 @@
 {
   "name": "jv-portfolio",
   "version": "0.0.1",
+  "license": "MIT",
   "engines": {
     "node": ">=14"
   },
+  "scripts": {
+    "dev": "yarn open-browser && next dev",
+    "lint": "yarn prettier && yarn eslint",
+    "build": "next build",
+    "start": "next start",
+    "eslint": "next lint --fix --dir src",
+    "prettier": "prettier --list-different \"./src/**/*.{ts,tsx,md}\"",
+    "export": "EXPORT=true next build && EXPORT=true next export",
+    "analyze": "ANALYZE=true next build",
+    "open-browser": "start http://localhost:3000",
+    "git:stage": "git add .",
+    "rtw": "npx ts-node -r esm"
+  },
+  "pre-commit": [
+    "lint",
+    "git:stage"
+  ],
   "dependencies": {
     "@react-three/drei": "^9.56.5",
     "@react-three/fiber": "^8.10.1",
@@ -25,6 +43,7 @@
     "eslint-config-next": "^13.1.6",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-tailwind": "^0.2.1",
+    "esm": "^3.2.25",
     "file-loader": "^6.2.0",
     "glslify": "^7.1.1",
     "glslify-loader": "^2.0.0",
@@ -34,23 +53,8 @@
     "raw-loader": "^4.0.2",
     "tailwind-styled-components": "^2.2.0",
     "tailwindcss": "^3.2.4",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
     "url-loader": "^4.1.1"
-  },
-  "pre-commit": [
-    "lint",
-    "git:stage"
-  ],
-  "scripts": {
-    "lint": "yarn prettier && yarn eslint",
-    "eslint": "next lint --fix --dir src",
-    "prettier": "prettier --list-different \"./src/**/*.{ts,tsx,md}\"",
-    "dev": "yarn open-browser && next dev",
-    "build": "next build",
-    "export": "EXPORT=true next build && EXPORT=true next export",
-    "analyze": "ANALYZE=true next build",
-    "start": "next start",
-    "git:stage": "git add .",
-    "open-browser": "start http://localhost:3000"
   }
 }

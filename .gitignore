@@ -16,6 +16,7 @@
 # misc
 .DS_Store
 *.pem
+/.vzcustom
 
 # debug
 npm-debug.log*
@@ -39,7 +40,6 @@ yarn-error.log*
 
 # prefer yarn than npm
 package-lock.json
-
 report.*.json
 
 # .vscode Debugging
