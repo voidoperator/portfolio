@@ -20,7 +20,7 @@ export default function NavBar({}: Props) {
   return (
     <Nav>
       <Div>
-        <Link href='/' className='flex items-center order-0'>
+        <Link href='/' className='flex items-center order-0 hover:opacity-70 transition-all duration-300'>
           <JNLogo />
           <Span>Julio Nunez</Span>
         </Link>
