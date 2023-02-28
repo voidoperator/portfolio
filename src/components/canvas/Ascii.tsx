@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, useMemo, useLayoutEffect } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useGLTF, OrbitControls, useCursor } from '@react-three/drei'
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
+import { useGLTF, OrbitControls } from '@react-three/drei'
 import { AsciiEffect } from 'three-stdlib'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export default function AsciiTorus() {
   return (
@@ -10,32 +11,22 @@ export default function AsciiTorus() {
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
       <Torusknot />
-      <OrbitControls />
+      <OrbitControls enableZoom={false} />
       {/* @ts-ignore */}
-      <AsciiRenderer fgColor='white' bgColor='transparent' />
+      <AsciiRenderer fgColor={'white'} bgColor='transparent' resolution={0.185} />
     </Canvas>
   )
 }
 
 function Torusknot(props) {
-  const { nodes } = useGLTF('/suzanne-draco.glb')
+  const { nodes } = useGLTF('/Logo.gltf')
   const ref = useRef()
-  const [clicked, click] = useState(false)
-  const [hovered, hover] = useState(false)
-  useCursor(hovered)
-  //   useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 4))
+  /* @ts-ignore */
+  useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 4))
   return (
-    <mesh
-      geometry={nodes.Suzanne.geometry}
-      //   {...props}
-      //   ref={ref}
-      //   scale={clicked ? 1.5 : 1.25}
-      //   onClick={() => click(!clicked)}
-      //   onPointerOver={() => hover(true)}
-      //   onPointerOut={() => hover(false)}
-    >
+    <mesh geometry={nodes.Logo.geometry} {...props} ref={ref} scale={1.5}>
       {/* <torusKnotGeometry args={[1, 0.2, 128, 32]} /> */}
-      <meshStandardMaterial color='orange' />
+      <meshStandardMaterial color='white' />
     </mesh>
   )
 }
@@ -88,6 +79,4 @@ function AsciiRenderer({
   useFrame((state) => {
     effect.render(scene, camera)
   }, renderIndex)
-
-  // This component returns nothing, it is a purely logical
 }
