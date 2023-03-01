@@ -1,6 +1,5 @@
-// import dynamic from 'next/dynamic'
 import NavBar from '@/components/dom/Nav/NavBar'
-import AsciiTorus from '@/components/canvas/Ascii'
+import JNLogoAscii from '@/components/canvas/JNLogoAscii'
 
 // const Ascii = dynamic(() => import('@/components/canvas/Ascii'), { ssr: false })
 
@@ -12,7 +11,7 @@ export default function Page(props) {
   )
 }
 
-Page.canvas = (props) => <AsciiTorus />
+Page.canvas = (props) => <JNLogoAscii />
 
 export async function getStaticProps() {
   return { props: { title: "Julio's Portfolio" } }

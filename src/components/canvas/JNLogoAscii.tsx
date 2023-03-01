@@ -1,30 +1,29 @@
-import { useEffect, useRef, useState, useMemo, useLayoutEffect } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { useEffect, useRef, useMemo, useLayoutEffect } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, OrbitControls } from '@react-three/drei'
 import { AsciiEffect } from 'three-stdlib'
+import { useColorModeContext } from '@/templates/hooks/useColorMode'
+import type { MeshProps } from '@react-three/fiber'
 
-export default function AsciiTorus() {
+export default function JNLogoAscii() {
+  const { isDarkMode } = useColorModeContext()
+  const color = isDarkMode ? 'white' : 'black'
   return (
-    <Canvas>
-      <color attach='background' args={['black']} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-      <pointLight position={[-10, -10, -10]} />
-      <JNLogo />
+    <>
+      <JNLogoGeometry />
       <OrbitControls enableZoom={false} />
-      {/* @ts-ignore */}
-      <AsciiRenderer fgColor={'white'} bgColor='transparent' resolution={0.185} />
-    </Canvas>
+      <AsciiRenderer fgColor={color} bgColor='transparent' resolution={0.125} />
+    </>
   )
 }
 
-function JNLogo(props) {
+function JNLogoGeometry(props) {
   const { nodes } = useGLTF('/Logo.gltf')
-  const ref = useRef()
-  /* @ts-ignore */
+  const ref = useRef<MeshProps>()
   useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 4))
   return (
     <mesh geometry={nodes.Logo.geometry} {...props} ref={ref} scale={1.5}>
-      <meshStandardMaterial color='white' />
+      <meshStandardMaterial color='orange' />
     </mesh>
   )
 }
@@ -33,7 +32,7 @@ function AsciiRenderer({
   renderIndex = 1,
   bgColor = 'black',
   fgColor = 'white',
-  characters = ' .:-+*=%@#',
+  characters = ' .:-+*=@;',
   invert = true,
   color = false,
   resolution = 0.15,
@@ -70,4 +69,6 @@ function AsciiRenderer({
   useFrame((state) => {
     effect.render(scene, camera)
   }, renderIndex)
+
+  return null
 }
