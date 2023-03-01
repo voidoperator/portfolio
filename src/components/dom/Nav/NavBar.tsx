@@ -4,8 +4,8 @@ import tw from 'tailwind-styled-components'
 import { DarkMode } from './DarkMode'
 import { HamburgerIcon, JNLogo } from '../Icons/Icons'
 
-const Nav = tw.nav`fixed top-0 left-0 z-20 w-full px-2 bg-white border-b border-neutral-200 dark:bg-neutral-900 sm:px-4 py-2.5 dark:border-neutral-600`
-const Div = tw.div`container flex flex-wrap items-center justify-between mx-auto`
+const Header = tw.header`fixed top-0 left-0 z-20 w-full px-2 bg-white border-b border-neutral-200 dark:bg-neutral-900 sm:px-4 py-2.5 dark:border-neutral-600`
+const Nav = tw.nav`container flex flex-wrap items-center justify-between mx-auto`
 const Span = tw.span`self-center text-xl font-semibold text-gray-700 whitespace-nowrap dark:text-gray-50`
 const NavBarLinks = tw.div`items-center justify-between w-full md:flex md:w-auto`
 const Button = tw.button`transition-all px-5 mr-3 text-sm font-medium text-center text-white bg-gray-500 rounded-xl hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-white-300 py-2.5 md:mr-0 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-white-800`
@@ -18,8 +18,8 @@ type Props = {}
 
 export default function NavBar({}: Props) {
   return (
-    <Nav>
-      <Div>
+    <Header>
+      <Nav>
         <Link href='/' className='flex items-center order-0 hover:opacity-70 transition-all duration-300'>
           <JNLogo />
           <Span>Julio Nunez</Span>
@@ -58,7 +58,7 @@ export default function NavBar({}: Props) {
             </button>
           </Hamburger>
         </FlexRow>
-      </Div>
-    </Nav>
+      </Nav>
+    </Header>
   )
 }

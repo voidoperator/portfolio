@@ -1,12 +1,17 @@
-import NavBar from '@/components/dom/Nav/NavBar'
 import JNLogoAscii from '@/components/canvas/JNLogoAscii'
-
-// const Ascii = dynamic(() => import('@/components/canvas/Ascii'), { ssr: false })
+import NavBar from '@/components/dom/Nav/NavBar'
+import HeroBanner from '@/components/dom/Hero/HeroBanner'
+import Test from '@/components/dom/AboutSection'
+import AboutMe from '@/components/dom/ExperienceSection'
 
 export default function Page(props) {
+  const { aboutMeRef, experienceRef } = props
   return (
     <>
       <NavBar />
+      <HeroBanner />
+      <Test aboutMeRef={aboutMeRef} />
+      <AboutMe experienceRef={experienceRef} />
     </>
   )
 }
@@ -14,5 +19,9 @@ export default function Page(props) {
 Page.canvas = (props) => <JNLogoAscii />
 
 export async function getStaticProps() {
-  return { props: { title: "Julio's Portfolio" } }
+  return {
+    props: {
+      title: "Julio's Portfolio",
+    },
+  }
 }

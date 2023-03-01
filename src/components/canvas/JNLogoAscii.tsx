@@ -10,8 +10,10 @@ export default function JNLogoAscii() {
   const color = isDarkMode ? 'white' : 'black'
   return (
     <>
-      <JNLogoGeometry />
-      <OrbitControls enableZoom={false} />
+      <hemisphereLight />
+      <JNLogoGeometry position={[0, 0.5, 0]} />
+      <Test position={[0, -4, 1.5]} />
+      <OrbitControls enableZoom={false} touches={false} />
       <AsciiRenderer fgColor={color} bgColor='transparent' resolution={0.125} />
     </>
   )
@@ -20,9 +22,22 @@ export default function JNLogoAscii() {
 function JNLogoGeometry(props) {
   const { nodes } = useGLTF('/Logo.gltf')
   const ref = useRef<MeshProps>()
-  useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 4))
+  useFrame((state, delta) => (ref.current.rotation.y = ref.current.rotation.y += delta / 4))
   return (
     <mesh geometry={nodes.Logo.geometry} {...props} ref={ref} scale={1.5}>
+      <meshStandardMaterial color='hotpink' />
+    </mesh>
+  )
+}
+
+function Test(props) {
+  const { nodes } = useGLTF(
+    'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/suzanne-low-poly/model.gltf',
+  )
+  const ref = useRef<MeshProps>()
+  useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 4))
+  return (
+    <mesh geometry={nodes.Suzanne.geometry} {...props} ref={ref} scale={1.5}>
       <meshStandardMaterial color='orange' />
     </mesh>
   )

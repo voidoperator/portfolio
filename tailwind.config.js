@@ -3,7 +3,14 @@ module.exports = {
   content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'], // remove unused styles in production
   darkMode: 'class', // 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'noise': "url('/img/noise.png')"
+      },
+      letterSpacing: {
+        'widest': '0.5em'
+      }
+    },
   },
   variants: {
     extend: {},

@@ -1,17 +1,17 @@
+import { useEffect, useRef } from 'react'
 import { addEffect, useFrame } from '@react-three/fiber'
 import Lenis from '@studio-freight/lenis'
-import { useEffect } from 'react'
-import { useRef } from 'react'
 import * as THREE from 'three'
 
 const state = {
   top: 0,
   progress: 0,
+  direction: 0,
 }
 
 const { damp } = THREE.MathUtils
 
-export default function Scroll({ children }) {
+export default function Scroll({ children, aboutMeRef, experienceRef }) {
   const content = useRef(null)
   const wrapper = useRef(null)
 
@@ -19,26 +19,57 @@ export default function Scroll({ children }) {
     const lenis = new Lenis({
       wrapper: wrapper.current,
       content: content.current,
-      duration: 1.2,
+      duration: 2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
       direction: 'vertical', // vertical, horizontal
       gestureDirection: 'vertical', // vertical, horizontal, both
       smooth: true,
-      smoothTouch: false,
-      touchMultiplier: 2,
+      smoothTouch: true,
+      mouseMultiplier: 2,
+      touchMultiplier: 3,
       infinite: false,
     })
 
-    lenis.on('scroll', ({ scroll, progress }) => {
+    const aboutMeElement = aboutMeRef.current
+    // const experienceElement = experienceRef.current
+
+    const aboutClientHeight = aboutMeElement.clientHeight
+
+    const scrollHandler = () => {
+      lenis.start()
+
+      const scrollTop = state.top
+      const scrollDir = state.direction
+
+      if (scrollTop > 0 && scrollTop < aboutClientHeight && scrollDir > 0) {
+        lenis.scrollTo(aboutMeElement)
+        lenis.off('scroll', scrollHandler)
+        if (scrollTop > aboutClientHeight) {
+          lenis.stop()
+        }
+      }
+      // if (scrollTop > aboutClientHeight && scrollDir > 0) {
+      //   lenis.scrollTo(experienceElement)
+      //   lenis.off('scroll', scrollHandler)
+      // }
+      // if (scrollTop > aboutClientHeight && scrollDir < 0) {
+      //   lenis.scrollTo(aboutMeElement)
+      //   lenis.off('scroll', scrollHandler)
+      // }
+    }
+
+    lenis.on('scroll', ({ scroll, progress, direction }) => {
       state.top = scroll
       state.progress = progress
+      state.direction = direction
+      scrollHandler()
     })
     const effectSub = addEffect((time) => lenis.raf(time))
     return () => {
       effectSub()
       lenis.destroy()
     }
-  }, [])
+  }, [aboutMeRef, experienceRef])
 
   return (
     <div
@@ -55,9 +86,9 @@ export default function Scroll({ children }) {
         ref={content}
         style={{
           position: 'relative',
-          height: '100%',
           minHeight: '100vh',
         }}
+        className='bg-repeat bg-noise bg-[length:200px] bg-[0px_0px]'
       >
         {children}
       </div>
