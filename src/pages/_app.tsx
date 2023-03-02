@@ -9,14 +9,20 @@ const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true })
 
 export default function App({ Component, pageProps = { title: 'Home' } }) {
   const ref = useRef()
+  const heroBannerRef = useRef()
   const aboutMeRef = useRef()
   const experienceRef = useRef()
   return (
     <>
       <Header title={pageProps.title} />
       <Layout ref={ref}>
-        <Scroll aboutMeRef={aboutMeRef} experienceRef={experienceRef}>
-          <Component {...pageProps} aboutMeRef={aboutMeRef} experienceRef={experienceRef} />
+        <Scroll heroBannerRef={heroBannerRef} aboutMeRef={aboutMeRef} experienceRef={experienceRef}>
+          <Component
+            {...pageProps}
+            heroBannerRef={heroBannerRef}
+            aboutMeRef={aboutMeRef}
+            experienceRef={experienceRef}
+          />
         </Scroll>
         {Component?.canvas && (
           <Scene className='pointer-events-none' eventSource={ref} eventPrefix='client'>

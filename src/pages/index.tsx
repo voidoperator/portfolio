@@ -5,11 +5,11 @@ import Test from '@/components/dom/AboutSection'
 import AboutMe from '@/components/dom/ExperienceSection'
 
 export default function Page(props) {
-  const { aboutMeRef, experienceRef } = props
+  const { aboutMeRef, experienceRef, heroBannerRef } = props
   return (
     <>
       <NavBar />
-      <HeroBanner />
+      <HeroBanner heroBannerRef={heroBannerRef} />
       <Test aboutMeRef={aboutMeRef} />
       <AboutMe experienceRef={experienceRef} />
     </>

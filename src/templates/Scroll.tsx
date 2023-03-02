@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { addEffect, useFrame } from '@react-three/fiber'
 import Lenis from '@studio-freight/lenis'
 import * as THREE from 'three'
@@ -11,65 +11,83 @@ const state = {
 
 const { damp } = THREE.MathUtils
 
-export default function Scroll({ children, aboutMeRef, experienceRef }) {
+export default function Scroll({ children, heroBannerRef, aboutMeRef, experienceRef }) {
   const content = useRef(null)
   const wrapper = useRef(null)
+  const lenisRef = useRef(null)
+  const [scrollDirection, setScrollDirection] = useState('')
+  const [currentlyViewing, setCurrentlyViewing] = useState(1)
+  const [isScrolling, setIsScrolling] = useState(false)
 
   useEffect(() => {
     const lenis = new Lenis({
       wrapper: wrapper.current,
       content: content.current,
-      duration: 2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
-      direction: 'vertical', // vertical, horizontal
-      gestureDirection: 'vertical', // vertical, horizontal, both
+      duration: 0.5,
+      easing: (x) => x * x * x * x,
+      direction: 'vertical',
+      gestureDirection: 'vertical',
       smooth: true,
       smoothTouch: true,
-      mouseMultiplier: 2,
+      mouseMultiplier: 0.0001,
       touchMultiplier: 3,
       infinite: false,
     })
-
-    const aboutMeElement = aboutMeRef.current
-    // const experienceElement = experienceRef.current
-
-    const aboutClientHeight = aboutMeElement.clientHeight
-
-    const scrollHandler = () => {
-      lenis.start()
-
-      const scrollTop = state.top
-      const scrollDir = state.direction
-
-      if (scrollTop > 0 && scrollTop < aboutClientHeight && scrollDir > 0) {
-        lenis.scrollTo(aboutMeElement)
-        lenis.off('scroll', scrollHandler)
-        if (scrollTop > aboutClientHeight) {
-          lenis.stop()
-        }
-      }
-      // if (scrollTop > aboutClientHeight && scrollDir > 0) {
-      //   lenis.scrollTo(experienceElement)
-      //   lenis.off('scroll', scrollHandler)
-      // }
-      // if (scrollTop > aboutClientHeight && scrollDir < 0) {
-      //   lenis.scrollTo(aboutMeElement)
-      //   lenis.off('scroll', scrollHandler)
-      // }
-    }
-
+    lenisRef.current = lenis
     lenis.on('scroll', ({ scroll, progress, direction }) => {
+      setIsScrolling(true)
       state.top = scroll
       state.progress = progress
       state.direction = direction
-      scrollHandler()
+      if (state.direction === 1) {
+        setScrollDirection('down')
+      }
+      if (state.direction === -1) {
+        setScrollDirection('up')
+      }
+      if (state.direction === 0) {
+        setIsScrolling(false)
+        setScrollDirection('')
+      }
     })
     const effectSub = addEffect((time) => lenis.raf(time))
     return () => {
       effectSub()
       lenis.destroy()
     }
-  }, [aboutMeRef, experienceRef])
+  }, [])
+
+  useEffect(() => {
+    const lenis = lenisRef.current
+    if (!scrollDirection || !isScrolling) return
+    const scrollHandler = (direction: string) => {
+      const currentSection = currentlyViewing
+      const nextSection = currentSection + 1
+      const prevSection = currentSection - 1
+      if (direction === 'down' && currentlyViewing < 3) {
+        let nextSectionRef: React.RefObject<Lenis>
+        if (currentSection === 1) {
+          nextSectionRef = aboutMeRef
+        } else if (currentSection === 2) {
+          nextSectionRef = experienceRef
+        }
+        setCurrentlyViewing(nextSection)
+        lenis.scrollTo(nextSectionRef.current)
+      }
+      if (direction === 'up' && currentlyViewing > 1) {
+        let prevSectionRef: React.RefObject<Lenis>
+        if (currentSection === 2) {
+          prevSectionRef = heroBannerRef
+        } else if (currentSection === 3) {
+          prevSectionRef = aboutMeRef
+        }
+        setCurrentlyViewing(prevSection)
+        lenis.scrollTo(prevSectionRef.current)
+      }
+    }
+    scrollHandler(scrollDirection)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isScrolling, scrollDirection])
 
   return (
     <div
