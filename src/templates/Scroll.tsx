@@ -11,36 +11,26 @@ const state = {
 
 const { damp } = THREE.MathUtils
 
-export default function Scroll({
-  children,
-  wrapperRef,
-  contentRef,
-  heroBannerRef,
-  aboutRef,
-  experienceRef,
-  skillsRef,
-  projectsRef,
-  contactRef,
-}) {
+export default function Scroll({ refList = [], wrapperRef, contentRef, children }) {
   const lenisRef = useRef(null)
   const [scrollDirection, setScrollDirection] = useState('')
-  const [currentlyViewing, setCurrentlyViewing] = useState(1)
   const [isScrolling, setIsScrolling] = useState(false)
-
+  const [currSection, setCurrSection] = useState(0)
   useEffect(() => {
     const lenis = new Lenis({
       wrapper: wrapperRef.current,
       content: contentRef.current,
       duration: 0.5,
-      easing: (x) => x * x * x * x,
+      easing: (x) => Math.pow(x, 4),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
       smoothTouch: true,
-      mouseMultiplier: 0.0001,
-      touchMultiplier: 3,
+      mouseMultiplier: 0.001,
+      touchMultiplier: 0.001,
       infinite: false,
     })
+
     lenisRef.current = lenis
     lenis.on('scroll', ({ scroll, progress, direction }) => {
       setIsScrolling(true)
@@ -63,52 +53,29 @@ export default function Scroll({
       effectSub()
       lenis.destroy()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     const lenis = lenisRef.current
     if (!scrollDirection || !isScrolling) return
     const scrollHandler = (direction: string) => {
-      const currentSection = currentlyViewing
-      const nextSection = currentSection + 1
-      const prevSection = currentSection - 1
-      if (direction === 'down' && currentlyViewing < 6) {
-        let nextSectionRef: React.RefObject<Lenis>
-        if (currentSection === 1) {
-          nextSectionRef = aboutRef
-        } else if (currentSection === 2) {
-          nextSectionRef = experienceRef
-        } else if (currentSection === 3) {
-          nextSectionRef = skillsRef
-        } else if (currentSection === 4) {
-          nextSectionRef = projectsRef
-        } else if (currentSection === 5) {
-          nextSectionRef = contactRef
-        }
-        setCurrentlyViewing(nextSection)
+      if (direction === 'down') {
+        const nextSection = currSection + 1
+        const nextSectionRef = refList[nextSection % refList.length]
+        setCurrSection(nextSection)
         lenis.scrollTo(nextSectionRef.current)
       }
-      if (direction === 'up' && currentlyViewing > 1) {
-        let prevSectionRef: React.RefObject<Lenis>
-        if (currentSection === 2) {
-          prevSectionRef = heroBannerRef
-        } else if (currentSection === 3) {
-          prevSectionRef = aboutRef
-        } else if (currentSection === 4) {
-          prevSectionRef = experienceRef
-        } else if (currentSection === 5) {
-          prevSectionRef = skillsRef
-        } else if (currentSection === 6) {
-          prevSectionRef = projectsRef
-        }
-        setCurrentlyViewing(prevSection)
-        lenis.scrollTo(prevSectionRef.current)
+      if (direction === 'up') {
+        const prevSection = currSection - 1
+        const nextSectionRef = refList[prevSection % refList.length]
+        setCurrSection(prevSection)
+        lenis.scrollTo(nextSectionRef.current)
       }
     }
     scrollHandler(scrollDirection)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isScrolling, scrollDirection])
-
   return (
     <div
       ref={wrapperRef}
@@ -138,6 +105,5 @@ export const ScrollTicker = ({ smooth = 9999999 }) => {
   useFrame(({ viewport, camera }, delta) => {
     camera.position.y = damp(camera.position.y, -state.progress * viewport.height, smooth, delta)
   })
-
   return null
 }

@@ -6,35 +6,24 @@ import Experience from '@/components/dom/Experience/ExperienceSection'
 import SkillSection from '@/components/dom/Skills/SkillSection'
 import ProjectSection from '@/components/dom/Projects/ProjectSection'
 import ContactSection from '@/components/dom/Contact/ContactSection'
+import { createRef, useRef } from 'react'
+import Scroll from '@/templates/Scroll'
 
 export default function Page(props) {
-  const {
-    heroBannerRef,
-    aboutRef,
-    experienceRef,
-    skillsRef,
-    projectsRef,
-    contactRef,
-    lenisContentRef,
-    lenisWrapperRef,
-  } = props
+  const orderedRefList = new Array(6).fill(null).map(() => createRef())
+  const [heroBannerRef, aboutRef, experienceRef, skillsRef, projectsRef, contactRef] = orderedRefList
+  const wrapperRef = useRef(null)
+  const contentRef = useRef(null)
   return (
-    <>
-      <NavBar
-        heroBannerRef={heroBannerRef}
-        aboutRef={aboutRef}
-        experienceRef={experienceRef}
-        skillsRef={skillsRef}
-        projectsRef={projectsRef}
-        contactRef={contactRef}
-      />
+    <Scroll refList={orderedRefList} wrapperRef={wrapperRef} contentRef={contentRef}>
+      <NavBar refList={orderedRefList} />
       <HeroBanner heroBannerRef={heroBannerRef} />
       <About aboutRef={aboutRef} />
       <Experience experienceRef={experienceRef} />
       <SkillSection skillsRef={skillsRef} />
       <ProjectSection projectsRef={projectsRef} />
       <ContactSection contactRef={contactRef} />
-    </>
+    </Scroll>
   )
 }
 

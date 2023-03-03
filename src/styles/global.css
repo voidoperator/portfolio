@@ -2,6 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: TitlingGothicFBWide-Thin;
+  src: url(/fonts/TitlingGothicFBWide-Thin.otf) format('opentype');
+}
+
+@font-face {
+  font-family: TitlingGothicFBWide-Light;
+  src: url(/fonts/TitlingGothicFBWide-Light.otf) format('opentype');
+}
+
+@font-face {
+  font-family: TitlingGothicFBWide-Regular;
+  src: url(/fonts/TitlingGothicFBWide-Reg.otf) format('opentype');
+}
+
+@font-face {
+  font-family: TitlingGothicFBWide-Stand;
+  src: url(/fonts/TitlingGothicFBWide-Stand.otf) format('opentype');
+}
+
+@font-face {
+  font-family: TitlingGothicFBWide-Medium;
+  src: url(/fonts/TitlingGothicFBWide-Med.otf) format('opentype');
+}
+
+@font-face {
+  font-family: TitlingGothicFBWide-Bold;
+  src: url(/fonts/TitlingGothicFBWide-Bold.otf) format('opentype');
+}
+
+@font-face {
+  font-family: TitlingGothicFBWide-Black;
+  src: url(/fonts/TitlingGothicFBWide-Black.otf) format('opentype');
+}
+
 @layer base {
   * {
     box-sizing: border-box;
@@ -18,5 +53,6 @@
     height: auto;
     margin: 0;
     padding: 0;
+    font-family: 'TitlingGothicFBWide-Light';
   }
 }

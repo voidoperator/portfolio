@@ -9,7 +9,7 @@ const H2 = tw.h2`text-xl tracking-widest text-black cursor-default md:text-3xl d
 
 export default function About({ aboutRef }) {
   return (
-    <Container ref={aboutRef}>
+    <Container ref={aboutRef} id='about'>
       <Wrapper>
         <Div>
           <Title>About Me</Title>
