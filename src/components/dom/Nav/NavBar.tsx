@@ -16,7 +16,7 @@ const FlexRow = tw.div`flex flex-row gap-2`
 
 type Props = {}
 
-export default function NavBar({}: Props) {
+export default function NavBar({ heroBannerRef, aboutRef, experienceRef, skillsRef, projectsRef, contactRef }) {
   return (
     <Header>
       <Nav>

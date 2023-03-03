@@ -11,9 +11,17 @@ const state = {
 
 const { damp } = THREE.MathUtils
 
-export default function Scroll({ children, heroBannerRef, aboutMeRef, experienceRef }) {
-  const content = useRef(null)
-  const wrapper = useRef(null)
+export default function Scroll({
+  children,
+  wrapperRef,
+  contentRef,
+  heroBannerRef,
+  aboutRef,
+  experienceRef,
+  skillsRef,
+  projectsRef,
+  contactRef,
+}) {
   const lenisRef = useRef(null)
   const [scrollDirection, setScrollDirection] = useState('')
   const [currentlyViewing, setCurrentlyViewing] = useState(1)
@@ -21,8 +29,8 @@ export default function Scroll({ children, heroBannerRef, aboutMeRef, experience
 
   useEffect(() => {
     const lenis = new Lenis({
-      wrapper: wrapper.current,
-      content: content.current,
+      wrapper: wrapperRef.current,
+      content: contentRef.current,
       duration: 0.5,
       easing: (x) => x * x * x * x,
       direction: 'vertical',
@@ -64,12 +72,18 @@ export default function Scroll({ children, heroBannerRef, aboutMeRef, experience
       const currentSection = currentlyViewing
       const nextSection = currentSection + 1
       const prevSection = currentSection - 1
-      if (direction === 'down' && currentlyViewing < 3) {
+      if (direction === 'down' && currentlyViewing < 6) {
         let nextSectionRef: React.RefObject<Lenis>
         if (currentSection === 1) {
-          nextSectionRef = aboutMeRef
+          nextSectionRef = aboutRef
         } else if (currentSection === 2) {
           nextSectionRef = experienceRef
+        } else if (currentSection === 3) {
+          nextSectionRef = skillsRef
+        } else if (currentSection === 4) {
+          nextSectionRef = projectsRef
+        } else if (currentSection === 5) {
+          nextSectionRef = contactRef
         }
         setCurrentlyViewing(nextSection)
         lenis.scrollTo(nextSectionRef.current)
@@ -79,7 +93,13 @@ export default function Scroll({ children, heroBannerRef, aboutMeRef, experience
         if (currentSection === 2) {
           prevSectionRef = heroBannerRef
         } else if (currentSection === 3) {
-          prevSectionRef = aboutMeRef
+          prevSectionRef = aboutRef
+        } else if (currentSection === 4) {
+          prevSectionRef = experienceRef
+        } else if (currentSection === 5) {
+          prevSectionRef = skillsRef
+        } else if (currentSection === 6) {
+          prevSectionRef = projectsRef
         }
         setCurrentlyViewing(prevSection)
         lenis.scrollTo(prevSectionRef.current)
@@ -91,7 +111,7 @@ export default function Scroll({ children, heroBannerRef, aboutMeRef, experience
 
   return (
     <div
-      ref={wrapper}
+      ref={wrapperRef}
       style={{
         position: 'absolute',
         overflow: 'hidden',
@@ -101,7 +121,7 @@ export default function Scroll({ children, heroBannerRef, aboutMeRef, experience
       }}
     >
       <div
-        ref={content}
+        ref={contentRef}
         style={{
           position: 'relative',
           minHeight: '100vh',

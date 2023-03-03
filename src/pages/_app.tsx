@@ -9,19 +9,38 @@ const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true })
 
 export default function App({ Component, pageProps = { title: 'Home' } }) {
   const ref = useRef()
-  const heroBannerRef = useRef()
-  const aboutMeRef = useRef()
-  const experienceRef = useRef()
+  const contentRef = useRef(null)
+  const wrapperRef = useRef(null)
+  const heroBannerRef = useRef(null)
+  const aboutRef = useRef(null)
+  const experienceRef = useRef(null)
+  const skillsRef = useRef(null)
+  const projectsRef = useRef(null)
+  const contactRef = useRef(null)
   return (
     <>
       <Header title={pageProps.title} />
       <Layout ref={ref}>
-        <Scroll heroBannerRef={heroBannerRef} aboutMeRef={aboutMeRef} experienceRef={experienceRef}>
+        <Scroll
+          contentRef={contentRef}
+          wrapperRef={wrapperRef}
+          heroBannerRef={heroBannerRef}
+          aboutRef={aboutRef}
+          experienceRef={experienceRef}
+          skillsRef={skillsRef}
+          projectsRef={projectsRef}
+          contactRef={contactRef}
+        >
           <Component
             {...pageProps}
             heroBannerRef={heroBannerRef}
-            aboutMeRef={aboutMeRef}
+            aboutRef={aboutRef}
             experienceRef={experienceRef}
+            skillsRef={skillsRef}
+            projectsRef={projectsRef}
+            contactRef={contactRef}
+            lenisContentRef={contentRef}
+            lenisWrapperRef={wrapperRef}
           />
         </Scroll>
         {Component?.canvas && (
