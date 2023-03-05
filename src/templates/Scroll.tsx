@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { addEffect, useFrame } from '@react-three/fiber'
 import Lenis from '@studio-freight/lenis'
 import * as THREE from 'three'
@@ -32,22 +32,25 @@ export default function Scroll({ refList = [], wrapperRef, contentRef, children 
     })
 
     lenisRef.current = lenis
-    lenis.on('scroll', ({ scroll, progress, direction }) => {
-      setIsScrolling(true)
-      state.top = scroll
-      state.progress = progress
-      state.direction = direction
-      if (state.direction === 1) {
-        setScrollDirection('down')
-      }
-      if (state.direction === -1) {
-        setScrollDirection('up')
-      }
-      if (state.direction === 0) {
-        setIsScrolling(false)
-        setScrollDirection('')
-      }
-    })
+    if (!isScrolling) {
+      lenis.on('scroll', ({ scroll, progress, direction }) => {
+        state.top = scroll
+        state.progress = progress
+        state.direction = direction
+        if (state.direction === 1) {
+          setIsScrolling(true)
+          setScrollDirection('down')
+        }
+        if (state.direction === -1) {
+          setIsScrolling(true)
+          setScrollDirection('up')
+        }
+        if (state.direction === 0) {
+          setIsScrolling(false)
+          setScrollDirection('')
+        }
+      })
+    }
     const effectSub = addEffect((time) => lenis.raf(time))
     return () => {
       effectSub()
@@ -56,26 +59,31 @@ export default function Scroll({ refList = [], wrapperRef, contentRef, children 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    const lenis = lenisRef.current
-    if (!scrollDirection || !isScrolling) return
-    const scrollHandler = (direction: string) => {
-      if (direction === 'down') {
+  const scrollHandler = useCallback(
+    (direction: string) => {
+      const lenis = lenisRef.current
+      if (direction === 'down' && currSection < refList.length - 1) {
         const nextSection = currSection + 1
-        const nextSectionRef = refList[nextSection % refList.length]
+        const nextSectionRef = refList[nextSection]
         setCurrSection(nextSection)
         lenis.scrollTo(nextSectionRef.current)
       }
-      if (direction === 'up') {
+      if (direction === 'up' && currSection > 0) {
         const prevSection = currSection - 1
-        const nextSectionRef = refList[prevSection % refList.length]
+        const prevSectionRef = refList[prevSection]
         setCurrSection(prevSection)
-        lenis.scrollTo(nextSectionRef.current)
+        lenis.scrollTo(prevSectionRef.current)
       }
-    }
+    },
+    [currSection, refList],
+  )
+
+  useEffect(() => {
+    if (!scrollDirection || !isScrolling) return
     scrollHandler(scrollDirection)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isScrolling, scrollDirection])
+
   return (
     <div
       ref={wrapperRef}
