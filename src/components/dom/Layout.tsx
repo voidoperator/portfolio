@@ -17,7 +17,7 @@ const defaultContext = {
 
 export const ColorModeContext = createContext<ContextProps>(defaultContext)
 
-const Layout = forwardRef((props: LayoutProps, ref: React.RefObject<HTMLDivElement>) => {
+const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
   const localRef = useRef<HTMLDivElement>(null)
   useImperativeHandle(ref, () => localRef.current)
 
@@ -31,7 +31,7 @@ const Layout = forwardRef((props: LayoutProps, ref: React.RefObject<HTMLDivEleme
   return (
     <ColorModeContext.Provider value={value}>
       <Div {...props} ref={localRef}>
-        {props.children}
+        {children}
       </Div>
     </ColorModeContext.Provider>
   )

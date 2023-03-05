@@ -93,7 +93,7 @@ export default function Scroll({ refList = [], wrapperRef, contentRef, children 
           position: 'relative',
           minHeight: '100vh',
         }}
-        className='bg-repeat bg-noise bg-[length:200px] bg-[0px_0px]'
+        className='bg-noise bg-[length:200px] bg-[0px_0px] bg-repeat'
       >
         {children}
       </div>

@@ -36,7 +36,7 @@ export default function NavBar({ refList }) {
   return (
     <Header>
       <Nav>
-        <Link href='/' className='flex items-center pl-3 order-0 hover:opacity-70 transition-all duration-300'>
+        <Link href='/' className='order-1 flex items-center pl-3 transition-all duration-300 hover:opacity-70'>
           <JNLogo />
           <Span>Julio Nunez</Span>
         </Link>
@@ -51,11 +51,11 @@ export default function NavBar({ refList }) {
           </UnorganizedList>
         </NavBarLinks>
         <FlexRow>
-          <Button className='order-1' type='button'>
+          <Button className='order-2' type='button'>
             Contact Me
           </Button>
           <DarkMode />
-          <Hamburger className='order-2'>
+          <Hamburger className='order-3'>
             <HamburgerButton
               type='button'
               aria-expanded='false'
