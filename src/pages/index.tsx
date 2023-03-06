@@ -1,5 +1,5 @@
-import dynamic from 'next/dynamic'
-import { JNLogoAscii, Test } from '@/components/canvas/JNLogoAscii'
+// import dynamic from 'next/dynamic'
+import { JNLogoAscii } from '@/components/canvas/JNLogoAscii'
 import NavBar from '@/components/dom/Nav/NavBar'
 import HeroBanner from '@/components/dom/Hero/HeroBanner'
 import About from '@/components/dom/About/AboutSection'
@@ -9,6 +9,8 @@ import ProjectSection from '@/components/dom/Projects/ProjectSection'
 import ContactSection from '@/components/dom/Contact/ContactSection'
 import { createRef } from 'react'
 import Scroll from '@/templates/Scroll'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 // const JNLogoAscii = dynamic(() => import('@/components/canvas/JNLogoAscii'), { ssr: false })
 // const Test = dynamic(() => import('@/components/canvas/JNLogoAscii'), { ssr: false })
@@ -34,12 +36,7 @@ export default function Page(props: Props) {
   )
 }
 
-Page.canvas = (props: Props) => (
-  <>
-    <JNLogoAscii />
-    <Test />
-  </>
-)
+Page.canvas = (props: Props) => <JNLogoAscii />
 
 export async function getStaticProps() {
   return {

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo, useLayoutEffect } from 'react'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useFrame, useLoader, useThree } from '@react-three/fiber'
 import { useGLTF, OrbitControls } from '@react-three/drei'
-import { AsciiEffect } from 'three-stdlib'
+import { AsciiEffect, GLTFLoader } from 'three-stdlib'
 import { useColorModeContext } from '@/templates/hooks/useColorMode'
 import type { MeshProps } from '@react-three/fiber'
 
@@ -11,14 +11,15 @@ export function JNLogoAscii() {
   return (
     <>
       <hemisphereLight />
-      <JNLogoGeometry position={[0, 0.5, 0]} />
-      <OrbitControls enableZoom={false} touches={false} />
+      <JNLogoGeometry position={[0, -0.25, 0]} />
+      <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
       <AsciiRenderer fgColor={color} bgColor='transparent' resolution={0.125} />
     </>
   )
 }
 
-function JNLogoGeometry(props) {
+function JNLogoGeometry(props: MeshProps) {
+  useLoader.preload(GLTFLoader, '/Logo.gltf')
   const { nodes } = useGLTF('/Logo.gltf')
   const ref = useRef<MeshProps>()
   useFrame((state, delta) => (ref.current.rotation.y = ref.current.rotation.y += delta / 4))
@@ -29,14 +30,13 @@ function JNLogoGeometry(props) {
   )
 }
 
-export function Test(props) {
-  const { nodes } = useGLTF(
-    'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/suzanne-low-poly/model.gltf',
-  )
+export function Test(props: MeshProps) {
+  // useLoader.preload(GLTFLoader, '/Test.gltf')
+  const { nodes } = useGLTF('/Test.gltf')
   const ref = useRef<MeshProps>()
-  useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 4))
+  // useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 4))
   return (
-    <mesh geometry={nodes.Suzanne.geometry} position={[0, -4, 1.5]} ref={ref} scale={1.5}>
+    <mesh geometry={nodes.Suzanne.geometry} position={[0, -4, 0]} ref={ref} scale={1.5}>
       <meshStandardMaterial color='orange' />
     </mesh>
   )
