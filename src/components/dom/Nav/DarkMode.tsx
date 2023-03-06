@@ -3,9 +3,9 @@ import tw from 'tailwind-styled-components'
 import { MoonIcon, SunIcon } from '../Icons/Icons'
 import { useColorModeContext } from '@/templates/hooks/useColorMode'
 
-const Button = tw.button`order-3 transition-all hidden p-2 rounded-full md:block md:mr-0
-text-white bg-gray-500/75 hover:bg-gray-800/75 focus:ring-4 focus:outline-none focus:ring-neutral-900/25
-dark:bg-gray-600/75 dark:hover:bg-gray-700/75 dark:focus:ring-white/50
+const DarkModeButton = tw.button`order-3 transition-all hidden p-2 rounded-xl md:block md:mr-0 focus:ring-4 focus:outline-none
+focus:ring-neutral-900/25 text-gray-700 hover:text-gray-900 
+dark:focus:ring-white/50 dark:text-gray-50 dark:hover:text-gray-400 dark:bg-neutral-700 hover:dark:bg-neutral-700/50
 `
 
 export const DarkMode = (): JSX.Element => {
@@ -32,5 +32,9 @@ export const DarkMode = (): JSX.Element => {
     setTheme(newTheme)
   }
 
-  return <Button onClick={toggleTheme}>{isDarkMode ? <SunIcon /> : <MoonIcon />}</Button>
+  return (
+    <DarkModeButton onClick={toggleTheme} title='Switch Color Mode'>
+      {isDarkMode ? <SunIcon /> : <MoonIcon />}
+    </DarkModeButton>
+  )
 }
