@@ -45,6 +45,7 @@
     "eslint-plugin-tailwindcss": "^3.10.1",
     "esm": "^3.2.25",
     "file-loader": "^6.2.0",
+    "framer-motion": "^10.1.0",
     "glslify": "^7.1.1",
     "glslify-loader": "^2.0.0",
     "postcss": "^8.4.21",
