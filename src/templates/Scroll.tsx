@@ -11,16 +11,31 @@ const state = {
 
 const { damp } = THREE.MathUtils
 
-export default function Scroll({ refList = [], wrapperRef, contentRef, children }) {
-  const lenisRef = useRef(null)
+export default function Scroll({ refList = [], lenisRef, children }) {
+  const wrapperRef = useRef(null)
+  const contentRef = useRef(null)
+  const [sectionIdIndex, setSectionIdIndex] = useState(0)
+  const [targetIdIndex, setTargetIdIndex] = useState(0)
   const [scrollDirection, setScrollDirection] = useState('')
   const [isScrolling, setIsScrolling] = useState(false)
   const [currSection, setCurrSection] = useState(0)
+  const [isClick, setIsClick] = useState(false)
+  const [sections, setSections] = useState({})
+
+  useEffect(() => {
+    setSections(
+      refList.reduce((acc, ref, index) => {
+        acc[ref.current.id] = index
+        return acc
+      }, {}),
+    )
+  }, [refList])
+
   useEffect(() => {
     const lenis = new Lenis({
       wrapper: wrapperRef.current,
       content: contentRef.current,
-      duration: 0.5,
+      duration: 0.4,
       easing: (x) => Math.pow(x, 4),
       direction: 'vertical',
       gestureDirection: 'vertical',
@@ -32,57 +47,86 @@ export default function Scroll({ refList = [], wrapperRef, contentRef, children 
     })
 
     lenisRef.current = lenis
-    if (!isScrolling) {
+
+    if (!isScrolling && !isClick) {
       lenis.on('scroll', ({ scroll, progress, direction }) => {
         state.top = scroll
         state.progress = progress
         state.direction = direction
-        if (state.direction === 1) {
-          setIsScrolling(true)
+        if (direction === 1) {
+          // setIsScrolling(true)
           setScrollDirection('down')
         }
-        if (state.direction === -1) {
-          setIsScrolling(true)
+        if (direction === -1) {
+          // setIsScrolling(true)
           setScrollDirection('up')
         }
-        if (state.direction === 0) {
+        if (direction === 0) {
           setIsScrolling(false)
           setScrollDirection('')
         }
       })
     }
-    const effectSub = addEffect((time) => lenis.raf(time))
+    const effectSub = addEffect((time) => {
+      lenis.raf(time)
+    })
     return () => {
       effectSub()
       lenis.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [lenisRef])
 
   const scrollHandler = useCallback(
-    (direction: string) => {
+    ({ direction }) => {
+      if (isScrolling) return
+      setIsScrolling(true)
       const lenis = lenisRef.current
-      if (direction === 'down' && currSection < refList.length - 1) {
-        const nextSection = currSection + 1
+      const nextSection = currSection + (direction === 'down' ? 1 : -1)
+      if (nextSection >= 0 && nextSection < refList.length) {
         const nextSectionRef = refList[nextSection]
         setCurrSection(nextSection)
-        lenis.scrollTo(nextSectionRef.current)
-      }
-      if (direction === 'up' && currSection > 0) {
-        const prevSection = currSection - 1
-        const prevSectionRef = refList[prevSection]
-        setCurrSection(prevSection)
-        lenis.scrollTo(prevSectionRef.current)
+        setSectionIdIndex(sections[nextSectionRef.current.id])
+        lenis.scrollTo(nextSectionRef.current, {
+          duration: isClick ? 0.25 : 0.5,
+          easing: (x) =>
+            x < 0.5 ? (1 - Math.sqrt(1 - Math.pow(2 * x, 2))) / 2 : (Math.sqrt(1 - Math.pow(-2 * x + 2, 2)) + 1) / 2,
+        })
       }
     },
-    [currSection, refList],
+    [isClick, currSection, refList, lenisRef, sections, isScrolling],
   )
 
   useEffect(() => {
-    if (!scrollDirection || !isScrolling) return
-    scrollHandler(scrollDirection)
+    if (!scrollDirection || isScrolling) return
+    scrollHandler({ direction: scrollDirection })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isScrolling, scrollDirection])
+
+  useEffect(() => {
+    if (!isClick) return
+    if (sectionIdIndex === targetIdIndex) {
+      setIsClick(false)
+    }
+    if (sectionIdIndex !== targetIdIndex) {
+      if (sectionIdIndex < targetIdIndex) {
+        scrollHandler({ direction: 'down' })
+      }
+      if (sectionIdIndex > targetIdIndex) {
+        scrollHandler({ direction: 'up' })
+      }
+    }
+  }, [isClick, sectionIdIndex, targetIdIndex, scrollHandler])
+
+  useEffect(() => {
+    document.querySelectorAll('a[href^="#"]').forEach((link, index) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault()
+        setIsClick(true)
+        setTargetIdIndex(index)
+      })
+    })
+  }, [])
 
   return (
     <div

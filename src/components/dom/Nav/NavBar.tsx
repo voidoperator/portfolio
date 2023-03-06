@@ -17,14 +17,14 @@ text-gray-900
 dark:text-gray-50
 `
 const NavBarLinks = tw.div`items-center justify-between w-full md:flex md:w-auto`
-const Button = tw.button`transition-all px-5 py-2.5 mr-3 text-xs xl:text-[13px] font-medium text-center rounded-xl md:mr-0 whitespace-nowrap
+const Button = tw.a`transition-all flex items-center justify-center px-5 py-2.5 mr-3 text-xs xl:text-[13px] font-medium text-center rounded-xl md:mr-0 whitespace-nowrap
 text-white bg-gray-500/75 hover:bg-gray-800/75 focus:ring-4 focus:outline-none focus:ring-neutral-900/25
 dark:bg-gray-600/75 dark:hover:bg-gray-700/75 dark:focus:ring-white/50
 `
 const UnorganizedList = tw.ul`flex flex-col p-4 mt-4 border rounded-lg
 md:flex-row md:space-x-5 md:mt-0 text-xs xl:text-sm md:font-medium md:border-0
 `
-const Anchor = tw.a`transition-all block py-2 pl-3 pr-4 rounded md:p-0
+const Anchor = tw.a`transition-all block py-2 pl-3 pr-4 rounded md:p-0 cursor-pointer
 text-gray-600 hover:text-black
 dark:text-gray-400 dark:hover:text-gray-200
 `
@@ -34,26 +34,25 @@ const FlexRow = tw.div`flex flex-row gap-2`
 
 const sections = ['About', 'Experience', 'Skills', 'Projects']
 
-export default function NavBar({ refList }) {
+export default function NavBar({ refList, lenisRef }) {
   return (
     <Header>
       <Nav>
-        <Link href='/' className='flex items-center pl-3 transition-all duration-300 hover:opacity-70'>
+        <Anchor href='#home' className='flex items-center pl-3 transition-all duration-300 hover:opacity-70'>
           <JNLogo />
           <Span>Julio Nunez</Span>
-        </Link>
+        </Anchor>
         <NavBarLinks id='navbar-sticky' className='hidden'>
           <UnorganizedList>
             {sections.map((section, index) => (
               <li key={index}>
-                {/* <Anchor href='#' onClick={() => console.log(refList[index])}> */}
-                <Anchor href='#'>{section}</Anchor>
+                <Anchor href={`#${section.toLowerCase()}`}>{section}</Anchor>
               </li>
             ))}
           </UnorganizedList>
         </NavBarLinks>
         <FlexRow>
-          <Button className='order-1' type='button'>
+          <Button href='#contact' className='order-1'>
             Contact Me
           </Button>
           <DarkMode />

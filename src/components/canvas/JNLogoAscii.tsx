@@ -5,14 +5,13 @@ import { AsciiEffect } from 'three-stdlib'
 import { useColorModeContext } from '@/templates/hooks/useColorMode'
 import type { MeshProps } from '@react-three/fiber'
 
-export default function JNLogoAscii() {
+export function JNLogoAscii() {
   const { isDarkMode } = useColorModeContext()
   const color = isDarkMode ? 'white' : 'black'
   return (
     <>
       <hemisphereLight />
       <JNLogoGeometry position={[0, 0.5, 0]} />
-      <Test position={[0, -4, 1.5]} />
       <OrbitControls enableZoom={false} touches={false} />
       <AsciiRenderer fgColor={color} bgColor='transparent' resolution={0.125} />
     </>
@@ -30,14 +29,14 @@ function JNLogoGeometry(props) {
   )
 }
 
-function Test(props) {
+export function Test(props) {
   const { nodes } = useGLTF(
     'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/suzanne-low-poly/model.gltf',
   )
   const ref = useRef<MeshProps>()
   useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 4))
   return (
-    <mesh geometry={nodes.Suzanne.geometry} {...props} ref={ref} scale={1.5}>
+    <mesh geometry={nodes.Suzanne.geometry} position={[0, -4, 1.5]} ref={ref} scale={1.5}>
       <meshStandardMaterial color='orange' />
     </mesh>
   )

@@ -3,11 +3,11 @@ export enum ColorMode {
   LIGHT = 'light',
 }
 
-export interface ContextProps {
+export interface ColorModeContextProps {
   context: {
     mode: ColorMode
   }
-  setContext?: (_: ContextProps['context']) => void
+  setContext?: (_: ColorModeContextProps['context']) => void
 }
 
 export interface LayoutProps {

@@ -9,7 +9,7 @@ const H2 = tw.h2`text-xl tracking-widest text-black cursor-default md:text-3xl d
 
 export default function HeroBanner({ heroBannerRef }) {
   return (
-    <Container ref={heroBannerRef}>
+    <Container ref={heroBannerRef} id='home'>
       <Wrapper>
         <Div>
           <H1>JULIO NUNEZ</H1>

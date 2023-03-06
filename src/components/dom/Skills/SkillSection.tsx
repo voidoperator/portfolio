@@ -9,7 +9,7 @@ const H2 = tw.h2`text-xl tracking-widest text-black cursor-default md:text-3xl d
 
 export default function SkillSection({ skillsRef }) {
   return (
-    <Container ref={skillsRef}>
+    <Container ref={skillsRef} id='skills'>
       <Wrapper>
         <Div>
           <Title>Skills</Title>

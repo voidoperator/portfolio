@@ -1,6 +1,6 @@
 import { useRef, useState, forwardRef, useImperativeHandle, createContext } from 'react'
 import tw from 'tailwind-styled-components'
-import type { LayoutProps, ContextProps } from '@/types/context.types'
+import type { LayoutProps, ColorModeContextProps } from '@/types/context.types'
 import { ColorMode } from '@/types/context.types'
 
 const Div = tw.div`
@@ -9,20 +9,20 @@ text-gray-800 bg-zinc-50
 dark:bg-[#0e0e0efa] dark:text-gray-50
 `
 
-const defaultContext = {
+const defaultColorModeContext = {
   context: {
     mode: ColorMode.DARK,
   },
 }
 
-export const ColorModeContext = createContext<ContextProps>(defaultContext)
+export const ColorModeContext = createContext<ColorModeContextProps>(defaultColorModeContext)
 
 const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
   const localRef = useRef<HTMLDivElement>(null)
   useImperativeHandle(ref, () => localRef.current)
 
-  const [context, setContext] = useState<ContextProps['context']>(defaultContext.context)
-  const handleSetContext = (value: ContextProps['context']) => {
+  const [context, setContext] = useState<ColorModeContextProps['context']>(defaultColorModeContext.context)
+  const handleSetContext = (value: ColorModeContextProps['context']) => {
     setContext(value)
   }
 
