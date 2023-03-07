@@ -36,7 +36,7 @@ export default function Scroll({ refList = [], lenisRef, children }) {
       wrapper: wrapperRef.current,
       content: contentRef.current,
       duration: 0.4,
-      easing: (x) => Math.pow(x, 4),
+      easing: (x) => x,
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
@@ -48,25 +48,23 @@ export default function Scroll({ refList = [], lenisRef, children }) {
 
     lenisRef.current = lenis
 
-    if (!isScrolling && !isClick) {
-      lenis.on('scroll', ({ scroll, progress, direction }) => {
-        state.top = scroll
-        state.progress = progress
-        state.direction = direction
-        if (direction === 1) {
-          // setIsScrolling(true)
-          setScrollDirection('down')
-        }
-        if (direction === -1) {
-          // setIsScrolling(true)
-          setScrollDirection('up')
-        }
-        if (direction === 0) {
-          setIsScrolling(false)
-          setScrollDirection('')
-        }
-      })
-    }
+    // if (!isScrolling && !isClick) {
+    lenis.on('scroll', ({ scroll, progress, direction }) => {
+      state.top = scroll
+      state.progress = progress
+      state.direction = direction
+      if (direction === 1) {
+        setScrollDirection('down')
+      }
+      if (direction === -1) {
+        setScrollDirection('up')
+      }
+      if (direction === 0) {
+        setIsScrolling(false)
+        setScrollDirection('')
+      }
+    })
+    // }
     const effectSub = addEffect((time) => {
       lenis.raf(time)
     })

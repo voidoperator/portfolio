@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'noise': "url('/img/noise.png')"
+        'noise': "url('/img/noise.webp')"
       },
       letterSpacing: {
         'widest': '0.5em'
