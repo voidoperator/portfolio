@@ -43,7 +43,6 @@
   }
 
   html {
-    scroll-behavior: initial;
     background-color: #181818;
   }
 
@@ -55,5 +54,16 @@
     margin: 0;
     padding: 0;
     font-family: 'TitlingGothicFBWide-Light';
+  }
+
+  #sb_1 {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  #sb_1::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 }

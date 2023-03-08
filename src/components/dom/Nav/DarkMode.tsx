@@ -3,7 +3,7 @@ import tw from 'tailwind-styled-components'
 import { MoonIcon, SunIcon } from '../Icons/Icons'
 import { useColorModeContext } from '@/templates/hooks/useColorMode'
 
-const DarkModeButton = tw.button`order-3 transition-all hidden p-2 rounded-xl md:block md:mr-0 focus:ring-4 focus:outline-none
+const DarkModeButton = tw.button`order-3 transition-all md:p-2 p-2 rounded-full focus:ring-4 focus:outline-none
 focus:ring-neutral-900/25 text-gray-700 hover:text-gray-900 
 dark:focus:ring-white/50 dark:text-gray-50 dark:hover:text-gray-400 dark:bg-neutral-700 hover:dark:bg-neutral-700/50
 `
