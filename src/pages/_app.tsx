@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, createContext } from 'react'
 import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
@@ -6,24 +6,42 @@ import Header from '@/config'
 import Layout from '@/components/dom/Layout'
 import { LoadingDots } from '@/components/dom/Icons/LoadingDots'
 import '@/styles/global.css'
+import { ScrollOffsetContextProps } from '@/types/context.types'
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true })
 
 const loadingDivClasses = 'flex h-screen flex-col items-center justify-center overflow-hidden text-center text-white'
 
+const defaultScrollOffsetContext = {
+  context: {
+    scroll: 0,
+  },
+}
+
 function easeInExpo(progress: number): number {
   return progress === 0 ? 0 : Math.pow(2, 10 * progress - 10)
 }
 
+export const ScrollOffsetContext = createContext<ScrollOffsetContextProps>(defaultScrollOffsetContext)
+
 export default function App({ Component, pageProps }) {
-  const ref = useRef()
-  const router = useRouter()
   const [loadingProgress, setLoadingProgress] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+  const ref = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   useEffect(() => {
     const interval = setInterval(() => {
       const incrementFactor = Math.random() * 0.1 + 0.05
-      setLoadingProgress((prevProgress) => (prevProgress >= 90 ? 100 : prevProgress + incrementFactor * 50))
+      setLoadingProgress((prevProgress) => {
+        if (prevProgress === 100) {
+          setIsLoading(false)
+          return 100
+        } else {
+          return prevProgress + incrementFactor * 50
+        }
+      })
     }, 100)
 
     setTimeout(() => {
@@ -46,11 +64,18 @@ export default function App({ Component, pageProps }) {
     }
   }, [])
 
+  const [context, setContext] = useState<ScrollOffsetContextProps['context']>(defaultScrollOffsetContext.context)
+  const handleSetContext = (value: ScrollOffsetContextProps['context']) => {
+    setContext(value)
+  }
+
+  const value = { setContext: handleSetContext, context: context }
+
   return (
     <>
       <Header title={pageProps.title} />
       <AnimatePresence mode='wait'>
-        {loadingProgress < 100 ? (
+        {/* {isLoading ? (
           <>
             <motion.div
               key='loading'
@@ -64,8 +89,10 @@ export default function App({ Component, pageProps }) {
               <motion.header className='py-10'>Loading {Math.round(loadingProgress)}%</motion.header>
             </motion.div>
           </>
-        ) : (
+        ) : ( */}
+        <ScrollOffsetContext.Provider value={value}>
           <motion.div
+            ref={scrollRef}
             key={router.route}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -81,7 +108,8 @@ export default function App({ Component, pageProps }) {
               <Component {...pageProps} />
             </Layout>
           </motion.div>
-        )}
+        </ScrollOffsetContext.Provider>
+        {/* )} */}
       </AnimatePresence>
     </>
   )
