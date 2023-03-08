@@ -59,8 +59,8 @@ export default function HeroBanner() {
                 key={word}
                 className={h1Classes}
                 initial='initial'
-                whileInView={getRngTransition()}
                 variants={transitionVariants}
+                whileInView={getRngTransition()}
               >
                 {word.toUpperCase()}
               </motion.h1>
@@ -72,8 +72,8 @@ export default function HeroBanner() {
                 key={word}
                 className={h2Classes}
                 initial='initial'
-                whileInView={getRngTransition()}
                 variants={transitionVariants}
+                whileInView={getRngTransition()}
               >
                 {word.toUpperCase()}
               </motion.h2>

@@ -44,9 +44,8 @@ export const ScrollTicker = ({ smooth = 999999 }): any => {
 }
 
 export default function Scene({ children, ...props }) {
-  const canvasRef = useRef(null)
   return (
-    <Canvas {...props} ref={canvasRef} style={{ height: '100vh' }}>
+    <Canvas {...props}>
       <ScrollTicker />
       <hemisphereLight />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />

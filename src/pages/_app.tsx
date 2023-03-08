@@ -1,14 +1,15 @@
 import { useState, useEffect, useRef, createContext } from 'react'
 import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
+import Scene from '@/components/canvas/Scene'
 import Header from '@/config'
 import Layout from '@/components/dom/Layout'
 import { LoadingDots } from '@/components/dom/Icons/LoadingDots'
+import type { ScrollOffsetContextProps } from '@/types/context.types'
 import '@/styles/global.css'
-import { ScrollOffsetContextProps } from '@/types/context.types'
 
-const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true })
+// const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: true })
 
 const loadingDivClasses = 'flex h-screen flex-col items-center justify-center overflow-hidden text-center text-white'
 
@@ -101,7 +102,13 @@ export default function App({ Component, pageProps }) {
           >
             <Layout ref={ref}>
               {Component?.canvas && (
-                <Scene className='pointer-events-none' eventSource={ref} eventPrefix='client'>
+                <Scene
+                  className='pointer-events-none h-screen'
+                  eventSource={ref}
+                  eventPrefix='client'
+                  style={{ height: '100vh' }}
+                  camera={{ position: [0, 4.5, 7.5], aspect: 0.75, fov: 160, zoom: 12 }}
+                >
                   {Component.canvas(pageProps)}
                 </Scene>
               )}
