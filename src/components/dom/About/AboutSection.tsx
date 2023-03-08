@@ -50,7 +50,7 @@ const title = ['software', 'engineer']
 
 export default function About() {
   return (
-    <Container id='home'>
+    <Container id='about'>
       <Wrapper>
         <motion.div className={divClasses} initial='initial' whileInView='onscreen' variants={containerVariant}>
           <SubDiv>
