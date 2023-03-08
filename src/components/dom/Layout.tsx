@@ -3,10 +3,10 @@ import tw from 'tailwind-styled-components'
 import type { LayoutProps, ColorModeContextProps } from '@/types/context.types'
 import { ColorMode } from '@/types/context.types'
 
-const Div = tw.div`
-relative top-0 left-0 z-10 w-screen h-screen overflow-hidden
+const Div = tw.div`top-0 left-0 z-10 w-screen
 text-gray-800 bg-zinc-50
 dark:bg-[#0e0e0efa] dark:text-gray-50
+overflow-y-auto snap-y snap-mandatory overflow-x-hidden
 `
 
 const defaultColorModeContext = {
@@ -36,6 +36,7 @@ const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
     </ColorModeContext.Provider>
   )
 })
+
 Layout.displayName = 'Layout'
 
 export default Layout
