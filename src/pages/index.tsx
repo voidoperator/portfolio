@@ -1,4 +1,4 @@
-import { createRef } from 'react'
+import React from 'react'
 import tw from 'tailwind-styled-components'
 import JNLogoAscii from '@/components/canvas/JNLogoAscii'
 import NavBar from '@/components/dom/Nav/NavBar'
@@ -9,6 +9,7 @@ import SkillSection from '@/components/dom/Skills/SkillSection'
 import ProjectSection from '@/components/dom/Projects/ProjectSection'
 import ContactSection from '@/components/dom/Contact/ContactSection'
 
+// const MainContainer = tw.div`absolute top-0 h-full w-full overflow-auto`
 const MainContainer = tw.div`absolute top-0 h-full w-full overflow-auto snap-y snap-mandatory`
 const SubWrapper = tw.div`relative min-h-screen bg-[length:200px] bg-[0px_0px] bg-repeat bg-noise`
 

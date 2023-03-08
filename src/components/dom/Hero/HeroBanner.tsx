@@ -1,51 +1,80 @@
 import React from 'react'
 import tw from 'tailwind-styled-components'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
+import getRngTransition from '@/utility/getRngTransitions'
 
-const Container = tw.div`h-screen bg-neutral-900/5 dark:bg-neutral-400/5 snap-center snap-always`
+const Container = tw.div`h-screen bg-neutral-900/5 dark:bg-neutral-400/5 snap-start snap-always`
 const Wrapper = tw.div`flex flex-col items-center justify-center w-full h-full`
-const SubDiv = tw.div`flex flex-row items-center justify-center gap-6`
+const SubDiv = tw.div`flex flex-row items-center justify-center gap-2 md:gap-6`
 
 const divClasses =
   'w-full select-none bg-noise bg-[length:150px] bg-[0px_0px] bg-repeat px-4 py-8 text-center backdrop-blur-xl'
-const h1Classes = 'cursor-default text-xl tracking-[1.15em] text-black/25 dark:text-white/25 md:text-3xl'
-const h2Classes = 'cursor-default text-xl tracking-widest text-black dark:text-white md:text-3xl'
+const h1Classes =
+  'cursor-default text-xs sm:text-xs md:text-xl lg:text-3xl tracking-[1.15em] text-black/25 dark:text-white/25'
+const h2Classes = 'cursor-default text-xs sm:text-xs md:text-xl lg:text-3xl tracking-widest text-black dark:text-white'
 
-const containerVariant = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
+const containerVariant: Variants = {
+  initial: {
+    opacity: 0,
+    y: -25,
     transition: {
-      duration: 2.5,
-      delayChildren: 0.75,
-      staggerChildren: 0.15,
+      duration: 0.75,
+    },
+  },
+  onscreen: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      bounce: 0.4,
+      duration: 0.8,
+      delayChildren: 0.5,
+      staggerChildren: 0.1,
     },
   },
 }
 
-const wordVariant = {
-  hidden: { opacity: 0, y: -100 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+const transitionVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: -10,
+  },
+  onScreen: {
+    opacity: 1,
+    y: 0,
+  },
 }
 
-const name = 'julio nunez'
-const title = 'software engineer'
+const name = ['julio', 'nunez']
+const title = ['software', 'engineer']
 
 export default function HeroBanner() {
   return (
     <Container id='home'>
       <Wrapper>
-        <motion.div variants={containerVariant} initial='hidden' animate='show' className={divClasses}>
+        <motion.div className={divClasses} initial='initial' whileInView='onscreen' variants={containerVariant}>
           <SubDiv>
-            {name.split(' ').map((word) => (
-              <motion.h1 key={word} variants={wordVariant} className={h1Classes}>
+            {name.map((word) => (
+              <motion.h1
+                key={word}
+                className={h1Classes}
+                initial='initial'
+                whileInView={getRngTransition()}
+                variants={transitionVariants}
+              >
                 {word.toUpperCase()}
               </motion.h1>
             ))}
           </SubDiv>
           <SubDiv>
-            {title.split(' ').map((word) => (
-              <motion.h2 key={word} variants={wordVariant} className={h2Classes}>
+            {title.map((word) => (
+              <motion.h2
+                key={word}
+                className={h2Classes}
+                initial='initial'
+                whileInView={getRngTransition()}
+                variants={transitionVariants}
+              >
                 {word.toUpperCase()}
               </motion.h2>
             ))}

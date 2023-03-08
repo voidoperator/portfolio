@@ -50,7 +50,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Header title={pageProps.title} />
       <AnimatePresence mode='wait'>
-        {loadingProgress > 100 ? (
+        {loadingProgress < 100 ? (
           <>
             <motion.div
               key='loading'

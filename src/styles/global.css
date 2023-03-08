@@ -60,6 +60,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   #sb_1::-webkit-scrollbar {
     width: 0;
