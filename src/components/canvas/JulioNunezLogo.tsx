@@ -18,7 +18,7 @@ export default function JulioNunezLogo(props: MeshProps) {
   useFrame((state, delta) => (ref.current.rotation.y = ref.current.rotation.y += delta / 4))
 
   return (
-    <mesh geometry={nodes.Logo.geometry} {...props} ref={ref} scale={1.5}>
+    <mesh geometry={nodes.Logo.geometry} {...props} ref={ref} scale={1.5} position={[0, 0, 0]}>
       <meshStandardMaterial color='hotpink' transparent opacity={0.5} />
     </mesh>
   )
