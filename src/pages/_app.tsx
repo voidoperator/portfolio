@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }) {
     const interval = setInterval(() => {
       const incrementFactor = Math.random() * 0.1 + 0.05
       setLoadingProgress((prevProgress) => {
-        if (prevProgress === 100) {
+        if (prevProgress >= 90) {
           setIsLoading(false)
           return 100
         } else {
@@ -76,7 +76,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Header title={pageProps.title} />
       <AnimatePresence mode='wait'>
-        {/* {isLoading ? (
+        {isLoading ? (
           <>
             <motion.div
               key='loading'
@@ -84,39 +84,41 @@ export default function App({ Component, pageProps }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: easeInExpo }}
+              transition={{ duration: 0.5, ease: easeInExpo }}
             >
               <LoadingDots />
-              <motion.header className='py-10'>Loading {Math.round(loadingProgress)}%</motion.header>
+              <motion.header className='py-10 font-titlinglight text-xs'>
+                Loading {Math.round(loadingProgress)}%
+              </motion.header>
             </motion.div>
           </>
-        ) : ( */}
-        <ScrollOffsetContext.Provider value={value}>
-          <motion.div
-            ref={scrollRef}
-            key={router.route}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1, ease: easeInExpo }}
-          >
-            <Layout ref={ref}>
-              {Component?.canvas && (
-                <Scene
-                  className='pointer-events-none h-screen'
-                  eventSource={ref}
-                  eventPrefix='client'
-                  style={{ height: '100vh' }}
-                  camera={{ position: [0, 4.5, 7.5], aspect: 0.75, fov: 160, zoom: 12 }}
-                >
-                  {Component.canvas(pageProps)}
-                </Scene>
-              )}
-              <Component {...pageProps} />
-            </Layout>
-          </motion.div>
-        </ScrollOffsetContext.Provider>
-        {/* )} */}
+        ) : (
+          <ScrollOffsetContext.Provider value={value}>
+            <motion.div
+              ref={scrollRef}
+              key={router.route}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1, ease: easeInExpo }}
+            >
+              <Layout ref={ref}>
+                {Component?.canvas && (
+                  <Scene
+                    className='pointer-events-none h-screen'
+                    eventSource={ref}
+                    eventPrefix='client'
+                    style={{ height: '100vh' }}
+                    camera={{ position: [0, 4.5, 7.5], aspect: 0.75, fov: 160, zoom: 12 }}
+                  >
+                    {Component.canvas(pageProps)}
+                  </Scene>
+                )}
+                <Component {...pageProps} />
+              </Layout>
+            </motion.div>
+          </ScrollOffsetContext.Provider>
+        )}
       </AnimatePresence>
     </>
   )

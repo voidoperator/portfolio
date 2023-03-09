@@ -3,43 +3,66 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: TitlingGothicFBWide-Thin;
-  src: url(/fonts/TitlingGothicFBWide-Thin.otf) format('opentype');
+  font-family: TitlingGothicFBExtThin;
+  src: url(/fonts/TitlingGothicFBExtThin.otf) format('opentype');
+  font-weight: 100;
 }
 
 @font-face {
-  font-family: TitlingGothicFBWide-Light;
-  src: url(/fonts/TitlingGothicFBWide-Light.otf) format('opentype');
+  font-family: TitlingGothicFBExtLight;
+  src: url(/fonts/TitlingGothicFBExtLight.otf) format('opentype');
+  font-weight: 200;
 }
 
 @font-face {
-  font-family: TitlingGothicFBWide-Regular;
-  src: url(/fonts/TitlingGothicFBWide-Reg.otf) format('opentype');
+  font-family: TitlingGothicFBExtReg;
+  src: url(/fonts/TitlingGothicFBExtReg.otf) format('opentype');
+  font-weight: 300;
 }
 
 @font-face {
-  font-family: TitlingGothicFBWide-Stand;
-  src: url(/fonts/TitlingGothicFBWide-Stand.otf) format('opentype');
+  font-family: TitlingGothicFBExtStand;
+  src: url(/fonts/TitlingGothicFBExtStand.otf) format('opentype');
+  font-weight: 400;
 }
 
 @font-face {
-  font-family: TitlingGothicFBWide-Medium;
-  src: url(/fonts/TitlingGothicFBWide-Med.otf) format('opentype');
+  font-family: TitlingGothicFBExtMed;
+  src: url(/fonts/TitlingGothicFBExtMed.otf) format('opentype');
+  font-weight: 500;
 }
 
 @font-face {
-  font-family: TitlingGothicFBWide-Bold;
-  src: url(/fonts/TitlingGothicFBWide-Bold.otf) format('opentype');
+  font-family: TitlingGothicFBExtBold;
+  src: url(/fonts/TitlingGothicFBExtBold.otf) format('opentype');
+  font-weight: 600;
 }
 
 @font-face {
-  font-family: TitlingGothicFBWide-Black;
-  src: url(/fonts/TitlingGothicFBWide-Black.otf) format('opentype');
+  font-family: TitlingGothicFBExtBlack;
+  src: url(/fonts/TitlingGothicFBExtBlack.otf) format('opentype');
+  font-weight: 700 800 900;
+}
+
+@font-face {
+  font-family: Turnpike;
+  src: url(/fonts/turnpike.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: Urban-Starblues;
+  src: url(/fonts/Urban-Starblues.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: VHS;
+  src: url(/fonts/VCR-OSD-VHS.ttf) format('truetype');
 }
 
 @layer base {
   * {
     box-sizing: border-box;
+    scroll-behavior: smooth;
   }
 
   html {
@@ -53,7 +76,7 @@
     height: auto;
     margin: 0;
     padding: 0;
-    font-family: 'TitlingGothicFBWide-Light';
+    font-family: 'Turnpike';
   }
 
   #sb_1 {
