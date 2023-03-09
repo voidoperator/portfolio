@@ -10,8 +10,8 @@ import ProjectSection from '@/components/dom/Projects/ProjectSection'
 import ContactSection from '@/components/dom/Contact/ContactSection'
 import { useScrollOffset } from '@/templates/hooks/useScrollOffset'
 
-const MainContainer = tw.div`absolute top-0 h-full w-full overflow-x-hidden overflow-y-auto snap-y snap-mandatory`
-const SubWrapper = tw.div`relative min-h-screen bg-[length:200px] bg-[0px_0px] bg-repeat bg-noise`
+const MainContainer = tw.div`absolute top-0 h-full w-full overflow-x-hidden overflow-y-auto`
+const SubWrapper = tw.div`relative min-h-screen bg-[length:200px] bg-[0px_0px] bg-repeat bg-noise snap-y snap-mandatory`
 
 type Props = {
   title: string
@@ -43,7 +43,7 @@ export default function Page(props: Props) {
     </MainContainer>
   )
 }
-Page.canvas = (props: Props) => <JulioNunezLogo />
+Page.canvas = (props: Props) => <JulioNunezLogo position={[0.25, -0.21, -5.5]} scale={0.025} />
 
 export async function getStaticProps() {
   return {

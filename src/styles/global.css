@@ -79,18 +79,18 @@
     font-family: 'Turnpike';
   }
 
-  #sb_1 {
+  /* #sb_1 {
     -ms-overflow-style: none;
     scrollbar-width: none;
     scroll-behavior: smooth;
     overflow-x: hidden;
-  }
-  #sb_1::-webkit-scrollbar {
+  } */
+  /* #sb_1::-webkit-scrollbar {
     width: 0;
     height: 0;
-  }
-  canvas ~ div::-webkit-scrollbar {
+  } */
+  /* canvas ~ div::-webkit-scrollbar {
     width: 0;
     height: 0;
-  }
+  } */
 }

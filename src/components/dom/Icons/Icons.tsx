@@ -1,8 +1,8 @@
 import React from 'react'
 
-export const JNLogo = () => (
+export const JNLogo = ({ twClasses }: { twClasses: string }) => (
   <svg
-    className='mr-3 h-6 fill-black dark:fill-white sm:h-9'
+    className={'mr-3 h-6 fill-black dark:fill-white sm:h-9 ' + twClasses}
     viewBox='0 0 367.8337 378.6328'
     xmlns='http://www.w3.org/2000/svg'
   >
