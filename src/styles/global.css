@@ -62,11 +62,10 @@
 @layer base {
   * {
     box-sizing: border-box;
-    scroll-behavior: smooth;
   }
 
   html {
-    background-color: #181818;
+    @apply bg-[#0c0c0c] bg-noise bg-[length:150px] bg-[0px_0px] bg-repeat;
   }
 
   html,
@@ -79,18 +78,14 @@
     font-family: 'Turnpike';
   }
 
-  /* #sb_1 {
+  #sb {
     -ms-overflow-style: none;
     scrollbar-width: none;
     scroll-behavior: smooth;
     overflow-x: hidden;
-  } */
-  /* #sb_1::-webkit-scrollbar {
+  }
+  #sb::-webkit-scrollbar {
     width: 0;
     height: 0;
-  } */
-  /* canvas ~ div::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  } */
+  }
 }

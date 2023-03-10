@@ -3,7 +3,7 @@ import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import getRngTransition from '@/utility/getRngTransitions'
 
-const Container = tw.div`h-screen snap-start snap-always`
+const Container = tw.div`h-screen snap-center`
 const Wrapper = tw.div`flex flex-col items-center justify-center w-full h-full`
 const SubDiv = tw.div`flex flex-row items-center justify-center gap-2 md:gap-6`
 
@@ -52,7 +52,7 @@ export default function About() {
   return (
     <Container id='about'>
       <Wrapper>
-        <motion.div className={divClasses} initial='initial' whileInView='onscreen' variants={containerVariant}>
+        <motion.div className={divClasses} initial='initial' animate='onscreen' variants={containerVariant}>
           <SubDiv>
             {name.map((word) => (
               <motion.h1

@@ -1,12 +1,10 @@
-// import { useRef } from 'react'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Environment, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { useScrollOffset } from '@/templates/hooks/useScrollOffset'
 import type { MeshProps } from '@react-three/fiber'
 import { Model } from './MusicVerse'
-import { useSpring } from 'react-spring'
 
 const { damp } = THREE.MathUtils
 
@@ -21,7 +19,7 @@ function Box(props: MeshProps) {
   return (
     <>
       <mesh ref={ref} {...props}>
-        <boxBufferGeometry />
+        <boxGeometry />
         <meshStandardMaterial />
       </mesh>
     </>
