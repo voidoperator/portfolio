@@ -1,13 +1,11 @@
-import { useRef, useState, forwardRef, useImperativeHandle, createContext } from 'react'
+import { useRef, useState, forwardRef, useImperativeHandle, createContext, useEffect } from 'react'
 import tw from 'tailwind-styled-components'
 import type { LayoutProps, ColorModeContextProps } from '@/types/context.types'
 import { ColorMode } from '@/types/context.types'
+import { useScrollOffset } from '@/templates/hooks/useScrollOffset'
 
-const Div = tw.div`top-0 left-0 z-10 w-screen
-text-gray-800 bg-zinc-50
-dark:bg-[#0e0e0efa] dark:text-gray-50
-overflow-y-auto snap-y snap-mandatory overflow-x-hidden
-`
+const Container = tw.div`z-10 overflow-y-auto overflow-x-hidden bg-[length:200px] bg-[0px_0px] bg-repeat bg-noise`
+const Wrapper = tw.div`h-screen snap-y snap-mandatory overflow-y-auto`
 
 const defaultColorModeContext = {
   context: {
@@ -18,8 +16,19 @@ const defaultColorModeContext = {
 export const ColorModeContext = createContext<ColorModeContextProps>(defaultColorModeContext)
 
 const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
+  const scrollRef = useRef<HTMLDivElement>(null)
   const localRef = useRef<HTMLDivElement>(null)
+  const { setScroll } = useScrollOffset()
   useImperativeHandle(ref, () => localRef.current)
+
+  useEffect(() => {
+    if (ref) {
+      const scrollTracker = scrollRef.current
+      scrollTracker.addEventListener('scroll', () => {
+        setScroll(scrollTracker.scrollTop)
+      })
+    }
+  }, [ref, setScroll])
 
   const [context, setContext] = useState<ColorModeContextProps['context']>(defaultColorModeContext.context)
   const handleSetContext = (value: ColorModeContextProps['context']) => {
@@ -30,9 +39,11 @@ const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
 
   return (
     <ColorModeContext.Provider value={value}>
-      <Div {...props} ref={localRef}>
-        {children}
-      </Div>
+      <Container {...props} ref={localRef}>
+        <Wrapper id='sb' ref={scrollRef} className='h-screen snap-y snap-mandatory scroll-py-9 overflow-y-auto'>
+          {children}
+        </Wrapper>
+      </Container>
     </ColorModeContext.Provider>
   )
 })

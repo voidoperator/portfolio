@@ -4,6 +4,18 @@ module.exports = {
   darkMode: 'class', // 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        'turnpike': ['Turnpike', 'sans-serif'],
+        'urban': ['Urban-Starblues', 'sans-serif'],
+        'vhs': ['VHS', 'sans-serif'],
+        'titlingthin': ['TitlingGothicFBExtThin', 'sans-serif'],
+        'titlinglight': ['TitlingGothicFBExtLight', 'sans-serif'],
+        'titlingreg': ['TitlingGothicFBExtReg', 'sans-serif'],
+        'titlingstand': ['TitlingGothicFBExtStand', 'sans-serif'],
+        'titlingmed': ['TitlingGothicFBExtMed', 'sans-serif'],
+        'titlingbold': ['TitlingGothicFBExtBold', 'sans-serif'],
+        'titlingblack': ['TitlingGothicFBExtBlack', 'sans-serif'],
+      },
       backgroundImage: {
         'noise': "url('/img/noise.webp')"
       },
