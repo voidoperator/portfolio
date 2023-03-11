@@ -21,7 +21,7 @@ const titleClasses =
 
 const containerVariant: Variants = {
   initial: {
-    scale: 0,
+    // scale: 0,
     opacity: 0,
     // y: -25,
     transition: {
@@ -30,14 +30,12 @@ const containerVariant: Variants = {
   },
   onscreen: {
     opacity: 1,
-    scale: 1,
+    // scale: 1,
     // y: 0,
     transition: {
-      type: 'spring',
-      bounce: 0.4,
       duration: 0.8,
-      delayChildren: 0.5,
-      staggerChildren: 0.1,
+      delayChildren: 5,
+      staggerChildren: 10,
     },
   },
 }
@@ -68,7 +66,12 @@ export default function HeroBanner() {
           viewport={{ once: true, amount: 0.8 }}
           variants={containerVariant}
         >
-          <SubDiv className='gap-2 fill-none stroke-black dark:stroke-white md:gap-3 lg:gap-5'>
+          <motion.div
+            variants={containerVariant}
+            initial='initial'
+            whileInView='onscreen'
+            className='flex flex-row items-center justify-center gap-2 fill-none stroke-black dark:stroke-white md:gap-3 lg:gap-5'
+          >
             {name.split(' ').map((word, index) => {
               const key = word + index
               return (
@@ -85,7 +88,7 @@ export default function HeroBanner() {
               )
             })}
             <JNSignatureMotion twClasses={'h-11 sm:h-13 md:h-[4.5rem] lg:h-28'} />
-          </SubDiv>
+          </motion.div>
           <SubDiv className='gap-2 md:gap-3 lg:gap-5'>
             {title.split(' ').map((word, index) => {
               const key = word + index
@@ -95,14 +98,8 @@ export default function HeroBanner() {
                   className={titleClasses}
                   initial='initial'
                   variants={transitionVariants}
-                  whileInView={{
-                    opacity: 1,
-                    scale: 1,
-                    transition: {
-                      duration: 0.60071405,
-                      delay: 0.10671405,
-                    },
-                  }}
+                  whileInView={getRngTransition()}
+                  viewport={{ once: true, amount: 0.8 }}
                 >
                   {word}
                 </motion.h2>

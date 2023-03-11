@@ -69,7 +69,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Header title={pageProps.title} />
-      <AnimatePresence mode='wait'>
+      <AnimatePresence mode='sync'>
         {isLoading ? (
           <>
             <motion.div
@@ -97,19 +97,7 @@ export default function App({ Component, pageProps }) {
             >
               <Layout ref={ref}>
                 {Component?.canvas && (
-                  <Scene
-                    eventSource={ref}
-                    eventPrefix='client'
-                    style={{ position: 'fixed', zIndex: -1 }}
-                    // camera={{
-                    //   position: [-0.41, 1.52, 0.37],
-                    //   rotation: [-Math.PI / 2, 0, 0],
-                    //   scale: [1.01, 1, 0.92],
-                    //   far: 100,
-                    //   near: 0.1,
-                    //   fov: 122.9,
-                    // }}
-                  >
+                  <Scene eventSource={ref} eventPrefix='client' style={{ position: 'fixed', zIndex: -10 }}>
                     {Component.canvas(pageProps)}
                   </Scene>
                 )}
