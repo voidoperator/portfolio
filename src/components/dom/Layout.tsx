@@ -33,7 +33,7 @@ const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
   useEffect(() => {
     const calculateDocumentSize = () => {
       const scrollHeight = document.body.scrollHeight
-      const sectionsAmount = document.getElementsByTagName('section').length || 6
+      const sectionsAmount = document.getElementsByTagName('section').length
       const documentSize = scrollHeight * sectionsAmount
       setSize(documentSize)
     }
@@ -45,7 +45,8 @@ const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [setSize])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const [context, setContext] = useState<ColorModeContextProps['context']>(defaultColorModeContext.context)
   const handleSetContext = (value: ColorModeContextProps['context']) => {

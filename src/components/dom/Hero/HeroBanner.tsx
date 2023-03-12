@@ -21,17 +21,15 @@ const titleClasses =
 
 const containerVariant: Variants = {
   initial: {
-    // scale: 0,
     opacity: 0,
-    // y: -25,
+    y: -25,
     transition: {
       duration: 0.75,
     },
   },
   onscreen: {
     opacity: 1,
-    // scale: 1,
-    // y: 0,
+    y: 0,
     transition: {
       duration: 0.8,
       delayChildren: 5,

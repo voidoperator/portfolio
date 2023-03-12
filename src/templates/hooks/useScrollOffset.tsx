@@ -1,6 +1,6 @@
 import { useCallback, useContext } from 'react'
 import { ScrollOffsetContext } from '@/pages/_app'
-import type { ScrollOffsetContextProps, ScrollOffsetContextType } from '@/types/context.types'
+import type { ScrollOffsetContextProps } from '@/types/context.types'
 
 export const useScrollOffset = () => {
   const { context, setContext } = useContext<ScrollOffsetContextProps>(ScrollOffsetContext)

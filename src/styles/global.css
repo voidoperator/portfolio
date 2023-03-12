@@ -88,4 +88,19 @@
     width: 0;
     height: 0;
   }
+
+  .hollow {
+    color: transparent;
+    stroke-width: 2px;
+    -webkit-text-stroke-width: 2px;
+  }
+
+  .gradient {
+    background: linear-gradient(268.74deg, #ff1879 4.37%, #8b57f9 31.6%, #91ffd1 61.36%, #fff500 101.2%);
+    stroke-width: 0;
+    background-clip: text;
+    -webkit-text-stroke-width: 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }

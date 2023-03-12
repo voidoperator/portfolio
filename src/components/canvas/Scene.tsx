@@ -65,7 +65,7 @@ export default function Scene({ children, ...props }) {
   return (
     <Canvas {...props} linear camera={{ fov: 70, far: 100000 }}>
       <Model position={[0, -2.5, 0]} />
-      <axesHelper args={[5000]} />
+      {/* <axesHelper args={[5000]} /> */}
       <Environment files={'/HDRI_VZEnv.hdr'} background={false} />
       <hemisphereLight />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
