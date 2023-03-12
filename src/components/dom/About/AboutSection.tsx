@@ -2,10 +2,11 @@ import React from 'react'
 import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import getRngTransition from '@/utility/getRngTransitions'
+import ParallaxText from '../ParallaxText'
 
-const Container = tw.div`h-screen snap-center`
+const Container = tw.section`h-screen snap-center`
 const Wrapper = tw.div`flex flex-col items-center justify-center w-full h-full`
-const SubDiv = tw.div`flex flex-row items-center justify-center gap-2 md:gap-6`
+const SubDiv = tw.div`flex flex-col items-center justify-center gap-2 md:gap-6`
 
 const divClasses =
   'w-full select-none bg-noise bg-[length:150px] bg-[0px_0px] bg-repeat px-4 py-8 text-center backdrop-blur-xl'
@@ -47,12 +48,16 @@ const transitionVariants: Variants = {
 
 const name = ['about', 'me']
 const title = ['software', 'engineer']
+const sectionTitle = 'skills X skills X '
 
 export default function About() {
   return (
     <Container id='about'>
       <Wrapper>
-        <motion.div className={divClasses} initial='initial' animate='onscreen' variants={containerVariant}>
+        <SubDiv>
+          <ParallaxText baseVelocity={-10}>{sectionTitle}</ParallaxText>
+        </SubDiv>
+        {/* <motion.div className={divClasses} initial='initial' animate='onscreen' variants={containerVariant}>
           <SubDiv>
             {name.map((word) => (
               <motion.h1
@@ -79,7 +84,7 @@ export default function About() {
               </motion.h2>
             ))}
           </SubDiv>
-        </motion.div>
+        </motion.div> */}
       </Wrapper>
     </Container>
   )

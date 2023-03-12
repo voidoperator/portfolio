@@ -47,6 +47,7 @@
     "framer-motion": "^10.1.0",
     "glslify": "^7.1.1",
     "glslify-loader": "^2.0.0",
+    "motion": "^10.15.5",
     "postcss": "^8.4.21",
     "pre-commit": "^1.2.2",
     "prettier": "^2.8.3",

@@ -2,21 +2,22 @@ export interface LayoutProps {
   children?: React.ReactNode
 }
 
-export enum ColorMode {
-  DARK = 'dark',
-  LIGHT = 'light',
-}
+export type ColorMode = 'light' | 'dark'
 
 export interface ColorModeContextProps {
   context: {
-    mode: ColorMode
+    colorMode: ColorMode
+    isDarkMode: boolean
   }
-  setContext?: (_: ColorModeContextProps['context']) => void
+  setContext?: (newContext: ColorModeContextProps['context']) => void
+}
+
+export interface ScrollOffsetContextType {
+  scroll: number
+  size: number
 }
 
 export interface ScrollOffsetContextProps {
-  context: {
-    scroll: number
-  }
-  setContext?: (_: ScrollOffsetContextProps['context']) => void
+  context: ScrollOffsetContextType
+  setContext?: (newContext: ScrollOffsetContextType) => void
 }

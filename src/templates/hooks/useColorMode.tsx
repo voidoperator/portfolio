@@ -1,12 +1,20 @@
-import { useContext } from 'react'
+import { useCallback, useContext } from 'react'
 import { ColorModeContext } from '@/components/dom/Layout'
-import type { ColorModeContextProps } from '@/types/context.types'
+import type { ColorModeContextProps, ColorMode } from '@/types/context.types'
 
 export const useColorModeContext = () => {
   const { context, setContext } = useContext<ColorModeContextProps>(ColorModeContext)
+
+  const setColorMode = useCallback(
+    (mode: ColorMode) => {
+      setContext({ ...context, colorMode: mode })
+    },
+    [context, setContext],
+  )
+
   return {
-    colorMode: context.mode,
-    isDarkMode: context.mode === 'dark',
-    setColorMode: (colorMode: any) => setContext({ mode: colorMode }),
+    colorMode: context.colorMode,
+    isDarkMode: context.colorMode === 'dark',
+    setColorMode,
   }
 }

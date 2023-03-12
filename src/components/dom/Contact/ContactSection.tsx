@@ -3,8 +3,8 @@ import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import getRngTransition from '@/utility/getRngTransitions'
 
-const Container = tw.div`h-screen snap-center`
-const Wrapper = tw.div`flex flex-col items-center justify-center w-full h-full`
+const Container = tw.section`h-screen snap-center`
+const Wrapper = tw.footer`flex flex-col items-center justify-center w-full h-full`
 const SubDiv = tw.div`flex flex-row items-center justify-center gap-2 md:gap-6`
 
 const divClasses =

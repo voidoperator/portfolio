@@ -5,8 +5,8 @@ import TypeIt from 'typeit-react'
 import getRngTransition from '@/utility/getRngTransitions'
 import JNSignatureMotion from '../Icons/Icons'
 
-const Container = tw.div`h-screen snap-center`
-const Wrapper = tw.div`flex flex-col justify-center py-[72px] w-full h-full`
+const Container = tw.section`h-screen snap-center`
+const Wrapper = tw.div`flex flex-col justify-center py-[72px] w-full h-full uppercase`
 const SubDiv = tw.div`flex flex-row items-center justify-center`
 
 const divClasses =
@@ -51,9 +51,9 @@ const transitionVariants: Variants = {
   },
 }
 
-const name = "HEY, I'M"
-const title = 'A SOFTWARE ENGINEER'
-const headline = '((TURNING LINES OF CODE INTO) => { REAL-WORLD IMPACT });'
+const name = "hey, i'm"
+const title = 'a software engineer'
+const headline = '((turning lines of code into) => { real-world impact });'
 
 export default function HeroBanner() {
   return (

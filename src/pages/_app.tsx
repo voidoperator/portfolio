@@ -13,6 +13,7 @@ const loadingDivClasses = 'flex h-screen flex-col items-center justify-center ov
 const defaultScrollOffsetContext = {
   context: {
     scroll: 0,
+    size: 0,
   },
 }
 
@@ -88,7 +89,7 @@ export default function App({ Component, pageProps }) {
           </>
         ) : (
           <ScrollOffsetContext.Provider value={value}>
-            <motion.div
+            <motion.main
               key={router.route}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -97,13 +98,21 @@ export default function App({ Component, pageProps }) {
             >
               <Layout ref={ref}>
                 {Component?.canvas && (
-                  <Scene eventSource={ref} eventPrefix='client' style={{ position: 'fixed', zIndex: -10 }}>
+                  <Scene
+                    id='canvas'
+                    eventSource={ref}
+                    eventPrefix='client'
+                    style={{
+                      position: 'fixed',
+                      zIndex: -10,
+                    }}
+                  >
                     {Component.canvas(pageProps)}
                   </Scene>
                 )}
                 <Component {...pageProps} />
               </Layout>
-            </motion.div>
+            </motion.main>
           </ScrollOffsetContext.Provider>
         )}
       </AnimatePresence>
