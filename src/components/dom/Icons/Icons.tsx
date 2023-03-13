@@ -1,6 +1,25 @@
 import React from 'react'
 import { motion, cubicBezier } from 'framer-motion'
 
+export function MarqueeSeparator({ twClasses }: { twClasses: string }) {
+  return (
+    <svg className={twClasses + ' fill-black dark:fill-white'} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130 40'>
+      <g>
+        <path
+          fill='currentFill'
+          d='M48.144,8.357a.871.871,0,0,0-.405-.743.773.773,0,0,0-.808,0L27.9,19.257a.885.885,0,0,0,0,1.486L46.931,32.384a.769.769,0,0,0,.809,0,.869.869,0,0,0,.4-.743V23.23l13.744,8.41V23.206L56.645,20l5.243-3.208V8.355L48.144,16.764Zm-1.618,21.8L29.926,20l16.6-10.156v6.925l-4.069,2.489a.885.885,0,0,0,0,1.486l4.069,2.489v6.925ZM44.478,20l2.856-1.748v3.5Z'
+        />
+        <path fill='currentFill' d='M66.774,8.357h1.617V31.641H66.774Z' />
+        <path
+          fill='currentFill'
+          d='M107.1,19.258,88.071,7.615a.77.77,0,0,0-.809,0,.869.869,0,0,0-.405.743v8.409L73.113,8.358v8.433L78.356,20l-5.243,3.209v8.434l13.744-8.411v8.411a.868.868,0,0,0,.405.742.769.769,0,0,0,.809,0L107.1,20.744a.876.876,0,0,0,.4-.745.868.868,0,0,0-.4-.742Zm-19.43,2.489v-3.5L90.522,20Zm.809,8.41V23.231l4.069-2.489a.885.885,0,0,0,0-1.486l-4.069-2.49V9.842L105.075,20Z'
+        />
+      </g>
+      <rect fill='none' width='130' height='40' />
+    </svg>
+  )
+}
+
 export default function JNSignatureMotion({ twClasses }: { twClasses: string }) {
   return (
     <motion.svg viewBox='0 0 68.499 25.52' xmlns='http://www.w3.org/2000/svg' className={twClasses}>

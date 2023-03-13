@@ -17,7 +17,8 @@ module.exports = {
         'titlingblack': ['TitlingGothicFBExtBlack', 'sans-serif'],
       },
       backgroundImage: {
-        'noise': "url('/img/noise.webp')"
+        'noise': "url('/img/noise.webp')",
+        'img-gradient': 'linear-gradient(268.74deg, #ff1879 4.37%, #8b57f9 31.6%, #91ffd1 61.36%, #fff500 101.2%);'
       },
       letterSpacing: {
         'widest': '0.5em'
@@ -25,6 +26,9 @@ module.exports = {
       textStrokeColor: {
         'black': '#000000',
         'white': '#ffffff',
+      },
+      colors: {
+        'gradient': 'linear-gradient(268.74deg, #ff1879 4.37%, #8b57f9 31.6%, #91ffd1 61.36%, #fff500 101.2%);'
       },
     },
   },

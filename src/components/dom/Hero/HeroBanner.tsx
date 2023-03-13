@@ -47,6 +47,14 @@ const transitionVariants: Variants = {
     opacity: 1,
     y: 0,
   },
+  titleOnScreen: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 4,
+      duration: 2,
+    },
+  },
 }
 
 const name = "hey, i'm"
@@ -96,7 +104,7 @@ export default function HeroBanner() {
                   className={titleClasses}
                   initial='initial'
                   variants={transitionVariants}
-                  whileInView={getRngTransition()}
+                  whileInView='titleOnScreen'
                   viewport={{ once: true, amount: 0.8 }}
                 >
                   {word}
