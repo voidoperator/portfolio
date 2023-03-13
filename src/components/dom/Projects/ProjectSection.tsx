@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import tw from 'tailwind-styled-components'
-import { motion, Variants } from 'framer-motion'
+import { motion, useAnimationControls, Variants, useInView } from 'framer-motion'
 import getRngTransition from '@/utility/getRngTransitions'
 
 const Container = tw.section`h-screen snap-center`
@@ -27,9 +27,9 @@ const containerVariant: Variants = {
     transition: {
       type: 'spring',
       bounce: 0.4,
-      duration: 0.8,
-      delayChildren: 0.5,
-      staggerChildren: 0.1,
+      duration: 1,
+      delayChildren: 5,
+      staggerChildren: 2,
     },
   },
 }
@@ -37,43 +37,45 @@ const containerVariant: Variants = {
 const transitionVariants: Variants = {
   initial: {
     opacity: 0,
-    y: -10,
+    y: -100,
+    scale: 0,
   },
   onScreen: {
     opacity: 1,
     y: 0,
+    scale: 1,
   },
 }
 
 const name = ['projects']
-const title = ['software', 'engineer']
+const title = ['software', 'engineer', 'test', 'tesasft', 'tefsst']
 
 export default function ProjectSection() {
   return (
     <Container id='projects'>
       <Wrapper>
         <motion.div className={divClasses} initial='initial' whileInView='onscreen' variants={containerVariant}>
-          <SubDiv>
+          {/* <SubDiv>
             {name.map((word) => (
-              <motion.h1
+              <h1
                 key={word}
                 className={h1Classes}
-                initial='initial'
-                variants={transitionVariants}
-                whileInView={getRngTransition()}
+                // initial='initial'
+                // variants={transitionVariants}
+                // whileInView={getRngTransition()}
               >
                 {word.toUpperCase()}
-              </motion.h1>
+              </h1>
             ))}
-          </SubDiv>
+          </SubDiv> */}
           <SubDiv>
             {title.map((word) => (
               <motion.h2
                 key={word}
                 className={h2Classes}
-                initial='initial'
-                variants={transitionVariants}
-                whileInView={getRngTransition()}
+                // variants={transitionVariants}
+                // initial='initial'
+                // animate='onScreen'
               >
                 {word.toUpperCase()}
               </motion.h2>

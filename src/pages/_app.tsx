@@ -66,7 +66,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Header title={pageProps.title} />
       <AnimatePresence mode='sync'>
-        {isLoading ? (
+        {/* {isLoading ? (
           <>
             <motion.div
               key='loading'
@@ -84,34 +84,34 @@ export default function App({ Component, pageProps }) {
               </motion.div>
             </motion.div>
           </>
-        ) : (
-          <ScrollOffsetContext.Provider value={value}>
-            <motion.main
-              key={router.route}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: easeInExpo }}
-            >
-              <Layout ref={ref}>
-                {Component?.canvas && (
-                  <Scene
-                    id='canvas'
-                    eventSource={ref}
-                    eventPrefix='client'
-                    style={{
-                      position: 'fixed',
-                      zIndex: -10,
-                    }}
-                  >
-                    {Component.canvas(pageProps)}
-                  </Scene>
-                )}
-                <Component {...pageProps} />
-              </Layout>
-            </motion.main>
-          </ScrollOffsetContext.Provider>
-        )}
+        ) : ( */}
+        <ScrollOffsetContext.Provider value={value}>
+          <motion.main
+            key={router.route}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, ease: easeInExpo }}
+          >
+            <Layout ref={ref}>
+              {Component?.canvas && (
+                <Scene
+                  id='canvas'
+                  eventSource={ref}
+                  eventPrefix='client'
+                  style={{
+                    position: 'fixed',
+                    zIndex: -10,
+                  }}
+                >
+                  {Component.canvas(pageProps)}
+                </Scene>
+              )}
+              <Component {...pageProps} />
+            </Layout>
+          </motion.main>
+        </ScrollOffsetContext.Provider>
+        {/* )} */}
       </AnimatePresence>
     </>
   )

@@ -41,7 +41,7 @@ const containerVariant: Variants = {
 const transitionVariants: Variants = {
   initial: {
     opacity: 0,
-    y: -10,
+    y: -5,
   },
   onScreen: {
     opacity: 1,
@@ -69,13 +69,14 @@ export default function HeroBanner() {
           className={divClasses}
           initial='initial'
           whileInView='onscreen'
-          viewport={{ once: true, amount: 0.8 }}
+          viewport={{ once: true }}
           variants={containerVariant}
         >
           <motion.div
             variants={containerVariant}
             initial='initial'
             whileInView='onscreen'
+            viewport={{ once: true }}
             className='flex flex-row items-center justify-center gap-2 fill-none stroke-black dark:stroke-white md:gap-3 lg:gap-5'
           >
             {name.split(' ').map((word, index) => {
@@ -87,7 +88,7 @@ export default function HeroBanner() {
                   initial='initial'
                   variants={transitionVariants}
                   whileInView={getRngTransition()}
-                  viewport={{ once: true, amount: 0.8 }}
+                  viewport={{ once: true }}
                 >
                   {word}
                 </motion.h1>
@@ -105,7 +106,7 @@ export default function HeroBanner() {
                   initial='initial'
                   variants={transitionVariants}
                   whileInView='titleOnScreen'
-                  viewport={{ once: true, amount: 0.8 }}
+                  viewport={{ once: true }}
                 >
                   {word}
                 </motion.h2>
