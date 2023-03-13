@@ -5,9 +5,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        'druk': ['Druk', 'sans-serif'],
         'turnpike': ['Turnpike', 'sans-serif'],
         'urban': ['Urban-Starblues', 'sans-serif'],
         'vhs': ['VHS', 'sans-serif'],
+        'sofiapro': ['SofiaPro', 'sans-serif'],
+        'sofiaprolight': ['SofiaProLight', 'sans-serif'],
         'titlingthin': ['TitlingGothicFBExtThin', 'sans-serif'],
         'titlinglight': ['TitlingGothicFBExtLight', 'sans-serif'],
         'titlingreg': ['TitlingGothicFBExtReg', 'sans-serif'],
@@ -35,7 +38,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-   plugins: [
+    plugins: [
     function({ addUtilities, theme }) {
       const colors = theme('textStrokeColor');
       const utilities = Object.keys(colors).map(color => ({

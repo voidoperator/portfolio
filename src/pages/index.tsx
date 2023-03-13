@@ -1,6 +1,7 @@
 import React from 'react'
 import JulioNunezLogo from '@/components/canvas/JulioNunezLogo'
 import NavBar from '@/components/dom/Nav/NavBar'
+import MobileNav from '@/components/dom/MobileNav/MobileNav'
 import HeroBanner from '@/components/dom/Hero/HeroBanner'
 import About from '@/components/dom/About/AboutSection'
 import Experience from '@/components/dom/Experience/ExperienceSection'
@@ -21,6 +22,7 @@ export default function Page(props: Props) {
       <SkillSection />
       <ProjectSection />
       <ContactSection />
+      <MobileNav />
     </>
   )
 }
