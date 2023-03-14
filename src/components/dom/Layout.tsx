@@ -1,15 +1,15 @@
 import { useRef, useState, forwardRef, useImperativeHandle, createContext, useEffect } from 'react'
 import tw from 'tailwind-styled-components'
-import type { LayoutProps, ColorModeContextProps } from '@/types/context.types'
-import { ColorMode } from '@/types/context.types'
 import { useScrollOffset } from '@/templates/hooks/useScrollOffset'
+import type { LayoutProps, ColorModeContextProps, ColorMode } from '@/types/context.types'
 
 const Container = tw.div`z-10 overflow-y-auto overflow-x-hidden bg-[length:200px] bg-[0px_0px] bg-repeat bg-noise`
 const Wrapper = tw.div`h-screen snap-y snap-mandatory overflow-y-auto`
 
 const defaultColorModeContext = {
   context: {
-    mode: ColorMode.DARK,
+    colorMode: 'dark' as ColorMode,
+    isDarkMode: true,
   },
 }
 
@@ -18,7 +18,7 @@ export const ColorModeContext = createContext<ColorModeContextProps>(defaultColo
 const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const localRef = useRef<HTMLDivElement>(null)
-  const { setScroll } = useScrollOffset()
+  const { setSize, setScroll } = useScrollOffset()
   useImperativeHandle(ref, () => localRef.current)
 
   useEffect(() => {
@@ -30,6 +30,24 @@ const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
     }
   }, [ref, setScroll])
 
+  useEffect(() => {
+    const calculateDocumentSize = () => {
+      const scrollHeight = document.body.scrollHeight
+      const sectionsAmount = document.getElementsByTagName('section').length
+      const documentSize = scrollHeight * sectionsAmount
+      setSize(documentSize)
+    }
+    calculateDocumentSize()
+    const handleResize = () => {
+      calculateDocumentSize()
+    }
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const [context, setContext] = useState<ColorModeContextProps['context']>(defaultColorModeContext.context)
   const handleSetContext = (value: ColorModeContextProps['context']) => {
     setContext(value)
@@ -40,7 +58,7 @@ const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
   return (
     <ColorModeContext.Provider value={value}>
       <Container {...props} ref={localRef}>
-        <Wrapper id='sb' ref={scrollRef} className='h-screen snap-y snap-mandatory scroll-py-9 overflow-y-auto'>
+        <Wrapper id='sb' ref={scrollRef}>
           {children}
         </Wrapper>
       </Container>

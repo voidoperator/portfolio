@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, createContext } from 'react'
 import { useRouter } from 'next/router'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion'
 import Scene from '@/components/canvas/Scene'
 import Header from '@/config'
 import Layout from '@/components/dom/Layout'
@@ -13,6 +13,7 @@ const loadingDivClasses = 'flex h-screen flex-col items-center justify-center ov
 const defaultScrollOffsetContext = {
   context: {
     scroll: 0,
+    size: 0,
   },
 }
 
@@ -23,27 +24,22 @@ function easeInExpo(progress: number): number {
 export const ScrollOffsetContext = createContext<ScrollOffsetContextProps>(defaultScrollOffsetContext)
 
 export default function App({ Component, pageProps }) {
-  const [loadingProgress, setLoadingProgress] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const ref = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const count = useMotionValue(0)
+  const loadingPercent = useTransform(count, Math.round)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const incrementFactor = Math.random() * 0.1 + 0.05
-      setLoadingProgress((prevProgress) => {
-        if (prevProgress >= 90) {
-          setIsLoading(false)
-          return 100
-        } else {
-          return prevProgress + incrementFactor * 50
-        }
-      })
-    }, 300)
-    setTimeout(() => {
-      clearInterval(interval)
-    }, 5000)
-  }, [router])
+      if (loadingPercent.get() >= 97) {
+        setIsLoading(false)
+        clearInterval(interval)
+      }
+    }, 500)
+    const animation = animate(count, 100, { duration: 5 })
+    return animation.stop
+  }, [loadingPercent, router, count])
 
   useEffect(() => {
     const removeHash = () => {
@@ -70,7 +66,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Header title={pageProps.title} />
       <AnimatePresence mode='sync'>
-        {isLoading ? (
+        {/* {isLoading ? (
           <>
             <motion.div
               key='loading'
@@ -81,31 +77,41 @@ export default function App({ Component, pageProps }) {
               transition={{ duration: 1, ease: easeInExpo }}
             >
               <LoadingDots />
-              <motion.header className='py-10 font-titlingstand text-xs text-white'>
-                Loading {Math.round(loadingProgress)}%
-              </motion.header>
+              <motion.div className='py-10 font-titlingstand text-xs text-white'>
+                {'Loading '}
+                <motion.span>{loadingPercent}</motion.span>
+                {'%'}
+              </motion.div>
             </motion.div>
           </>
-        ) : (
-          <ScrollOffsetContext.Provider value={value}>
-            <motion.div
-              key={router.route}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: easeInExpo }}
-            >
-              <Layout ref={ref}>
-                {Component?.canvas && (
-                  <Scene eventSource={ref} eventPrefix='client' style={{ position: 'fixed', zIndex: -10 }}>
-                    {Component.canvas(pageProps)}
-                  </Scene>
-                )}
-                <Component {...pageProps} />
-              </Layout>
-            </motion.div>
-          </ScrollOffsetContext.Provider>
-        )}
+        ) : ( */}
+        <ScrollOffsetContext.Provider value={value}>
+          <motion.main
+            key={router.route}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, ease: easeInExpo }}
+          >
+            <Layout ref={ref}>
+              {Component?.canvas && (
+                <Scene
+                  id='canvas'
+                  eventSource={ref}
+                  eventPrefix='client'
+                  style={{
+                    position: 'fixed',
+                    zIndex: -10,
+                  }}
+                >
+                  {Component.canvas(pageProps)}
+                </Scene>
+              )}
+              <Component {...pageProps} />
+            </Layout>
+          </motion.main>
+        </ScrollOffsetContext.Provider>
+        {/* )} */}
       </AnimatePresence>
     </>
   )

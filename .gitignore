@@ -17,6 +17,7 @@
 .DS_Store
 *.pem
 /.vzcustom
+**/temp
 
 # debug
 npm-debug.log*

@@ -5,8 +5,8 @@ import TypeIt from 'typeit-react'
 import getRngTransition from '@/utility/getRngTransitions'
 import JNSignatureMotion from '../Icons/Icons'
 
-const Container = tw.div`h-screen snap-center`
-const Wrapper = tw.div`flex flex-col justify-center py-[72px] w-full h-full`
+const Container = tw.section`h-screen snap-center overflow-hidden`
+const Wrapper = tw.div`flex flex-col justify-center py-[72px] w-full h-full uppercase`
 const SubDiv = tw.div`flex flex-row items-center justify-center`
 
 const divClasses =
@@ -21,17 +21,15 @@ const titleClasses =
 
 const containerVariant: Variants = {
   initial: {
-    // scale: 0,
     opacity: 0,
-    // y: -25,
+    y: -25,
     transition: {
       duration: 0.75,
     },
   },
   onscreen: {
     opacity: 1,
-    // scale: 1,
-    // y: 0,
+    y: 0,
     transition: {
       duration: 0.8,
       delayChildren: 5,
@@ -43,17 +41,25 @@ const containerVariant: Variants = {
 const transitionVariants: Variants = {
   initial: {
     opacity: 0,
-    y: -10,
+    y: -5,
   },
   onScreen: {
     opacity: 1,
     y: 0,
   },
+  titleOnScreen: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 4,
+      duration: 2,
+    },
+  },
 }
 
-const name = "HEY, I'M"
-const title = 'A SOFTWARE ENGINEER'
-const headline = '((TURNING LINES OF CODE INTO) => { REAL-WORLD IMPACT });'
+const name = "hey, i'm"
+const title = 'a software engineer'
+const headline = '((turning lines of code into) => { real-world impact });'
 
 export default function HeroBanner() {
   return (
@@ -63,13 +69,14 @@ export default function HeroBanner() {
           className={divClasses}
           initial='initial'
           whileInView='onscreen'
-          viewport={{ once: true, amount: 0.8 }}
+          viewport={{ once: true }}
           variants={containerVariant}
         >
           <motion.div
             variants={containerVariant}
             initial='initial'
             whileInView='onscreen'
+            viewport={{ once: true }}
             className='flex flex-row items-center justify-center gap-2 fill-none stroke-black dark:stroke-white md:gap-3 lg:gap-5'
           >
             {name.split(' ').map((word, index) => {
@@ -81,7 +88,7 @@ export default function HeroBanner() {
                   initial='initial'
                   variants={transitionVariants}
                   whileInView={getRngTransition()}
-                  viewport={{ once: true, amount: 0.8 }}
+                  viewport={{ once: true }}
                 >
                   {word}
                 </motion.h1>
@@ -98,8 +105,8 @@ export default function HeroBanner() {
                   className={titleClasses}
                   initial='initial'
                   variants={transitionVariants}
-                  whileInView={getRngTransition()}
-                  viewport={{ once: true, amount: 0.8 }}
+                  whileInView='titleOnScreen'
+                  viewport={{ once: true }}
                 >
                   {word}
                 </motion.h2>
