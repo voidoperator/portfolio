@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: SofiaPro;
+  src: url(/fonts/SofiaPro.otf) format('opentype');
+  font-weight: 100 200 300 400 500 600 700 800 900;
+}
+
+@font-face {
+  font-family: SofiaProLight;
+  src: url(/fonts/SofiaPro-Light.otf) format('opentype');
+  font-weight: 100 200 300 400 500 600 700 800 900;
+}
+
+@font-face {
+  font-family: Druk;
+  src: url(/fonts/Druk-WideMedium.otf) format('opentype');
+  font-weight: 100 200 300 400 500 600 700 800 900;
+}
+
+@font-face {
   font-family: TitlingGothicFBExtThin;
   src: url(/fonts/TitlingGothicFBExtThin.otf) format('opentype');
   font-weight: 100;
@@ -84,7 +102,13 @@
     scroll-behavior: smooth;
     overflow-x: hidden;
   }
+
   #sb::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  #oflow::-webkit-scrollbar {
     width: 0;
     height: 0;
   }

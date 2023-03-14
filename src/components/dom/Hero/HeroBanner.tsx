@@ -5,7 +5,7 @@ import TypeIt from 'typeit-react'
 import getRngTransition from '@/utility/getRngTransitions'
 import JNSignatureMotion from '../Icons/Icons'
 
-const Container = tw.section`h-screen snap-center`
+const Container = tw.section`h-screen snap-center overflow-hidden`
 const Wrapper = tw.div`flex flex-col justify-center py-[72px] w-full h-full uppercase`
 const SubDiv = tw.div`flex flex-row items-center justify-center`
 

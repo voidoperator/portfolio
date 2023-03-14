@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MarqueeSeparator } from './Icons/Icons'
 
 const marqueeContainer =
-  'flex flex-row gap-10 relative h-[206px] items-center justify-center w-screen max-w-full overflow-x-hidden text-black dark:text-white'
+  'flex flex-row gap-10 relative items-center justify-center w-screen max-w-full overflow-hidden text-black dark:text-white'
 const marqueeWrap = 'absolute flex flex-row items-center justify-center whitespace-nowrap cursor-default uppercase'
 const spanClasses = 'hollow cursor-default text-stroke-black dark:text-stroke-white'
 
@@ -71,7 +71,7 @@ export default function MarqueeText({
   }
 
   return (
-    <motion.div className={marqueeContainer} whileHover={{ opacity: 0.9 }}>
+    <motion.div className={marqueeContainer + ' h-10 sm:h-14 md:h-20 lg:h-26 xl:h-32'} whileHover={{ opacity: 0.9 }}>
       <motion.div className={marqueeWrap} variants={marqueeVariant} whileInView='left' ref={marqueeRef}>
         <span className={spanClasses + ' ' + textSize}>{string}</span>
         <MarqueeSeparator twClasses={separatorSize} />
