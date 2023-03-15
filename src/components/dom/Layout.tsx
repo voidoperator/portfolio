@@ -3,8 +3,12 @@ import tw from 'tailwind-styled-components'
 import { useScrollOffset } from '@/templates/hooks/useScrollOffset'
 import type { LayoutProps, ColorModeContextProps, ColorMode } from '@/types/context.types'
 
-const Container = tw.div`z-10 overflow-y-auto overflow-x-hidden bg-[length:200px] bg-[0px_0px] bg-repeat bg-noise`
-const Wrapper = tw.div`h-screen snap-y snap-mandatory overflow-y-auto`
+const Container = tw.div`
+z-10 overflow-y-auto overflow-x-hidden bg-[length:200px] bg-[0px_0px] bg-repeat bg-noise
+`
+const Wrapper = tw.div`
+h-screen snap-y snap-mandatory overflow-y-auto
+`
 
 const defaultColorModeContext = {
   context: {

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, createContext } from 'react'
 import { useRouter } from 'next/router'
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion'
+import tw from 'tailwind-styled-components'
 import Scene from '@/components/canvas/Scene'
 import Header from '@/config'
 import Layout from '@/components/dom/Layout'
@@ -8,7 +9,12 @@ import { LoadingDots } from '@/components/dom/Icons/LoadingDots'
 import type { ScrollOffsetContextProps } from '@/types/context.types'
 import '@/styles/global.css'
 
-const loadingDivClasses = 'flex h-screen flex-col items-center justify-center overflow-hidden text-center text-white'
+const LoadingWrapper: Motion.Tag<'div'> = tw(motion.div)`
+flex h-screen flex-col items-center justify-center overflow-hidden text-center text-white
+`
+const LoadingMotion: Motion.Tag<'div'> = tw(motion.div)`
+py-10 font-titlingstand text-xs text-white
+`
 
 const defaultScrollOffsetContext = {
   context: {
@@ -66,52 +72,51 @@ export default function App({ Component, pageProps }) {
     <>
       <Header title={pageProps.title} />
       <AnimatePresence mode='sync'>
-        {/* {isLoading ? (
+        {isLoading ? (
           <>
-            <motion.div
+            <LoadingWrapper
               key='loading'
-              className={loadingDivClasses}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1, ease: easeInExpo }}
             >
               <LoadingDots />
-              <motion.div className='py-10 font-titlingstand text-xs text-white'>
+              <LoadingMotion className=''>
                 {'Loading '}
                 <motion.span>{loadingPercent}</motion.span>
                 {'%'}
-              </motion.div>
-            </motion.div>
+              </LoadingMotion>
+            </LoadingWrapper>
           </>
-        ) : ( */}
-        <ScrollOffsetContext.Provider value={value}>
-          <motion.main
-            key={router.route}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1, ease: easeInExpo }}
-          >
-            <Layout ref={ref}>
-              {Component?.canvas && (
-                <Scene
-                  id='canvas'
-                  eventSource={ref}
-                  eventPrefix='client'
-                  style={{
-                    position: 'fixed',
-                    zIndex: -10,
-                  }}
-                >
-                  {Component.canvas(pageProps)}
-                </Scene>
-              )}
-              <Component {...pageProps} />
-            </Layout>
-          </motion.main>
-        </ScrollOffsetContext.Provider>
-        {/* )} */}
+        ) : (
+          <ScrollOffsetContext.Provider value={value}>
+            <motion.main
+              key={router.route}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1, ease: easeInExpo }}
+            >
+              <Layout ref={ref}>
+                {Component?.canvas && (
+                  <Scene
+                    id='canvas'
+                    eventSource={ref}
+                    eventPrefix='client'
+                    style={{
+                      position: 'fixed',
+                      zIndex: -10,
+                    }}
+                  >
+                    {Component.canvas(pageProps)}
+                  </Scene>
+                )}
+                <Component {...pageProps} />
+              </Layout>
+            </motion.main>
+          </ScrollOffsetContext.Provider>
+        )}
       </AnimatePresence>
     </>
   )
