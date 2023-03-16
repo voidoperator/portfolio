@@ -108,7 +108,7 @@
     height: 0;
   }
 
-  #oflow::-webkit-scrollbar {
+  .oflow::-webkit-scrollbar {
     width: 0;
     height: 0;
   }

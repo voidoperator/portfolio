@@ -120,7 +120,7 @@ export default function HeroBanner() {
             })}
           </SubDiv>
           <SubDiv className='gap-2 md:gap-2 lg:gap-4'>
-            <Typewritter as='p' waitUntilVisible={true} lifeLike={true}>
+            <Typewritter as='p' options={{ waitUntilVisible: true, lifeLike: true }}>
               {headline}
             </Typewritter>
           </SubDiv>
