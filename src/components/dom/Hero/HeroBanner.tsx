@@ -14,11 +14,9 @@ flex flex-col justify-center py-[72px] w-full h-full uppercase
 const SubDiv = tw.div`
 flex flex-row items-center justify-center
 `
-
 const MotionWrapper: Motion.Tag<'div'> = tw(motion.div)`
 flex w-full select-none flex-col gap-1 bg-zinc-200/25 dark:bg-zinc-900/25
-bg-noise bg-[length:150px] bg-[0px_0px] bg-repeat py-4 text-center
-backdrop-blur-[12px] sm:gap-2 md:gap-4 lg:gap-8
+py-4 text-center backdrop-blur-[12px] sm:gap-2 md:gap-4 lg:gap-8 bg-noise-full
 `
 const NameMotion: Motion.Tag<'div'> = tw(motion.div)`
 flex flex-row items-center justify-center gap-2 fill-none
@@ -120,7 +118,7 @@ export default function HeroBanner() {
             })}
           </SubDiv>
           <SubDiv className='gap-2 md:gap-2 lg:gap-4'>
-            <Typewritter as='p' waitUntilVisible={true} lifeLike={true}>
+            <Typewritter as='p' options={{ waitUntilVisible: true, lifeLike: true }}>
               {headline}
             </Typewritter>
           </SubDiv>

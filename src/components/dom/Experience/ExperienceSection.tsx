@@ -1,85 +1,231 @@
 import React from 'react'
 import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
-import getRngTransition from '@/utility/getRngTransitions'
+import MarqueeText from '../MarqueeText'
+import { CacheHeapIcon, BlackTiesIcon, MealBoxIcon, TwitterIcon } from '../Icons/Icons'
 
-const Container = tw.section`h-screen snap-center`
-const Wrapper = tw.div`flex flex-col items-center justify-center w-full h-full`
-const SubDiv = tw.div`flex flex-row items-center justify-center gap-2 md:gap-6`
+const icons = {
+  CacheHeap: CacheHeapIcon,
+  Twitter: TwitterIcon,
+  Blackties: BlackTiesIcon,
+  MealBox: MealBoxIcon,
+}
 
-const divClasses =
-  'w-full select-none bg-noise bg-[length:150px] bg-[0px_0px] bg-repeat px-4 py-8 text-center backdrop-blur-xl'
-const h1Classes =
-  'cursor-default text-xs sm:text-xs md:text-xl lg:text-3xl tracking-[1.15em] text-black/25 dark:text-white/25'
-const h2Classes = 'cursor-default text-xs sm:text-xs md:text-xl lg:text-3xl tracking-widest text-black dark:text-white'
+const svgIconClasses =
+  'transition-all h-6 w-6 text-gray-800 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400'
 
-const containerVariant: Variants = {
+const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
+flex flex-row items-center justify-center z-10 w-full h-[200px] mb-4 mt-10 sm:mt-12 md:mt-20 lg:mt-20 flex-grow-0
+`
+const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow
+flex w-[92.5%] h-full grow flex-row items-center justify-center
+overflow-y-auto overflow-x-hidden rounded-3xl
+bg-slate-50/75 shadow-2xl backdrop-blur-sm
+dark:bg-slate-800/60 dark:text-white xl:max-w-7xl xl:flex-row
+bg-noise-double
+`
+const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
+self-center px-6 py-2 text-black dark:text-white sm:px-0 sm:pt-0
+`
+const Container = tw.section`
+h-screen w-full snap-center overflow-hidden relative
+`
+const Wrapper = tw.div`
+flex flex-col items-start justify-around w-full h-full back
+`
+const ExperienceSection = tw.div`px-8 py-8 gap-8
+flex w-full flex-row items-center justify-center grow
+font-sofiaprolight font-normal text-xs md:text-sm lg:text-base
+`
+const ImageContainer = tw.div`
+overflow-hidden hidden sm:block pb-4 pt-8 self-center
+w-full sm:max-w-[100px] md:max-w-[200px] lg:max-w-[300px]
+text-black dark:text-white hover:opacity-60 transition-all duration-300
+`
+const Divider = tw.div`
+h-[1px] w-full bg-black/40 dark:bg-white/40
+`
+const ParagraphContainer = tw.div`
+flex h-full w-3/4 grow flex-col justify-start
+gap-1 sm:gap-8 px-8
+`
+
+const marqueeWrapperVariant: Variants = {
   initial: {
     opacity: 0,
-    y: -100,
+  },
+  animate: {
+    opacity: 1,
     transition: {
-      duration: 1,
+      delay: 0.1,
+      duration: 0.4,
     },
   },
-  onscreen: {
+}
+
+const contentBoxVariant: Variants = {
+  initial: {
+    opacity: 0,
+    y: -250,
+  },
+  animate: {
     opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.1,
+      duration: 0.5,
+      delayChildren: 1,
+      staggerChildren: 1,
+    },
+  },
+}
+
+const paragraphVariant: Variants = {
+  initial: {
+    y: 50,
+  },
+  animate: {
     y: 0,
     transition: {
       type: 'spring',
       bounce: 0.4,
-      duration: 0.8,
-      delayChildren: 0.5,
-      staggerChildren: 0.1,
+      delay: 0.3,
+      duration: 0.6,
     },
   },
 }
 
-const transitionVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: -10,
+const content = [
+  {
+    name: 'CacheHeap',
+    jobTitle: 'Software Engineer',
+    startDate: '01/01/2001',
+    endDate: 'Present',
+    svgIconName: 'CacheHeap',
+    description: [
+      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
+      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
+      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
+    ],
   },
-  onScreen: {
-    opacity: 1,
-    y: 0,
+  {
+    name: 'Twitter',
+    jobTitle: 'Software Engineer',
+    startDate: '01/01/2001',
+    endDate: '12/31/2022',
+    svgIconName: 'Twitter',
+    description: [
+      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
+      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
+      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
+    ],
   },
-}
+  {
+    name: 'MealBox',
+    jobTitle: 'Software Engineer',
+    startDate: '01/01/2001',
+    endDate: '12/31/2022',
+    svgIconName: 'MealBox',
+    description: [
+      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
+      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
+      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
+    ],
+  },
+  {
+    name: 'BlackTies',
+    jobTitle: 'Software Engineer',
+    startDate: '01/01/2001',
+    endDate: '12/31/2022',
+    svgIconName: 'Blackties',
+    description: [
+      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
+      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
+      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
+    ],
+  },
+]
 
-const name = ['experience']
-const title = ['software', 'engineer']
-
-export default function ExperienceSection() {
+export default function Experience() {
   return (
     <Container id='experience'>
       <Wrapper>
-        <motion.div className={divClasses} initial='initial' whileInView='onscreen' variants={containerVariant}>
-          <SubDiv>
-            {name.map((word) => (
-              <motion.h1
-                key={word}
-                className={h1Classes}
+        <MarqueeSubWrapper
+          variants={marqueeWrapperVariant}
+          initial='initial'
+          whileInView='animate'
+          viewport={{ once: true, amount: 0.8 }}
+        >
+          <MarqueeText
+            string={'experience'}
+            textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
+            separatorSize={'h-5 sm:h-10 md:h-12 lg:h-14'}
+            directionLeft={false}
+          />
+        </MarqueeSubWrapper>
+        <ExperienceSection>
+          {content.map((job, index) => {
+            const { name, jobTitle, startDate, endDate, svgIconName, description } = job
+            const IconComponent = icons[svgIconName]
+            return (
+              <ContentBoxMotion
+                key={'experience' + index}
                 initial='initial'
-                variants={transitionVariants}
-                whileInView={getRngTransition()}
+                whileInView='animate'
+                viewport={{ once: true, amount: 0 }}
+                variants={contentBoxVariant}
               >
-                {word.toUpperCase()}
-              </motion.h1>
-            ))}
-          </SubDiv>
-          <SubDiv>
-            {title.map((word) => (
-              <motion.h2
-                key={word}
-                className={h2Classes}
-                initial='initial'
-                variants={transitionVariants}
-                whileInView={getRngTransition()}
-              >
-                {word.toUpperCase()}
-              </motion.h2>
-            ))}
-          </SubDiv>
-        </motion.div>
+                <ParagraphContainer>
+                  <ImageContainer title={name}>
+                    <IconComponent alt={name} />
+                  </ImageContainer>
+                  <Divider />
+                  <div className='sr-only'>{name}</div>
+                  <ParagraphMotion
+                    variants={paragraphVariant}
+                    initial='initial'
+                    whileInView='animate'
+                    viewport={{ once: true, amount: 0 }}
+                    className='font-sofiapro text-xl'
+                  >
+                    {jobTitle}
+                  </ParagraphMotion>
+                  <Divider />
+                  <ParagraphMotion
+                    variants={paragraphVariant}
+                    initial='initial'
+                    whileInView='animate'
+                    viewport={{ once: true, amount: 0 }}
+                    className='flex items-center justify-between gap-3'
+                  >
+                    <>
+                      <span>{startDate}</span>
+                      <span>{' - '}</span>
+                      <span>{endDate}</span>
+                    </>
+                  </ParagraphMotion>
+                  <Divider />
+                  <ul className='flex h-1/2 list-disc flex-col justify-evenly'>
+                    {description.map((bulletPoint, index) => {
+                      return (
+                        <li key={bulletPoint + index} className='list-outside'>
+                          <ParagraphMotion
+                            variants={paragraphVariant}
+                            initial='initial'
+                            whileInView='animate'
+                            viewport={{ once: true, amount: 0 }}
+                          >
+                            {bulletPoint}
+                          </ParagraphMotion>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </ParagraphContainer>
+              </ContentBoxMotion>
+            )
+          })}
+        </ExperienceSection>
       </Wrapper>
     </Container>
   )
