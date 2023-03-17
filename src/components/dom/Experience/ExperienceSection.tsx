@@ -3,6 +3,7 @@ import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
 import { CacheHeapIcon, BlackTiesIcon, MealBoxIcon, TwitterIcon } from '../Icons/Icons'
+import type { ExperienceProps } from '@/types/contentful'
 
 const icons = {
   CacheHeap: CacheHeapIcon,
@@ -95,58 +96,7 @@ const paragraphVariant: Variants = {
   },
 }
 
-const content = [
-  {
-    name: 'CacheHeap',
-    jobTitle: 'Software Engineer',
-    startDate: '01/01/2001',
-    endDate: 'Present',
-    svgIconName: 'CacheHeap',
-    description: [
-      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
-      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
-      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
-    ],
-  },
-  {
-    name: 'Twitter',
-    jobTitle: 'Software Engineer',
-    startDate: '01/01/2001',
-    endDate: '12/31/2022',
-    svgIconName: 'Twitter',
-    description: [
-      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
-      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
-      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
-    ],
-  },
-  {
-    name: 'MealBox',
-    jobTitle: 'Software Engineer',
-    startDate: '01/01/2001',
-    endDate: '12/31/2022',
-    svgIconName: 'MealBox',
-    description: [
-      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
-      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
-      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
-    ],
-  },
-  {
-    name: 'BlackTies',
-    jobTitle: 'Software Engineer',
-    startDate: '01/01/2001',
-    endDate: '12/31/2022',
-    svgIconName: 'Blackties',
-    description: [
-      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
-      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
-      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
-    ],
-  },
-]
-
-export default function Experience() {
+export default function Experience({ items }: { items: ExperienceProps[] }) {
   return (
     <Container id='experience'>
       <Wrapper>
@@ -164,12 +114,12 @@ export default function Experience() {
           />
         </MarqueeSubWrapper>
         <ExperienceSection>
-          {content.map((job, index) => {
-            const { name, jobTitle, startDate, endDate, svgIconName, description } = job
+          {items.map((job) => {
+            const { name, title, startDate, endDate, svgIconName, description, sys } = job
             const IconComponent = icons[svgIconName]
             return (
               <ContentBoxMotion
-                key={'experience' + index}
+                key={sys.id}
                 initial='initial'
                 whileInView='animate'
                 viewport={{ once: true, amount: 0 }}
@@ -188,7 +138,7 @@ export default function Experience() {
                     viewport={{ once: true, amount: 0 }}
                     className='font-sofiapro text-xl'
                   >
-                    {jobTitle}
+                    {title}
                   </ParagraphMotion>
                   <Divider />
                   <ParagraphMotion

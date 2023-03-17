@@ -8,17 +8,18 @@ import Experience from '@/components/dom/Experience/ExperienceSection'
 import SkillSection from '@/components/dom/Skills/SkillSection'
 import ProjectSection from '@/components/dom/Projects/ProjectSection'
 import ContactSection from '@/components/dom/Contact/ContactSection'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
+import getPosts from 'getPosts'
+import type { IndexProps } from '@/types/contentful'
 
-type Props = {
-  title: string
-}
-export default function Page(props: Props) {
+export default function Page({ data }) {
+  const { herobanner, aboutme, experience } = data
   return (
     <>
       <NavBar />
-      <HeroBanner />
-      <About />
-      <Experience />
+      <HeroBanner {...herobanner} />
+      <About {...aboutme} />
+      <Experience {...experience} />
       <SkillSection />
       <ProjectSection />
       <ContactSection />
@@ -26,12 +27,14 @@ export default function Page(props: Props) {
     </>
   )
 }
-Page.canvas = (props: Props) => <JulioNunezLogo position={[0.25, -0.21, -5.5]} scale={0.025} />
+Page.canvas = (props: IndexProps) => <JulioNunezLogo position={[0.25, -0.21, -5.5]} scale={0.025} />
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps<IndexProps> = async (): Promise<GetStaticPropsResult<IndexProps>> => {
+  const data = await getPosts()
   return {
     props: {
-      title: "Julio's Portfolio",
+      title: data.portfolio.siteTitle,
+      data: data,
     },
   }
 }

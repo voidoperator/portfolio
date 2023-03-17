@@ -43,30 +43,6 @@ flex h-full w-3/4 grow flex-col items-center justify-center
 gap-0 sm:flex-col sm:items-start sm:gap-8 sm:px-6 md:px-8
 `
 
-const content = {
-  sectionTitle: 'about me',
-  imgUrl: './img/temp/julionunez.webp',
-  greeting: 'Hello!',
-  description: [
-    {
-      id: 'am_desc_0',
-      text: 'My name is Julio Nunez, I am a Miami-based software engineer who hails from Maracaibo, Venezuela, with familial roots in Rio De Janeiro, Brazil. My native fluency in English, Spanish, and Portuguese has always provided the tools to communicate effectively with clients and colleagues worldwide. In my previous career, I toured as a professional electronic music producer and DJ while also working as a freelance graphic designer and 3D artist.',
-    },
-    {
-      id: 'am_desc_1',
-      text: 'However, my desire to pursue a far more intellectually stimulating path led me to make the transition to software engineering. I began by interning as a junior developer at MealBox before joining CacheHeap LLC, where I honed my skills over the next three years by working on contract projects for renowned organizations such as Walmart, Goldman Sachs, American Express, and Vans, amongst many others.',
-    },
-    {
-      id: 'am_desc_2',
-      text: 'While my primary focus is front-end development, I possess a solid understanding of back-end technologies. I specialize in a range of JavaScript frameworks such as React, TypeScript, React Native, Redux, Next.js, and Gatsby.js. Furthermore, my expertise extends to server-side languages and tools like Node.js, Python, Pydantic, Docker, FastAPI, AWS, AWS Lambda, Framer-Motion, Three.js and React-Three-Fiber (what I built this neat portfolio with!).',
-    },
-    {
-      id: 'am_desc_3',
-      text: 'My passion for creating high-quality software that enhances user experiences is paramount. As such, I strive to leverage my acquired skills and experience to drive business success forward. Thank you for taking the time to check out my portfolio! Please feel free to reach out with any questions or concerns :)',
-    },
-  ],
-}
-
 const marqueeWrapperVariant: Variants = {
   initial: {
     opacity: 0,
@@ -112,8 +88,8 @@ const paragraphVariant: Variants = {
   },
 }
 
-export default function About() {
-  const { sectionTitle, imgUrl, greeting, description } = content
+export default function About({ items }) {
+  const [{ sectionTitle, imgUrl, greeting, description }] = items
   return (
     <Container id='about'>
       <Wrapper>
@@ -165,7 +141,7 @@ export default function About() {
               <Divider />
             </ParagraphContainer>
             <ImageContainer>
-              <Image src={imgUrl} alt='photo of julio nunez' />
+              <Image src={imgUrl.url} alt={imgUrl.title} />
             </ImageContainer>
           </ContentBoxMotion>
         </AboutMeSection>

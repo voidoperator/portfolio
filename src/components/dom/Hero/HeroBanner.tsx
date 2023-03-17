@@ -75,17 +75,14 @@ const transitionVariants: Variants = {
   },
 }
 
-const name = "hey, i'm"
-const title = 'a software engineer'
-const headline = '((turning lines of code into) => { real-world impact });'
-
-export default function HeroBanner() {
+export default function HeroBanner({ items }) {
+  const [{ heroGreeting, heroHeadline, heroSlogan }] = items
   return (
     <Container id='home'>
       <Wrapper>
         <MotionWrapper initial='initial' whileInView='onscreen' viewport={{ once: true }} variants={containerVariant}>
           <NameMotion variants={containerVariant} initial='initial' whileInView='onscreen' viewport={{ once: true }}>
-            {name.split(' ').map((word, index) => {
+            {heroGreeting.split(' ').map((word, index) => {
               const key = word + index
               return (
                 <HeadingMotion
@@ -102,7 +99,7 @@ export default function HeroBanner() {
             <JNSignatureMotion twClasses='h-11 sm:h-13 md:h-[4.5rem] lg:h-28' />
           </NameMotion>
           <SubDiv className='gap-2 md:gap-3 lg:gap-5'>
-            {title.split(' ').map((word, index) => {
+            {heroHeadline.split(' ').map((word, index) => {
               const key = word + index
               return (
                 <TextMotion
@@ -119,7 +116,7 @@ export default function HeroBanner() {
           </SubDiv>
           <SubDiv className='gap-2 md:gap-2 lg:gap-4'>
             <Typewritter as='p' options={{ waitUntilVisible: true, lifeLike: true }}>
-              {headline}
+              {heroSlogan}
             </Typewritter>
           </SubDiv>
         </MotionWrapper>
