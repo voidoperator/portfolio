@@ -83,7 +83,7 @@
   }
 
   html {
-    @apply bg-[#0c0c0c] bg-noise bg-[length:150px] bg-[0px_0px] bg-repeat;
+    @apply bg-[#0c0c0c] bg-noise-full;
   }
 
   html,
@@ -94,6 +94,18 @@
     margin: 0;
     padding: 0;
     font-family: 'Turnpike';
+  }
+
+  .bg-noise-half {
+    @apply bg-noise bg-[length:100px] bg-[0px_0px] bg-repeat;
+  }
+
+  .bg-noise-full {
+    @apply bg-noise bg-[length:150px] bg-[0px_0px] bg-repeat;
+  }
+
+  .bg-noise-double {
+    @apply bg-noise bg-[length:200px] bg-[0px_0px] bg-repeat;
   }
 
   #sb {

@@ -6,8 +6,8 @@ import { HomeIcon, AboutIcon, ExperienceIcon, SkillsIcon, ProjectsIcon, ContactI
 
 const MotionWrapper: Motion.Tag<'div'> = tw(motion.div)`
 md:hidden block none fixed bottom-0 left-0 z-20 w-full px-2 py-2.5
-sm:px-4 bg-noise bg-[length:150px] bg-[0px_0px] backdrop-blur-md
-bg-neutral-50/60 dark:bg-neutral-900/50 font-titlingreg
+sm:px-4 backdrop-blur-md bg-neutral-50/60 dark:bg-neutral-900/50
+font-titlingreg bg-noise-full
 `
 const IconMotion: Motion.Tag<'a'> = tw(motion.a)`
 flex items-center justify-center p-[2px] sm:p-2 rounded-full cursor-pointer
