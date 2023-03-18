@@ -75,8 +75,8 @@ const transitionVariants: Variants = {
   },
 }
 
-export default function HeroBanner({ items }) {
-  const [{ heroGreeting, heroHeadline, heroSlogan }] = items
+export default function HeroBanner({ data }) {
+  const [{ heroGreeting, heroHeadline, heroSlogan }] = data
   return (
     <Container id='home'>
       <Wrapper>
