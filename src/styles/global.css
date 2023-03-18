@@ -108,6 +108,10 @@
     @apply bg-noise bg-[length:200px] bg-[0px_0px] bg-repeat;
   }
 
+  .bg-noise-cards {
+    @apply bg-noise bg-[length:200px] bg-[0px_0px] bg-repeat bg-slate-50/75 dark:bg-slate-800/60;
+  }
+
   #sb {
     -ms-overflow-style: none;
     scrollbar-width: none;

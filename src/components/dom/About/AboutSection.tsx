@@ -6,17 +6,16 @@ import MarqueeText from '../MarqueeText'
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
 flex flex-row items-center justify-center z-10 w-full h-[200px] mb-4 mt-10 sm:mt-12 md:mt-20 lg:mt-20 flex-grow-0
 `
-const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow
-flex w-[92.5%] grow flex-row items-center justify-center gap-8 rounded-3xl  backdrop-blur-sm
-shadow-2xl bg-slate-50/75 dark:bg-slate-800/60 dark:text-white
+const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow 
+flex w-[92.5%] grow flex-row items-center justify-center gap-8 rounded-3xl
+backdrop-blur-sm shadow-2xl bg-noise-cards
 xl:max-w-7xl xl:flex-row overflow-x-hidden overflow-y-auto
-bg-noise-double
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
-self-start px-6 py-2 text-black dark:text-white sm:px-0 sm:pt-0
+self-start px-6 py-2 sm:px-0 sm:pt-0
 `
 const Container = tw.section`
-h-screen w-full snap-center overflow-hidden relative
+h-screen w-full snap-center overflow-hidden relative text-black dark:text-white
 `
 const Wrapper = tw.div`
 flex flex-col items-start justify-around w-full h-full back
