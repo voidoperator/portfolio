@@ -21,7 +21,7 @@ const FlexRow = tw.div`
 flex flex-row align-center justify-around h-9
 `
 const twClasses =
-  'h-8 w-full text-gray-800/80 transition-all hover:text-gray-500 dark:text-gray-100/80 hover:dark:text-gray-400'
+  'h-6 w-full text-gray-800/80 transition-all hover:text-gray-500 dark:text-gray-100/80 hover:dark:text-gray-400'
 
 const wrapperVariants: Variants = {
   initial: {

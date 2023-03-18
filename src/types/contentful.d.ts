@@ -5,14 +5,19 @@ export interface HeroBannerProps {
   heroSlogan: string
 }
 
+type AboutMeDescription = {
+  id: string
+  text: string
+}
 export interface AboutMeProps {
   sectionTitle: string
+  greeting: string
   imgUrl: {
     title: string
     description: string
     url: string
   }
-  description: string[]
+  description: AboutMeDescription[]
 }
 
 export interface ExperienceProps {

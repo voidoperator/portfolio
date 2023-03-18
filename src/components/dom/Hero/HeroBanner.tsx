@@ -4,6 +4,7 @@ import { motion, Variants } from 'framer-motion'
 import TypeIt from 'typeit-react'
 import getRngTransition from '@/utility/getRngTransitions'
 import JNSignatureMotion from '../Icons/Icons'
+import { HeroBannerProps } from '@/types/contentful'
 
 const Container = tw.section`
 h-screen snap-center overflow-hidden oflow
@@ -75,7 +76,7 @@ const transitionVariants: Variants = {
   },
 }
 
-export default function HeroBanner({ data }) {
+export default function HeroBanner({ data }: { data: HeroBannerProps[] }) {
   const [{ heroGreeting, heroHeadline, heroSlogan }] = data
   return (
     <Container id='home'>

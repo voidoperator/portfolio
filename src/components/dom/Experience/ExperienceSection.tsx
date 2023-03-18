@@ -109,9 +109,9 @@ const paragraphVariant: Variants = {
 }
 
 export default function Experience({ data }: { data: ExperienceProps }) {
-  const [{ sectionTitle }] = data.experienceSection.data
-  const { items } = data.experienceItems
   const scrollRef = useRef(null)
+  const { items } = data.experienceItems
+  const [{ sectionTitle }] = data.experienceSection.data
 
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
     const container = event.currentTarget

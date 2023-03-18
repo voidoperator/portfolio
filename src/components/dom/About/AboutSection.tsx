@@ -2,6 +2,7 @@ import React from 'react'
 import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
+import { AboutMeProps } from '@/types/contentful'
 
 const Container = tw.section`
 w-full h-true
@@ -95,7 +96,7 @@ const paragraphVariant: Variants = {
   },
 }
 
-export default function AboutSection({ data }) {
+export default function AboutSection({ data }: { data: AboutMeProps[] }) {
   const [{ sectionTitle, imgUrl, greeting, description }] = data
   return (
     <Container id='about'>
@@ -133,7 +134,7 @@ export default function AboutSection({ data }) {
                 >
                   {greeting}
                 </ParagraphMotion>
-                {description.map((paragraph: { id: string; text: string }) => {
+                {description.map((paragraph) => {
                   const { id, text } = paragraph
                   return (
                     <ParagraphMotion
