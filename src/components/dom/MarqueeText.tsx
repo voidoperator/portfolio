@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MarqueeSeparator } from './Icons/Icons'
 
 const MarqueeContainer: Motion.Tag<'div'> = tw(motion.div)`
-flex flex-row gap-10 relative items-center justify-center w-screen
+flex flex-row gap-10 items-center justify-center w-screen
 max-w-full overflow-hidden text-black dark:text-white
 h-10 sm:h-14 md:h-20 lg:h-26 xl:h-32
 `
@@ -77,27 +77,29 @@ export default function MarqueeText({
   }
 
   return (
-    <MarqueeContainer whileHover={{ opacity: 0.9 }}>
-      <MarqueeWrapper variants={marqueeVariant} whileInView='left' ref={marqueeRef}>
-        <span className={twClasses + ' ' + textSize}>{string}</span>
-        <MarqueeSeparator twClasses={separatorSize} />
-        <span className={textSize}>{string}</span>
-        <MarqueeSeparator twClasses={separatorSize} />
-        <span className={twClasses + ' ' + textSize}>{string}</span>
-        <MarqueeSeparator twClasses={separatorSize} />
-        <span className={textSize}>{string}</span>
-        <MarqueeSeparator twClasses={separatorSize} />
-      </MarqueeWrapper>
-      <MarqueeWrapper variants={marqueeVariant} whileInView='right'>
-        <span className={twClasses + ' ' + textSize}>{string}</span>
-        <MarqueeSeparator twClasses={separatorSize} />
-        <span className={textSize}>{string}</span>
-        <MarqueeSeparator twClasses={separatorSize} />
-        <span className={twClasses + ' ' + textSize}>{string}</span>
-        <MarqueeSeparator twClasses={separatorSize} />
-        <span className={textSize}>{string}</span>
-        <MarqueeSeparator twClasses={separatorSize} />
-      </MarqueeWrapper>
-    </MarqueeContainer>
+    <div className='absolute w-full overflow-hidden'>
+      <MarqueeContainer whileHover={{ opacity: 0.9 }}>
+        <MarqueeWrapper variants={marqueeVariant} whileInView='left' ref={marqueeRef}>
+          <span className={twClasses + ' ' + textSize}>{string}</span>
+          <MarqueeSeparator twClasses={separatorSize} />
+          <span className={textSize}>{string}</span>
+          <MarqueeSeparator twClasses={separatorSize} />
+          <span className={twClasses + ' ' + textSize}>{string}</span>
+          <MarqueeSeparator twClasses={separatorSize} />
+          <span className={textSize}>{string}</span>
+          <MarqueeSeparator twClasses={separatorSize} />
+        </MarqueeWrapper>
+        <MarqueeWrapper variants={marqueeVariant} whileInView='right'>
+          <span className={twClasses + ' ' + textSize}>{string}</span>
+          <MarqueeSeparator twClasses={separatorSize} />
+          <span className={textSize}>{string}</span>
+          <MarqueeSeparator twClasses={separatorSize} />
+          <span className={twClasses + ' ' + textSize}>{string}</span>
+          <MarqueeSeparator twClasses={separatorSize} />
+          <span className={textSize}>{string}</span>
+          <MarqueeSeparator twClasses={separatorSize} />
+        </MarqueeWrapper>
+      </MarqueeContainer>
+    </div>
   )
 }

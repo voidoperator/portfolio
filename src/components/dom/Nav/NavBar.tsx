@@ -4,6 +4,8 @@ import { motion, Variants } from 'framer-motion'
 import { DarkMode } from './DarkMode'
 import { EmailIcon, GithubIcon, JNLogo, LinkedInIcon, ResumeIcon } from '../Icons/Icons'
 import getRngTransition from '@/utility/getRngTransitions'
+import { useScrollOffset } from '@/templates/hooks/useScrollOffset'
+import ScrollProgressBar from '../ScrollProgressBar'
 
 const MotionHeader: Motion.Tag<'header'> = tw(motion.header)`
 fixed top-0 left-0 z-20 w-full px-2 py-2.5 sm:px-4 bg-noise bg-[length:150px] bg-[0px_0px]
@@ -21,7 +23,7 @@ flex items-center justify-center p-[2px] sm:p-2 rounded-full cursor-pointer focu
 focus:outline-none focus:ring-neutral-900/25 dark:focus:ring-white/50
 `
 const Nav = tw.nav`
-flex flex-nowrap items-center justify-between mx-auto
+flex flex-nowrap items-center justify-between mx-auto relative
 `
 const FlexRow = tw.div`
 flex flex-row gap-2 align-center justify-center
@@ -85,6 +87,7 @@ const links = [
 const sections = ['About', 'Experience', 'Skills', 'Projects', 'Contact']
 
 export default function NavBar() {
+  const { scroll, size } = useScrollOffset()
   return (
     <MotionHeader initial='initial' whileInView='onScreen' variants={headerVariants}>
       <Nav>
@@ -130,6 +133,7 @@ export default function NavBar() {
           </motion.div>
         </FlexRow>
       </Nav>
+      <ScrollProgressBar scrollProgress={scroll / size} />
     </MotionHeader>
   )
 }

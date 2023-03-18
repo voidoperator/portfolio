@@ -6,7 +6,7 @@ import getRngTransition from '@/utility/getRngTransitions'
 import JNSignatureMotion from '../Icons/Icons'
 
 const Container = tw.section`
-h-screen snap-center overflow-hidden
+h-screen snap-center overflow-hidden oflow
 `
 const Wrapper = tw.div`
 flex flex-col justify-center py-[72px] w-full h-full uppercase

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
@@ -14,43 +14,49 @@ const icons = {
 }
 
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-flex flex-row items-center justify-center z-10 w-full h-[200px] mb-4 mt-10 sm:mt-12 md:mt-20 lg:mt-20 flex-grow-0
+z-10 w-full absolute top-24 left-0
 `
 const Container = tw.section`
-h-screen w-full snap-center overflow-hidden text-black dark:text-white
+h-screen w-full snap-center overflow-hidden oflow text-black dark:text-white
 `
 const Wrapper = tw.div`
-flex flex-col h-full w-full
+flex flex-col h-full w-full relative
 `
-// justify-start items-stretch
-const ExperienceSection = tw.div`scroll-smooth oflow overflow-x-scroll h-full w-full m-auto p-[-2.50rem]
+const Spacer = tw.div`
+w-full
+`
+const RelativeBox = tw.div`
+z-10 relative sm:bottom-[56px] bottom-[138px]
+`
+const ExperienceSection = tw.div`oflow relative font-sofiapro
+scroll-smooth oflow overflow-x-scroll h-full w-full m-auto p-[-2.5rem]
 flex flex-row snap-x snap-mandatory
-font-sofiaprolight font-normal text-xs md:text-sm lg:text-base 
+font-normal text-xs md:text-sm lg:text-sm
+justify-start items-stretch
 `
-const ContentBoxWrapper = tw.div`flex snap-center w-full
+const ContentBoxWrapper = tw.div`
+flex snap-center w-full h-full
 `
-const ContentBoxMotion: Motion.Tag<'div'> = tw(
-  motion.div,
-)`m-10 w-screen md:w-[calc(50vw-80px)] lg:w-[calc(33.33vw-80px)] xl:w-full
-overflow-auto rounded-3xl oflow
-shadow-2xl backdrop-blur-sm
-bg-noise-cards
+const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow
+m-5 w-screen md:w-[calc(50vw-40px)] lg:w-[calc(33.33vw-40px)] xl:w-full py-4
+rounded-3xl backdrop-blur-sm bg-noise-cards
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
-self-center px-6 py-2 sm:px-0 sm:pt-0
+self-center
 `
 const ImageContainer = tw.div`
-overflow-hidden hidden sm:block pb-4 pt-8 self-center
-w-full sm:max-w-[100px] md:max-w-[200px] lg:max-w-[300px]
+flex items-center justify-center
+sm:block pb-4 pt-8
 hover:opacity-60 transition-all duration-300
 `
-const Divider = tw.div`
-h-[1px] w-full bg-black/40 dark:bg-white/40
-`
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-start px-8 gap-4
+flex h-full grow flex-col justify-start items-center sm:px-10 px-6 py-4 gap-2 sm:gap-8
 `
-const twClasses = 'transition-all text-gray-800 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400'
+const UnorgList = tw.ul`
+flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
+`
+const twClasses =
+  'transition-all text-gray-800 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
 
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -99,6 +105,28 @@ const paragraphVariant: Variants = {
 
 export default function Experience({ items }: { items: ExperienceProps[] }) {
   const scrollRef = useRef(null)
+
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    const container = event.currentTarget
+    const maxScrollLeft = container.scrollWidth - container.clientWidth
+    if ((container.scrollLeft < maxScrollLeft && event.deltaY > 0) || (container.scrollLeft > 0 && event.deltaY < 0)) {
+      event.preventDefault()
+      container.scrollLeft += event.deltaY
+    }
+  }
+
+  useEffect(() => {
+    const container = scrollRef.current
+    if (container) {
+      container.addEventListener('wheel', handleWheel)
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener('wheel', handleWheel)
+      }
+    }
+  }, [])
+
   return (
     <Container id='experience'>
       <Wrapper id='wrapper'>
@@ -115,9 +143,7 @@ export default function Experience({ items }: { items: ExperienceProps[] }) {
             directionLeft={false}
           />
         </MarqueeSubWrapper>
-        <div className='relative'>
-          <ScrollProgressBar containerRef={scrollRef} />
-        </div>
+        <Spacer className='h-[150px] sm:h-[350px]' />
         <ExperienceSection id='experience-section' ref={scrollRef}>
           {items.map((job) => {
             const { name, title, startDate, endDate, svgIconName, description, sys } = job
@@ -131,22 +157,20 @@ export default function Experience({ items }: { items: ExperienceProps[] }) {
                   viewport={{ once: true, amount: 0 }}
                   variants={contentBoxVariant}
                 >
-                  <ParagraphContainer>
-                    <ImageContainer title={name}>
+                  <ParagraphContainer id='para-cont'>
+                    <ImageContainer id='img-container' title={name}>
                       <IconComponent alt={name} twClasses={twClasses} />
                     </ImageContainer>
-                    <Divider />
-                    <div className='sr-only'>{name}</div>
+                    <ParagraphMotion className='text-lg'>{name}</ParagraphMotion>
                     <ParagraphMotion
                       variants={paragraphVariant}
                       initial='initial'
                       whileInView='animate'
                       viewport={{ once: true, amount: 0 }}
-                      className='font-sofiapro text-xl'
+                      className='whitespace-nowrap text-center text-lg lg:text-xl'
                     >
                       {title}
                     </ParagraphMotion>
-                    <Divider />
                     <ParagraphMotion
                       variants={paragraphVariant}
                       initial='initial'
@@ -160,11 +184,10 @@ export default function Experience({ items }: { items: ExperienceProps[] }) {
                         <span>{endDate}</span>
                       </>
                     </ParagraphMotion>
-                    <Divider />
-                    <ul className='flex h-1/2 list-disc flex-col justify-evenly'>
+                    <UnorgList>
                       {description.map((bulletPoint, index) => {
                         return (
-                          <li key={bulletPoint + index} className='list-outside'>
+                          <li key={bulletPoint + index} className='list-inside list-disc sm:list-outside'>
                             <ParagraphMotion
                               variants={paragraphVariant}
                               initial='initial'
@@ -176,14 +199,18 @@ export default function Experience({ items }: { items: ExperienceProps[] }) {
                           </li>
                         )
                       })}
-                    </ul>
+                    </UnorgList>
                   </ParagraphContainer>
                 </ContentBoxMotion>
               </ContentBoxWrapper>
             )
           })}
         </ExperienceSection>
+        <Spacer className='h-[210px] sm:h-[70px]' />
       </Wrapper>
+      <RelativeBox>
+        <ScrollProgressBar containerRef={scrollRef} />
+      </RelativeBox>
     </Container>
   )
 }
