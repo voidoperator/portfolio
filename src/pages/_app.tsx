@@ -15,7 +15,6 @@ flex h-screen flex-col items-center justify-center overflow-hidden text-center t
 const LoadingMotion: Motion.Tag<'div'> = tw(motion.div)`
 py-10 font-titlingstand text-xs text-white
 `
-
 const defaultScrollOffsetContext = {
   context: {
     scroll: 0,
@@ -35,6 +34,17 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
   const count = useMotionValue(0)
   const loadingPercent = useTransform(count, Math.round)
+
+  function setViewportHeightProperty() {
+    const vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', setViewportHeightProperty)
+    window.addEventListener('orientationchange', setViewportHeightProperty)
+    setViewportHeightProperty()
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -72,7 +82,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Header title={pageProps.title} />
       <AnimatePresence mode='sync'>
-        {isLoading ? (
+        {/* {isLoading ? (
           <>
             <LoadingWrapper
               key='loading'
@@ -89,34 +99,34 @@ export default function App({ Component, pageProps }) {
               </LoadingMotion>
             </LoadingWrapper>
           </>
-        ) : (
-          <ScrollOffsetContext.Provider value={value}>
-            <motion.main
-              key={router.route}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: easeInExpo }}
-            >
-              <Layout ref={ref}>
-                {Component?.canvas && (
-                  <Scene
-                    id='canvas'
-                    eventSource={ref}
-                    eventPrefix='client'
-                    style={{
-                      position: 'fixed',
-                      zIndex: -10,
-                    }}
-                  >
-                    {Component.canvas(pageProps)}
-                  </Scene>
-                )}
-                <Component {...pageProps} />
-              </Layout>
-            </motion.main>
-          </ScrollOffsetContext.Provider>
-        )}
+        ) : ( */}
+        <ScrollOffsetContext.Provider value={value}>
+          <motion.main
+            key={router.route}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, ease: easeInExpo }}
+          >
+            <Layout ref={ref}>
+              {Component?.canvas && (
+                <Scene
+                  id='canvas'
+                  eventSource={ref}
+                  eventPrefix='client'
+                  style={{
+                    position: 'fixed',
+                    zIndex: -10,
+                  }}
+                >
+                  {Component.canvas(pageProps)}
+                </Scene>
+              )}
+              <Component {...pageProps} />
+            </Layout>
+          </motion.main>
+        </ScrollOffsetContext.Provider>
+        {/* )} */}
       </AnimatePresence>
     </>
   )

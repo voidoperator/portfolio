@@ -109,7 +109,7 @@
   }
 
   .bg-noise-cards {
-    @apply bg-noise bg-[length:200px] bg-[0px_0px] bg-repeat bg-slate-50/75 dark:bg-slate-800/60;
+    @apply bg-noise bg-[length:200px] bg-[0px_0px] bg-repeat bg-slate-50/75 dark:bg-slate-800/40;
   }
 
   #sb {
@@ -122,6 +122,11 @@
   #sb::-webkit-scrollbar {
     width: 0;
     height: 0;
+  }
+
+  /* true viewport height for mobile */
+  .h-true {
+    height: calc(100 * var(--vh));
   }
 
   .oflow::-webkit-scrollbar {

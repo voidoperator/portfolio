@@ -4,19 +4,24 @@ import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
 
 const Container = tw.section`
-snap-center text-black dark:text-white w-full overflow-hidden oflow
+w-full h-true
+snap-center text-black dark:text-white overflow-hidden oflow
 `
-const Wrapper = tw.div`relative
-flex flex-col items-center justify-center min-h-screen
+const Wrapper = tw.div`
+relative overflow-hidden oflow
+flex flex-col items-center justify-center
 `
-const AboutMeSection = tw.div`xl:w-2/3 lg:w-3/4 md:m-20 sm:m-10 m-6
+const AboutMeSection = tw.div`oflow font-sofiaprolight overflow-hidden
 flex grow bg-noise-cards rounded-3xl shadow-2xl backdrop-blur-sm
-font-sofiaprolight font-normal text-xs md:text-sm lg:text-base
+font-normal text-xs md:text-sm lg:text-sm
+sm:mx-10 mx-[20px] sm:max-w-[75%]
+h-[62.5vh]
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
-oflow relative flex flex-row
+oflow relative flex flex-row items-center grow
 `
-const ParagraphContainer = tw.div`h-full
+const ParagraphContainer = tw.div`
+h-full
 flex flex-col items-center justify-evenly
 gap-0 sm:flex-col sm:items-start sm:px-6 md:px-8
 `
@@ -24,23 +29,25 @@ const Spacer = tw.div`
 w-full
 `
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-z-10 w-full absolute sm:top-28 top-28 left-0
+z-10 w-full absolute top-24 left-0
 `
 const TextContainer = tw.div`
-flex flex-col items-center gap-2
+flex flex-col items-center sm:gap-2 gap-1 sm:pb-0 sm:pt-0 pt-2 pb-4
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
 self-start px-6 sm:px-0
 `
-const ImageContainer = tw.div`h-full
+const ImageContainer = tw.div`
+h-full
 hidden sm:block overflow-hidden
 sm:rounded-r-3xl rounded-t-3xl sm:rounded-tl-none
 `
-const Image = tw.img`min-h-full
+const Image = tw.img`
+min-h-full
 opacity-90 object-cover pointer-events-none
 `
 const Divider = tw.div`
-h-[1px] w-full bg-black/75 dark:bg-white/75 my-3 sm:my-10 hidden sm:block
+h-[1px] w-full bg-black/75 dark:bg-white/75 my-0 sm:my-10 hidden sm:block
 `
 
 const marqueeWrapperVariant: Variants = {
@@ -88,8 +95,8 @@ const paragraphVariant: Variants = {
   },
 }
 
-export default function About({ items }) {
-  const [{ sectionTitle, imgUrl, greeting, description }] = items
+export default function AboutSection({ data }) {
+  const [{ sectionTitle, imgUrl, greeting, description }] = data
   return (
     <Container id='about'>
       <Wrapper>
@@ -106,7 +113,7 @@ export default function About({ items }) {
             textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
           />
         </MarqueeSubWrapper>
-        <Spacer className='h-[8rem]' />
+        <Spacer className='h-44 sm:h-[350px]' />
         <AboutMeSection>
           <ContentBoxMotion
             initial='initial'
@@ -126,7 +133,7 @@ export default function About({ items }) {
                 >
                   {greeting}
                 </ParagraphMotion>
-                {description.map((paragraph) => {
+                {description.map((paragraph: { id: string; text: string }) => {
                   const { id, text } = paragraph
                   return (
                     <ParagraphMotion
@@ -148,7 +155,7 @@ export default function About({ items }) {
             </ImageContainer>
           </ContentBoxMotion>
         </AboutMeSection>
-        <Spacer className='h-[7rem] sm:h-[5rem]' />
+        <Spacer className='h-[210px] sm:h-[70px]' />
       </Wrapper>
     </Container>
   )

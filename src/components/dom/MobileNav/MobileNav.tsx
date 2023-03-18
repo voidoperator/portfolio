@@ -5,9 +5,9 @@ import getRngTransition from '@/utility/getRngTransitions'
 import { HomeIcon, AboutIcon, ExperienceIcon, SkillsIcon, ProjectsIcon, ContactIcon } from '../Icons/Icons'
 
 const MotionWrapper: Motion.Tag<'div'> = tw(motion.div)`
-md:hidden block none fixed bottom-0 left-0 z-20 w-full px-2 py-2.5
+md:hidden block none fixed bottom-0 left-0 z-20 w-full px-0 sm:py-2 py-1
 sm:px-4 backdrop-blur-md bg-neutral-50/60 dark:bg-neutral-900/50
-font-titlingreg bg-noise-full
+font-titlingreg bg-noise-full min-h-11 max-h-11
 `
 const IconMotion: Motion.Tag<'a'> = tw(motion.a)`
 flex items-center justify-center p-[2px] sm:p-2 rounded-full cursor-pointer
@@ -22,6 +22,18 @@ flex flex-row align-center justify-around h-9
 `
 const twClasses =
   'h-6 w-6 text-gray-800/80 transition-all hover:text-gray-500 dark:text-gray-100/80 hover:dark:text-gray-400'
+
+const wrapperVariants: Variants = {
+  initial: {
+    y: 20,
+    opacity: 0,
+  },
+  onScreen: {
+    y: 0,
+    opacity: 1,
+    transition: { delay: 0.25, type: 'spring', bounce: 0.4 },
+  },
+}
 
 const transitionVariants: Variants = {
   initial: {
@@ -51,10 +63,7 @@ const sections = ['Home', 'About', 'Experience', 'Skills', 'Projects', 'Contact'
 
 export default function MobileNav() {
   return (
-    <MotionWrapper
-      initial={{ y: 20, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1, transition: { delay: 0.25, type: 'spring', bounce: 0.4 } }}
-    >
+    <MotionWrapper initial='initial' whileInView='onScreen' variants={wrapperVariants}>
       <FlexRow>
         {sections.map((section, index) => {
           const borders = index === 0 ? 'border-r' : index === sections.length - 1 ? 'border-l' : 'border-x'

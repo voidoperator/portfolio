@@ -20,15 +20,16 @@ const Container = tw.section`
 h-screen w-full snap-center overflow-hidden oflow text-black dark:text-white
 `
 const Wrapper = tw.div`
-flex flex-col h-full w-full relative
+flex flex-col relative w-full h-true
 `
 const Spacer = tw.div`
 w-full
 `
 const RelativeBox = tw.div`
-z-10 relative sm:bottom-[56px] bottom-[138px]
+z-10 relative sm:bottom-[56px] bottom-12
 `
-const ExperienceSection = tw.div`oflow relative font-sofiapro
+const ExperienceSection = tw.div`oflow font-sofiapro overflow-hidden
+
 scroll-smooth oflow overflow-x-scroll h-full w-full m-auto p-[-2.5rem]
 flex flex-row snap-x snap-mandatory
 font-normal text-xs md:text-sm lg:text-sm
@@ -37,16 +38,20 @@ justify-start items-stretch
 const ContentBoxWrapper = tw.div`
 flex snap-center w-full h-full
 `
-const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow
+const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
+oflow
 m-5 w-screen md:w-[calc(50vw-40px)] lg:w-[calc(33.33vw-40px)] xl:w-full py-4
 rounded-3xl backdrop-blur-sm bg-noise-cards
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
 self-center
 `
+const ListMotion: Motion.Tag<'li'> = tw(motion.li)`
+list-inside list-disc md:list-outside self-start
+`
 const ImageContainer = tw.div`
 flex items-center justify-center
-sm:block pb-4 pt-8
+sm:block py-4
 hover:opacity-60 transition-all duration-300
 `
 const ParagraphContainer = tw.div`
@@ -56,7 +61,7 @@ const UnorgList = tw.ul`
 flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
 `
 const twClasses =
-  'transition-all text-gray-800 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
+  'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
 
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -103,7 +108,9 @@ const paragraphVariant: Variants = {
   },
 }
 
-export default function Experience({ items }: { items: ExperienceProps[] }) {
+export default function Experience({ data }: { data: ExperienceProps }) {
+  const [{ sectionTitle }] = data.experienceSection.data
+  const { items } = data.experienceItems
   const scrollRef = useRef(null)
 
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
@@ -129,7 +136,7 @@ export default function Experience({ items }: { items: ExperienceProps[] }) {
 
   return (
     <Container id='experience'>
-      <Wrapper id='wrapper'>
+      <Wrapper>
         <MarqueeSubWrapper
           variants={marqueeWrapperVariant}
           initial='initial'
@@ -137,28 +144,27 @@ export default function Experience({ items }: { items: ExperienceProps[] }) {
           viewport={{ once: true, amount: 0.8 }}
         >
           <MarqueeText
-            string={'experience'}
+            string={sectionTitle}
             textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
             separatorSize={'h-5 sm:h-10 md:h-12 lg:h-14'}
             directionLeft={false}
           />
         </MarqueeSubWrapper>
-        <Spacer className='h-[150px] sm:h-[350px]' />
-        <ExperienceSection id='experience-section' ref={scrollRef}>
+        <Spacer className='h-36 sm:h-[350px]' />
+        <ExperienceSection ref={scrollRef}>
           {items.map((job) => {
             const { name, title, startDate, endDate, svgIconName, description, sys } = job
             const IconComponent = icons[svgIconName]
             return (
-              <ContentBoxWrapper id='content-box-wrapper' key={sys.id}>
+              <ContentBoxWrapper key={sys.id}>
                 <ContentBoxMotion
-                  id='content-box-motion'
                   initial='initial'
                   whileInView='animate'
                   viewport={{ once: true, amount: 0 }}
                   variants={contentBoxVariant}
                 >
-                  <ParagraphContainer id='para-cont'>
-                    <ImageContainer id='img-container' title={name}>
+                  <ParagraphContainer>
+                    <ImageContainer title={name}>
                       <IconComponent alt={name} twClasses={twClasses} />
                     </ImageContainer>
                     <ParagraphMotion className='text-lg'>{name}</ParagraphMotion>
@@ -187,16 +193,15 @@ export default function Experience({ items }: { items: ExperienceProps[] }) {
                     <UnorgList>
                       {description.map((bulletPoint, index) => {
                         return (
-                          <li key={bulletPoint + index} className='list-inside list-disc sm:list-outside'>
-                            <ParagraphMotion
-                              variants={paragraphVariant}
-                              initial='initial'
-                              whileInView='animate'
-                              viewport={{ once: true, amount: 0 }}
-                            >
-                              {bulletPoint}
-                            </ParagraphMotion>
-                          </li>
+                          <ListMotion
+                            key={bulletPoint + index}
+                            variants={paragraphVariant}
+                            initial='initial'
+                            whileInView='animate'
+                            viewport={{ once: true, amount: 0 }}
+                          >
+                            {bulletPoint}
+                          </ListMotion>
                         )
                       })}
                     </UnorgList>
@@ -206,7 +211,7 @@ export default function Experience({ items }: { items: ExperienceProps[] }) {
             )
           })}
         </ExperienceSection>
-        <Spacer className='h-[210px] sm:h-[70px]' />
+        <Spacer className='h-11 sm:h-[70px]' />
       </Wrapper>
       <RelativeBox>
         <ScrollProgressBar containerRef={scrollRef} />

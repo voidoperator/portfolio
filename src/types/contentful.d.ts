@@ -1,4 +1,5 @@
 export interface HeroBannerProps {
+  siteTitle: string
   heroGreeting: string
   heroHeadline: string
   heroSlogan: string
@@ -15,6 +16,19 @@ export interface AboutMeProps {
 }
 
 export interface ExperienceProps {
+  experienceSection: {
+    data: [
+      {
+        sectionTitle: string
+      },
+    ]
+  }
+  experienceItems: {
+    items: ExperienceItems[]
+  }
+}
+
+export type ExperienceItems = {
   name: string
   svgIconName: string
   title: string
@@ -30,22 +44,25 @@ export interface ExperienceProps {
 }
 
 export interface Post {
-  portfolio: {
-    title: string
-    siteTitle: string
+  heroBannerSection: {
+    data: HeroBannerProps
   }
-  herobanner: {
-    items: HeroBannerProps[]
-  }
-  aboutme: {
-    items: AboutMeProps[]
+  aboutMeSection: {
+    data: AboutMeProps
   }
   experience: {
-    items: ExperienceProps[]
+    data: ExperienceProps
   }
 }
 
 export interface IndexProps {
   title: string
   data: Post
+}
+
+export interface FetchContentful {
+  title: string
+  herobanner: HeroBannerProps
+  aboutme: AboutMeProps
+  experience: Post
 }
