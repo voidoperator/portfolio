@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request'
 import fetchGraphQL from './contentful-graphql-client'
-import type { Post } from '@/types/contentful'
+import type { ExperienceProps } from '@/types/contentful'
 
-async function fetchExperience(): Promise<Post> {
+async function fetchExperience(): Promise<ExperienceProps> {
   const query = gql`
     query {
       experienceSection: experienceSectionCollection {

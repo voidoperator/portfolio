@@ -43,26 +43,28 @@ export type ExperienceItems = {
   }
 }
 
-export interface Post {
-  heroBannerSection: {
+export interface Contentful {
+  heroBannerSection?: {
     data: HeroBannerProps
   }
-  aboutMeSection: {
+  aboutMeSection?: {
     data: AboutMeProps
   }
-  experience: {
+  experience?: {
     data: ExperienceProps
   }
 }
 
 export interface IndexProps {
   title: string
-  data: Post
+  herobanner: HeroBannerProps
+  aboutme: AboutMeProps
+  experience: ExperienceProps
 }
 
 export interface FetchContentful {
   title: string
   herobanner: HeroBannerProps
   aboutme: AboutMeProps
-  experience: Post
+  experience: ExperienceProps
 }

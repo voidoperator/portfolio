@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react'
 import JulioNunezLogo from '@/components/canvas/JulioNunezLogo'
 import NavBar from '@/components/dom/Nav/NavBar'

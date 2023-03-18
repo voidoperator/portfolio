@@ -10,7 +10,7 @@ sm:px-4 backdrop-blur-md bg-neutral-50/60 dark:bg-neutral-900/50
 font-titlingreg bg-noise-full min-h-11 max-h-11
 `
 const IconMotion: Motion.Tag<'a'> = tw(motion.a)`
-flex items-center justify-center p-[2px] sm:p-2 rounded-full cursor-pointer
+flex items-center justify-center p-[2px] sm:p-2 rounded-full cursor-pointer w-full h-full
 focus:ring-4 focus:outline-none focus:ring-neutral-900/25 dark:focus:ring-white/50
 `
 const Icons = tw.div`
@@ -21,7 +21,7 @@ const FlexRow = tw.div`
 flex flex-row align-center justify-around h-9
 `
 const twClasses =
-  'h-6 w-6 text-gray-800/80 transition-all hover:text-gray-500 dark:text-gray-100/80 hover:dark:text-gray-400'
+  'h-8 w-full text-gray-800/80 transition-all hover:text-gray-500 dark:text-gray-100/80 hover:dark:text-gray-400'
 
 const wrapperVariants: Variants = {
   initial: {

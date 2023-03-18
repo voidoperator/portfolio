@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request'
 import fetchGraphQL from './contentful-graphql-client'
-import type { Post } from '@/types/contentful'
+import type { Contentful } from '@/types/contentful'
 
-async function fetchAboutMe(): Promise<Post> {
+async function fetchAboutMe(): Promise<Contentful> {
   const query = gql`
     query {
       aboutMeSection: aboutmeCollection {

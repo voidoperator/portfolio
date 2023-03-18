@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request'
 import fetchGraphQL from './contentful-graphql-client'
-import type { Post } from '@/types/contentful'
+import type { Contentful } from '@/types/contentful'
 
-async function fetchHeroBanner(): Promise<Post> {
+async function fetchHeroBanner(): Promise<Contentful> {
   const query = gql`
     query {
       heroBannerSection: portfolioCollection {
