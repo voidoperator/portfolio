@@ -37,9 +37,10 @@ const Layout = forwardRef(({ children, ...props }: LayoutProps, ref) => {
   useEffect(() => {
     const calculateDocumentSize = () => {
       const scrollHeight = document.body.scrollHeight
-      const sectionsAmount = document.getElementsByTagName('section').length
-      const documentSize = scrollHeight * sectionsAmount
-      setSize(documentSize)
+      const sectionsAmount = document.getElementsByTagName('section').length - 1
+      // const documentSize = scrollHeight * sectionsAmount
+      const progressPercent = scrollHeight * sectionsAmount
+      setSize(progressPercent)
     }
     calculateDocumentSize()
     const handleResize = () => {

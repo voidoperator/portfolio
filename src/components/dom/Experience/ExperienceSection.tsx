@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
+import ScrollProgressBar from '../ScrollProgressBar'
 import { CacheHeapIcon, BlackTiesIcon, MealBoxIcon, TwitterIcon } from '../Icons/Icons'
+import type { ExperienceProps } from '@/types/contentful'
 
 const icons = {
   CacheHeap: CacheHeapIcon,
@@ -11,44 +13,50 @@ const icons = {
   MealBox: MealBoxIcon,
 }
 
-const svgIconClasses =
-  'transition-all h-6 w-6 text-gray-800 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400'
-
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-flex flex-row items-center justify-center z-10 w-full h-[200px] mb-4 mt-10 sm:mt-12 md:mt-20 lg:mt-20 flex-grow-0
-`
-const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow
-flex w-[92.5%] h-full grow flex-row items-center justify-center
-overflow-y-auto overflow-x-hidden rounded-3xl
-bg-slate-50/75 shadow-2xl backdrop-blur-sm
-dark:bg-slate-800/60 dark:text-white xl:max-w-7xl xl:flex-row
-bg-noise-double
-`
-const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
-self-center px-6 py-2 text-black dark:text-white sm:px-0 sm:pt-0
+z-10 w-full absolute top-24 left-0
 `
 const Container = tw.section`
-h-screen w-full snap-center overflow-hidden relative
+h-screen w-full snap-center overflow-hidden oflow text-black dark:text-white
 `
 const Wrapper = tw.div`
-flex flex-col items-start justify-around w-full h-full back
+flex flex-col h-full w-full relative
 `
-const ExperienceSection = tw.div`px-8 py-8 gap-8
-flex w-full flex-row items-center justify-center grow
-font-sofiaprolight font-normal text-xs md:text-sm lg:text-base
+const Spacer = tw.div`
+w-full
+`
+const RelativeBox = tw.div`
+z-10 relative sm:bottom-[56px] bottom-[138px]
+`
+const ExperienceSection = tw.div`oflow relative font-sofiapro
+scroll-smooth oflow overflow-x-scroll h-full w-full m-auto p-[-2.5rem]
+flex flex-row snap-x snap-mandatory
+font-normal text-xs md:text-sm lg:text-sm
+justify-start items-stretch
+`
+const ContentBoxWrapper = tw.div`
+flex snap-center w-full h-full
+`
+const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow
+m-5 w-screen md:w-[calc(50vw-40px)] lg:w-[calc(33.33vw-40px)] xl:w-full py-4
+rounded-3xl backdrop-blur-sm bg-noise-cards
+`
+const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
+self-center
 `
 const ImageContainer = tw.div`
-overflow-hidden hidden sm:block pb-4 pt-8 self-center
-w-full sm:max-w-[100px] md:max-w-[200px] lg:max-w-[300px]
-text-black dark:text-white hover:opacity-60 transition-all duration-300
-`
-const Divider = tw.div`
-h-[1px] w-full bg-black/40 dark:bg-white/40
+flex items-center justify-center
+sm:block pb-4 pt-8
+hover:opacity-60 transition-all duration-300
 `
 const ParagraphContainer = tw.div`
-flex h-full w-3/4 grow flex-col justify-start
-gap-1 sm:gap-8 px-8
+flex h-full grow flex-col justify-start items-center sm:px-10 px-6 py-4 gap-2 sm:gap-8
 `
+const UnorgList = tw.ul`
+flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
+`
+const twClasses =
+  'transition-all text-gray-800 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
 
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -95,61 +103,33 @@ const paragraphVariant: Variants = {
   },
 }
 
-const content = [
-  {
-    name: 'CacheHeap',
-    jobTitle: 'Software Engineer',
-    startDate: '01/01/2001',
-    endDate: 'Present',
-    svgIconName: 'CacheHeap',
-    description: [
-      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
-      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
-      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
-    ],
-  },
-  {
-    name: 'Twitter',
-    jobTitle: 'Software Engineer',
-    startDate: '01/01/2001',
-    endDate: '12/31/2022',
-    svgIconName: 'Twitter',
-    description: [
-      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
-      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
-      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
-    ],
-  },
-  {
-    name: 'MealBox',
-    jobTitle: 'Software Engineer',
-    startDate: '01/01/2001',
-    endDate: '12/31/2022',
-    svgIconName: 'MealBox',
-    description: [
-      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
-      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
-      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
-    ],
-  },
-  {
-    name: 'BlackTies',
-    jobTitle: 'Software Engineer',
-    startDate: '01/01/2001',
-    endDate: '12/31/2022',
-    svgIconName: 'Blackties',
-    description: [
-      'Magna anim sunt minim qui. Culpa deserunt sint consectetur cillum aliqua.',
-      'Anim adipisicing consectetur eu consequat ad reprehenderit ex veniam in labore id exercitation laboris consequat.',
-      'Ut nulla do exercitation ipsum ex deserunt dolor pariatur.',
-    ],
-  },
-]
+export default function Experience({ items }: { items: ExperienceProps[] }) {
+  const scrollRef = useRef(null)
 
-export default function Experience() {
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    const container = event.currentTarget
+    const maxScrollLeft = container.scrollWidth - container.clientWidth
+    if ((container.scrollLeft < maxScrollLeft && event.deltaY > 0) || (container.scrollLeft > 0 && event.deltaY < 0)) {
+      event.preventDefault()
+      container.scrollLeft += event.deltaY
+    }
+  }
+
+  useEffect(() => {
+    const container = scrollRef.current
+    if (container) {
+      container.addEventListener('wheel', handleWheel)
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener('wheel', handleWheel)
+      }
+    }
+  }, [])
+
   return (
     <Container id='experience'>
-      <Wrapper>
+      <Wrapper id='wrapper'>
         <MarqueeSubWrapper
           variants={marqueeWrapperVariant}
           initial='initial'
@@ -163,70 +143,74 @@ export default function Experience() {
             directionLeft={false}
           />
         </MarqueeSubWrapper>
-        <ExperienceSection>
-          {content.map((job, index) => {
-            const { name, jobTitle, startDate, endDate, svgIconName, description } = job
+        <Spacer className='h-[150px] sm:h-[350px]' />
+        <ExperienceSection id='experience-section' ref={scrollRef}>
+          {items.map((job) => {
+            const { name, title, startDate, endDate, svgIconName, description, sys } = job
             const IconComponent = icons[svgIconName]
             return (
-              <ContentBoxMotion
-                key={'experience' + index}
-                initial='initial'
-                whileInView='animate'
-                viewport={{ once: true, amount: 0 }}
-                variants={contentBoxVariant}
-              >
-                <ParagraphContainer>
-                  <ImageContainer title={name}>
-                    <IconComponent alt={name} />
-                  </ImageContainer>
-                  <Divider />
-                  <div className='sr-only'>{name}</div>
-                  <ParagraphMotion
-                    variants={paragraphVariant}
-                    initial='initial'
-                    whileInView='animate'
-                    viewport={{ once: true, amount: 0 }}
-                    className='font-sofiapro text-xl'
-                  >
-                    {jobTitle}
-                  </ParagraphMotion>
-                  <Divider />
-                  <ParagraphMotion
-                    variants={paragraphVariant}
-                    initial='initial'
-                    whileInView='animate'
-                    viewport={{ once: true, amount: 0 }}
-                    className='flex items-center justify-between gap-3'
-                  >
-                    <>
-                      <span>{startDate}</span>
-                      <span>{' - '}</span>
-                      <span>{endDate}</span>
-                    </>
-                  </ParagraphMotion>
-                  <Divider />
-                  <ul className='flex h-1/2 list-disc flex-col justify-evenly'>
-                    {description.map((bulletPoint, index) => {
-                      return (
-                        <li key={bulletPoint + index} className='list-outside'>
-                          <ParagraphMotion
-                            variants={paragraphVariant}
-                            initial='initial'
-                            whileInView='animate'
-                            viewport={{ once: true, amount: 0 }}
-                          >
-                            {bulletPoint}
-                          </ParagraphMotion>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </ParagraphContainer>
-              </ContentBoxMotion>
+              <ContentBoxWrapper id='content-box-wrapper' key={sys.id}>
+                <ContentBoxMotion
+                  id='content-box-motion'
+                  initial='initial'
+                  whileInView='animate'
+                  viewport={{ once: true, amount: 0 }}
+                  variants={contentBoxVariant}
+                >
+                  <ParagraphContainer id='para-cont'>
+                    <ImageContainer id='img-container' title={name}>
+                      <IconComponent alt={name} twClasses={twClasses} />
+                    </ImageContainer>
+                    <ParagraphMotion className='text-lg'>{name}</ParagraphMotion>
+                    <ParagraphMotion
+                      variants={paragraphVariant}
+                      initial='initial'
+                      whileInView='animate'
+                      viewport={{ once: true, amount: 0 }}
+                      className='whitespace-nowrap text-center text-lg lg:text-xl'
+                    >
+                      {title}
+                    </ParagraphMotion>
+                    <ParagraphMotion
+                      variants={paragraphVariant}
+                      initial='initial'
+                      whileInView='animate'
+                      viewport={{ once: true, amount: 0 }}
+                      className='flex items-center justify-between gap-3'
+                    >
+                      <>
+                        <span>{startDate}</span>
+                        <span>{' - '}</span>
+                        <span>{endDate}</span>
+                      </>
+                    </ParagraphMotion>
+                    <UnorgList>
+                      {description.map((bulletPoint, index) => {
+                        return (
+                          <li key={bulletPoint + index} className='list-inside list-disc sm:list-outside'>
+                            <ParagraphMotion
+                              variants={paragraphVariant}
+                              initial='initial'
+                              whileInView='animate'
+                              viewport={{ once: true, amount: 0 }}
+                            >
+                              {bulletPoint}
+                            </ParagraphMotion>
+                          </li>
+                        )
+                      })}
+                    </UnorgList>
+                  </ParagraphContainer>
+                </ContentBoxMotion>
+              </ContentBoxWrapper>
             )
           })}
         </ExperienceSection>
+        <Spacer className='h-[210px] sm:h-[70px]' />
       </Wrapper>
+      <RelativeBox>
+        <ScrollProgressBar containerRef={scrollRef} />
+      </RelativeBox>
     </Container>
   )
 }
