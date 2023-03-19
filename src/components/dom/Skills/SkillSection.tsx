@@ -2,45 +2,74 @@ import React from 'react'
 import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
+import RubberBandElements from '@/components/dom/RubberBandElements'
+import * as TechIcons from '../Icons/TechStackIcons'
+import type { SkillsProps } from '@/types/contentful'
 
-const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-flex flex-row items-center justify-center z-10 w-full h-[200px] mb-4 mt-10 sm:mt-12 md:mt-20 lg:mt-20 flex-grow-0
-`
-const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow
-flex w-[90%] h-full max-h-[75vh] grow flex-row items-center justify-center gap-8 rounded-3xl bg-slate-50/75 backdrop-blur-sm
-bg-noise shadow-2xl dark:bg-slate-800/60 dark:text-white xl:max-w-7xl xl:flex-row overflow-x-hidden overflow-y-auto
-`
-const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
-self-start px-6 py-2 text-black dark:text-white sm:px-0 sm:pt-0
-`
+const techStackIcons = {
+  Apollo: TechIcons.ApolloIcon,
+  Docker: TechIcons.DockerIcon,
+  AWS: TechIcons.AWSIcon,
+  GraphQL: TechIcons.GraphQLIcon,
+  JavaScript: TechIcons.JavaScriptIcon,
+  Jest: TechIcons.JestIcon,
+  MongoDB: TechIcons.MongoDBIcon,
+  'Next.js': TechIcons.NextJSIcon,
+  'Node.js': TechIcons.NodeJSIcon,
+  PostgreSQL: TechIcons.PostgreSQLIcon,
+  Python: TechIcons.PythonIcon,
+  Pytest: TechIcons.PytestIcon,
+  React: TechIcons.ReactIcon,
+  'React Native': TechIcons.ReactNativeIcon,
+  Redux: TechIcons.ReduxIcon,
+  TypeScript: TechIcons.TypeScriptIcon,
+  Webpack: TechIcons.WebpackIcon,
+  'Framer-Motion': TechIcons.FramerMotionIcon,
+  'Three.js': TechIcons.ThreeJSIcon,
+  Drei: TechIcons.DreiIcon,
+  ReactThreeFiber: TechIcons.ReactThreeFiberIcon,
+  WebGL: TechIcons.WebGLIcon,
+  FastAPI: TechIcons.FastAPIIcon,
+  Pydantic: TechIcons.PydanticIcon,
+  'Theme-UI': TechIcons.ThemeUIIcon,
+  Git: TechIcons.GitIcon,
+  BootstrapReact: TechIcons.BootstrapReactIcon,
+  'Material-UI': TechIcons.MaterialUIIcon,
+  Mocha: TechIcons.MochaIcon,
+  ReactTestingLibrary: TechIcons.ReactTestingLibraryIcon,
+  Tailwind: TechIcons.TailwindIcon,
+  'Gatsby.js': TechIcons.GatsbyJSIcon,
+  Bootstrap: TechIcons.BootstrapIcon,
+}
+
 const Container = tw.section`
-h-screen w-full snap-center overflow-hidden relative
+w-full h-true
+snap-center text-black dark:text-white overflow-hidden oflow
 `
 const Wrapper = tw.div`
-flex flex-col items-start justify-around w-full h-full back
+relative overflow-hidden oflow
+flex flex-col items-center justify-center
 `
-const AboutMeSection = tw.div`
-flex w-full flex-col items-center justify-center grow pb-20
-font-sofiaprolight font-normal text-xs md:text-sm lg:text-base
+const SkillsSection = tw.div`oflow font-sofiaprolight overflow-hidden
+flex grow bg-noise-cards rounded-3xl shadow-2xl backdrop-blur-sm
+font-normal text-xs md:text-sm lg:text-sm
+sm:mx-10 mx-[20px] 2xl:max-w-[50%] xl:max-w-[60%] lg:max-w-[70%] md:max-w-[80%] sm:max-w-[80%]
 `
-const Image = tw.img`
-opacity-90 object-cover pointer-events-none
-h-full w-full backdrop-blur-xl object-[0px,-40px] xl:object-[-125px,0px] sm:object-[-75px,0px]
+const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
+
 `
-const ImageContainer = tw.div`
-overflow-hidden hidden sm:block
-h-full w-full sm:max-w-[100px] md:max-w-[200px] lg:max-w-[300px]
-sm:rounded-r-3xl rounded-t-3xl sm:rounded-tl-none
+const Spacer = tw.div`
+w-full
+`
+const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
+z-10 w-full absolute top-24 left-0
+`
+const IconWrapper: Motion.Tag<'div'> = tw(motion.div)`
+
 `
 const Divider = tw.div`
-h-[1px] w-full bg-black/75 dark:bg-white/75
+h-[1px] w-full bg-black/75 dark:bg-white/75 my-0 sm:my-10 hidden sm:block
 `
-const ParagraphContainer = tw.div`
-flex h-full w-3/4 grow flex-col items-center justify-center
-gap-0 sm:flex-col sm:items-start sm:gap-8 sm:px-6 md:px-8
-`
-
-const content = ['Work Experience:', 'CacheHeap LLC', 'MealBox App']
 
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -87,7 +116,8 @@ const paragraphVariant: Variants = {
   },
 }
 
-export default function Skills() {
+export default function SkillSection({ data }: { data: SkillsProps[] }) {
+  const [{ sectionTitle, skillStack }] = data
   return (
     <Container id='skills'>
       <Wrapper>
@@ -95,44 +125,50 @@ export default function Skills() {
           variants={marqueeWrapperVariant}
           initial='initial'
           whileInView='animate'
-          viewport={{ once: true, amount: 0.8 }}
+          viewport={{ once: true, amount: 0 }}
         >
           <MarqueeText
-            string={'skills'}
-            textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
-            separatorSize={'h-5 sm:h-10 md:h-12 lg:h-14'}
+            string={sectionTitle}
             directionLeft={true}
+            separatorSize={'h-5 sm:h-10 md:h-12 lg:h-14'}
+            textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
           />
         </MarqueeSubWrapper>
-        <AboutMeSection>
+        <Spacer className='h-44 sm:h-[350px]' />
+        <SkillsSection>
           <ContentBoxMotion
             initial='initial'
             whileInView='animate'
-            viewport={{ once: true, amount: 0.8 }}
+            viewport={{ once: true, amount: 0.4 }}
             variants={contentBoxVariant}
+            className='oflow relative flex h-full w-full flex-row flex-wrap items-center justify-center gap-1 py-4 md:gap-2 lg:gap-2 xl:gap-3 2xl:gap-6'
           >
-            <ParagraphContainer>
-              <Divider />
-              {content.map((paragraph, index) => {
-                return (
-                  <ParagraphMotion
-                    key={'skills' + index}
-                    variants={paragraphVariant}
-                    initial='initial'
-                    whileInView='animate'
-                    viewport={{ once: true, amount: 0.2 }}
-                  >
-                    {paragraph}
-                  </ParagraphMotion>
-                )
-              })}
-              <Divider />
-            </ParagraphContainer>
-            {/* <ImageContainer>
-              <Image src='./img/temp/julionunez.webp' alt='photo of julio nunez' />
-            </ImageContainer> */}
+            <Divider />
+            {skillStack.map((skill, index) => {
+              const SkillIcon = techStackIcons[skill]
+              return (
+                <IconWrapper
+                  key={skill + index}
+                  variants={paragraphVariant}
+                  initial='initial'
+                  whileInView='animate'
+                  viewport={{ once: true, amount: 0.2 }}
+                  className='flex flex-row flex-wrap'
+                  title={skill.toString()}
+                >
+                  <RubberBandElements key={skill + index}>
+                    <div className='flex flex-row items-center gap-1 rounded-full bg-slate-100/70 py-1 px-4 text-black dark:bg-slate-900/75 dark:text-white lg:gap-3'>
+                      <span className='cursor-default whitespace-nowrap text-xs lg:text-base xl:text-lg'>{skill}</span>
+                      <SkillIcon twClasses='h-7 p-1 md:h-9 lg:h-11' />
+                    </div>
+                  </RubberBandElements>
+                </IconWrapper>
+              )
+            })}
+            <Divider />
           </ContentBoxMotion>
-        </AboutMeSection>
+        </SkillsSection>
+        <Spacer className='h-[210px] sm:h-[70px]' />
       </Wrapper>
     </Container>
   )

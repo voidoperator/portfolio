@@ -20,6 +20,7 @@ async function fetchExperience(): Promise<ExperienceProps> {
           endDate
           techStack
           description
+          type
           sys {
             id
           }

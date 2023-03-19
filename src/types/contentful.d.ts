@@ -1,3 +1,44 @@
+export enum SkillStack {
+  'React',
+  'TypeScript',
+  'Redux',
+  'React Native',
+  'JavaScript',
+  'Node.js',
+  'Python',
+  'Webpack',
+  'Next.js',
+  'Gatsby.js',
+  'Pydantic',
+  'Jest',
+  'ReactTestingLibrary',
+  'Pytest',
+  'Mocha',
+  'GraphQL',
+  'FastAPI',
+  'PostgreSQL',
+  'MongoDB',
+  'WebGL',
+  'Three.js',
+  'ReactThreeFiber',
+  'Drei',
+  'Git',
+  'Docker',
+  'AWS',
+  'Apollo',
+  'Material-UI',
+  'Framer-Motion',
+  'Tailwind',
+  'Theme-UI',
+  'Bootstrap',
+  'BootstrapReact',
+}
+
+export interface SkillsProps {
+  sectionTitle: string
+  skillStack: SkillStack[]
+}
+
 export interface HeroBannerProps {
   siteTitle: string
   heroGreeting: string
@@ -58,6 +99,9 @@ export interface Contentful {
   experience?: {
     data: ExperienceProps
   }
+  skillsSection?: {
+    data: SkillsProps
+  }
 }
 
 export interface IndexProps {
@@ -72,4 +116,5 @@ export interface FetchContentful {
   herobanner: HeroBannerProps
   aboutme: AboutMeProps
   experience: ExperienceProps
+  skills: SkillsProps
 }
