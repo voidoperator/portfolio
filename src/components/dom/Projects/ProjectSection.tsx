@@ -4,43 +4,7 @@ import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
 import ScrollProgressBar from '../ScrollProgressBar'
 import type { ProjectsProps } from '@/types/contentful'
-import * as TechIcons from '../Icons/TechStackIcons'
-
-const techStackIcons = {
-  Apollo: TechIcons.ApolloIcon,
-  Docker: TechIcons.DockerIcon,
-  AWS: TechIcons.AWSIcon,
-  GraphQL: TechIcons.GraphQLIcon,
-  JavaScript: TechIcons.JavaScriptIcon,
-  Jest: TechIcons.JestIcon,
-  MongoDB: TechIcons.MongoDBIcon,
-  'Next.js': TechIcons.NextJSIcon,
-  'Node.js': TechIcons.NodeJSIcon,
-  PostgreSQL: TechIcons.PostgreSQLIcon,
-  Python: TechIcons.PythonIcon,
-  Pytest: TechIcons.PytestIcon,
-  React: TechIcons.ReactIcon,
-  'React Native': TechIcons.ReactNativeIcon,
-  Redux: TechIcons.ReduxIcon,
-  TypeScript: TechIcons.TypeScriptIcon,
-  Webpack: TechIcons.WebpackIcon,
-  'Framer-Motion': TechIcons.FramerMotionIcon,
-  'Three.js': TechIcons.ThreeJSIcon,
-  Drei: TechIcons.DreiIcon,
-  ReactThreeFiber: TechIcons.ReactThreeFiberIcon,
-  WebGL: TechIcons.WebGLIcon,
-  FastAPI: TechIcons.FastAPIIcon,
-  Pydantic: TechIcons.PydanticIcon,
-  'Theme-UI': TechIcons.ThemeUIIcon,
-  Git: TechIcons.GitIcon,
-  BootstrapReact: TechIcons.BootstrapReactIcon,
-  'Material-UI': TechIcons.MaterialUIIcon,
-  Mocha: TechIcons.MochaIcon,
-  ReactTestingLibrary: TechIcons.ReactTestingLibraryIcon,
-  Tailwind: TechIcons.TailwindIcon,
-  'Gatsby.js': TechIcons.GatsbyJSIcon,
-  Bootstrap: TechIcons.BootstrapIcon,
-}
+import TechIcon from '../Icons/TechStackIcons'
 
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
 z-10 w-full absolute top-24 left-0
@@ -69,7 +33,7 @@ flex snap-center w-full h-full
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
 oflow
-mx-5 mb-5 mt-10 w-[90vw] py-4
+mx-5 mb-5 mt-10 w-screen py-4
 rounded-3xl backdrop-blur-sm bg-noise-cards
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
@@ -262,11 +226,10 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                       })}
                     </UnorgList>
                     <TechStack>
-                      {techStack?.map((tech, index) => {
-                        const IconComponent = techStackIcons[tech]
+                      {techStack.map((tech, index) => {
                         return (
                           <TechIconContainer key={tech + index} title={tech} aria-label={tech}>
-                            <IconComponent twClasses={'h-6 w-6 text-black dark:text-white'} />
+                            <TechIcon icon={tech} twClasses={'h-6 w-6 text-black dark:text-white'} />
                           </TechIconContainer>
                         )
                       })}

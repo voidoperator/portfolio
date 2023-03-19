@@ -8,10 +8,10 @@ export default function RubberBandElements({ children }) {
     controls.start({
       transform: [
         'scale(1, 1)',
-        'scale(1.2, 0.75)',
+        'scale(1.05, 0.95)',
         'scale(0.75, 1.25)',
-        'scale(1.25, 0.85)',
-        'scale(0.9, 1.05)',
+        'scale(1.10, 0.90)',
+        'scale(0.95, 1.05)',
         'scale(1, 1)',
       ],
       transition: {
