@@ -5,6 +5,7 @@ import MarqueeText from '../MarqueeText'
 import ScrollProgressBar from '../ScrollProgressBar'
 import { CacheHeapIcon, BlackTiesIcon, MealBoxIcon, TwitterIcon } from '../Icons/Icons'
 import type { ExperienceProps } from '@/types/contentful'
+import * as TechIcons from '../Icons/TechStackIcons'
 
 const icons = {
   CacheHeap: CacheHeapIcon,
@@ -13,11 +14,47 @@ const icons = {
   MealBox: MealBoxIcon,
 }
 
+const techStackIcons = {
+  Apollo: TechIcons.ApolloIcon,
+  Docker: TechIcons.DockerIcon,
+  AWS: TechIcons.AWSIcon,
+  GraphQL: TechIcons.GraphQLIcon,
+  JavaScript: TechIcons.JavaScriptIcon,
+  Jest: TechIcons.JestIcon,
+  MongoDB: TechIcons.MongoDBIcon,
+  'Next.js': TechIcons.NextJSIcon,
+  'Node.js': TechIcons.NodeJSIcon,
+  PostgreSQL: TechIcons.PostgreSQLIcon,
+  Python: TechIcons.PythonIcon,
+  Pytest: TechIcons.PytestIcon,
+  React: TechIcons.ReactIcon,
+  'React Native': TechIcons.ReactNativeIcon,
+  Redux: TechIcons.ReduxIcon,
+  TypeScript: TechIcons.TypeScriptIcon,
+  Webpack: TechIcons.WebpackIcon,
+  'Framer-Motion': TechIcons.FramerMotionIcon,
+  'Three.js': TechIcons.ThreeJSIcon,
+  Drei: TechIcons.DreiIcon,
+  ReactThreeFiber: TechIcons.ReactThreeFiberIcon,
+  WebGL: TechIcons.WebGLIcon,
+  FastAPI: TechIcons.FastAPIIcon,
+  Pydantic: TechIcons.PydanticIcon,
+  'Theme-UI': TechIcons.ThemeUIIcon,
+  Git: TechIcons.GitIcon,
+  BootstrapReact: TechIcons.BootstrapReactIcon,
+  'Material-UI': TechIcons.MaterialUIIcon,
+  Mocha: TechIcons.MochaIcon,
+  ReactTestingLibrary: TechIcons.ReactTestingLibraryIcon,
+  Tailwind: TechIcons.TailwindIcon,
+  'Gatsby.js': TechIcons.GatsbyJSIcon,
+  Bootstrap: TechIcons.BootstrapIcon,
+}
+
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
 z-10 w-full absolute top-24 left-0
 `
 const Container = tw.section`
-h-screen w-full snap-center overflow-hidden oflow text-black dark:text-white
+w-full snap-center overflow-hidden oflow text-black dark:text-white h-true
 `
 const Wrapper = tw.div`
 flex flex-col relative w-full h-true
@@ -26,10 +63,10 @@ const Spacer = tw.div`
 w-full
 `
 const RelativeBox = tw.div`
-z-10 relative sm:bottom-[56px] bottom-12
+z-10 relative sm:bottom-1 bottom-12
 `
-const ExperienceSection = tw.div`oflow font-sofiapro overflow-hidden
-
+const ExperienceSection = tw.div`
+oflow font-sofiapro overflow-hidden
 scroll-smooth oflow overflow-x-scroll h-full w-full m-auto p-[-2.5rem]
 flex flex-row snap-x snap-mandatory
 font-normal text-xs md:text-sm lg:text-sm
@@ -40,7 +77,7 @@ flex snap-center w-full h-full
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
 oflow
-m-5 w-screen md:w-[calc(50vw-40px)] lg:w-[calc(33.33vw-40px)] xl:w-full py-4
+mx-5 mb-5 mt-10 w-screen md:w-[calc(50vw-40px)] lg:w-[calc(33.33vw-40px)] xl:w-full py-4
 rounded-3xl backdrop-blur-sm bg-noise-cards
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
@@ -51,7 +88,7 @@ list-inside list-disc md:list-outside self-start
 `
 const ImageContainer = tw.div`
 flex items-center justify-center
-sm:block py-4
+sm:block pt-4
 hover:opacity-60 transition-all duration-300
 `
 const ParagraphContainer = tw.div`
@@ -59,6 +96,15 @@ flex h-full grow flex-col justify-start items-center sm:px-10 px-6 py-4 gap-2 sm
 `
 const UnorgList = tw.ul`
 flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
+`
+const TextContainer = tw.div`
+flex w-full flex-col gap-2
+`
+const TechStack = tw.div`
+hidden w-full flex-row items-center justify-evenly sm:flex
+`
+const TechIconContainer = tw.div`
+rounded-full bg-red-500/25 p-2 text-center dark:bg-fuchsia-900/25
 `
 const twClasses =
   'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
@@ -153,7 +199,7 @@ export default function Experience({ data }: { data: ExperienceProps }) {
         <Spacer className='h-36 sm:h-[350px]' />
         <ExperienceSection ref={scrollRef}>
           {items.map((job) => {
-            const { name, title, startDate, endDate, svgIconName, description, sys } = job
+            const { name, title, subHeadline, type, techStack, startDate, endDate, svgIconName, description, sys } = job
             const IconComponent = icons[svgIconName]
             return (
               <ContentBoxWrapper key={sys.id}>
@@ -167,22 +213,40 @@ export default function Experience({ data }: { data: ExperienceProps }) {
                     <ImageContainer title={name}>
                       <IconComponent alt={name} twClasses={twClasses} />
                     </ImageContainer>
-                    <ParagraphMotion className='text-lg'>{name}</ParagraphMotion>
+                    <ParagraphMotion className='text-2xl'>{name}</ParagraphMotion>
+                    <TextContainer>
+                      <ParagraphMotion
+                        variants={paragraphVariant}
+                        initial='initial'
+                        whileInView='animate'
+                        viewport={{ once: true, amount: 0 }}
+                        className='whitespace-nowrap text-center text-lg lg:text-xl'
+                      >
+                        {title}
+                      </ParagraphMotion>
+                      <ParagraphMotion
+                        variants={paragraphVariant}
+                        initial='initial'
+                        whileInView='animate'
+                        viewport={{ once: true, amount: 0 }}
+                      >
+                        {type}
+                      </ParagraphMotion>
+                      <ParagraphMotion
+                        variants={paragraphVariant}
+                        initial='initial'
+                        whileInView='animate'
+                        viewport={{ once: true, amount: 0 }}
+                      >
+                        {subHeadline}
+                      </ParagraphMotion>
+                    </TextContainer>
                     <ParagraphMotion
                       variants={paragraphVariant}
                       initial='initial'
                       whileInView='animate'
                       viewport={{ once: true, amount: 0 }}
-                      className='whitespace-nowrap text-center text-lg lg:text-xl'
-                    >
-                      {title}
-                    </ParagraphMotion>
-                    <ParagraphMotion
-                      variants={paragraphVariant}
-                      initial='initial'
-                      whileInView='animate'
-                      viewport={{ once: true, amount: 0 }}
-                      className='flex items-center justify-between gap-3'
+                      className='flex items-center justify-between gap-3 sm:text-base'
                     >
                       <>
                         <span>{startDate}</span>
@@ -205,6 +269,16 @@ export default function Experience({ data }: { data: ExperienceProps }) {
                         )
                       })}
                     </UnorgList>
+                    <TechStack>
+                      {techStack?.map((tech, index) => {
+                        const IconComponent = techStackIcons[tech]
+                        return (
+                          <TechIconContainer key={tech + index} title={tech} aria-label={tech}>
+                            <IconComponent twClasses={'h-6 w-6 text-black dark:text-white'} />
+                          </TechIconContainer>
+                        )
+                      })}
+                    </TechStack>
                   </ParagraphContainer>
                 </ContentBoxMotion>
               </ContentBoxWrapper>

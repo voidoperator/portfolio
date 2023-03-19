@@ -12,14 +12,14 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import type { IndexProps } from '@/types/contentful'
 import fetchContentful from '@/graphql/fetchContentful'
 
-export default function Page({ herobanner, aboutme, experience }) {
+export default function Page({ herobanner, aboutme, experience, skills }) {
   return (
     <>
       <NavBar />
       <HeroBanner data={herobanner} />
       <AboutSection data={aboutme} />
       <Experience data={experience} />
-      <SkillSection />
+      <SkillSection data={skills} />
       <ProjectSection />
       <ContactSection />
       <MobileNav />
