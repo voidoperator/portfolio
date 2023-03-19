@@ -1,46 +1,105 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import tw from 'tailwind-styled-components'
 import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
+import ScrollProgressBar from '../ScrollProgressBar'
+import type { ProjectsProps } from '@/types/contentful'
+import * as TechIcons from '../Icons/TechStackIcons'
+
+const techStackIcons = {
+  Apollo: TechIcons.ApolloIcon,
+  Docker: TechIcons.DockerIcon,
+  AWS: TechIcons.AWSIcon,
+  GraphQL: TechIcons.GraphQLIcon,
+  JavaScript: TechIcons.JavaScriptIcon,
+  Jest: TechIcons.JestIcon,
+  MongoDB: TechIcons.MongoDBIcon,
+  'Next.js': TechIcons.NextJSIcon,
+  'Node.js': TechIcons.NodeJSIcon,
+  PostgreSQL: TechIcons.PostgreSQLIcon,
+  Python: TechIcons.PythonIcon,
+  Pytest: TechIcons.PytestIcon,
+  React: TechIcons.ReactIcon,
+  'React Native': TechIcons.ReactNativeIcon,
+  Redux: TechIcons.ReduxIcon,
+  TypeScript: TechIcons.TypeScriptIcon,
+  Webpack: TechIcons.WebpackIcon,
+  'Framer-Motion': TechIcons.FramerMotionIcon,
+  'Three.js': TechIcons.ThreeJSIcon,
+  Drei: TechIcons.DreiIcon,
+  ReactThreeFiber: TechIcons.ReactThreeFiberIcon,
+  WebGL: TechIcons.WebGLIcon,
+  FastAPI: TechIcons.FastAPIIcon,
+  Pydantic: TechIcons.PydanticIcon,
+  'Theme-UI': TechIcons.ThemeUIIcon,
+  Git: TechIcons.GitIcon,
+  BootstrapReact: TechIcons.BootstrapReactIcon,
+  'Material-UI': TechIcons.MaterialUIIcon,
+  Mocha: TechIcons.MochaIcon,
+  ReactTestingLibrary: TechIcons.ReactTestingLibraryIcon,
+  Tailwind: TechIcons.TailwindIcon,
+  'Gatsby.js': TechIcons.GatsbyJSIcon,
+  Bootstrap: TechIcons.BootstrapIcon,
+}
 
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-flex flex-row items-center justify-center z-10 w-full h-[200px] mb-4 mt-10 sm:mt-12 md:mt-20 lg:mt-20 flex-grow-0
-`
-const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`oflow
-flex w-[90%] h-full max-h-[75vh] grow flex-row items-center justify-center gap-8 rounded-3xl bg-slate-50/75 backdrop-blur-sm
-bg-noise shadow-2xl dark:bg-slate-800/60 dark:text-white xl:max-w-7xl xl:flex-row overflow-x-hidden overflow-y-auto
-`
-const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
-self-start px-6 py-2 text-black dark:text-white sm:px-0 sm:pt-0
+z-10 w-full absolute top-24 left-0
 `
 const Container = tw.section`
-h-screen w-full snap-center overflow-hidden relative
+w-full snap-center overflow-hidden oflow text-black dark:text-white h-true
 `
 const Wrapper = tw.div`
-flex flex-col items-start justify-around w-full h-full back
+flex flex-col relative w-full h-true
 `
-const AboutMeSection = tw.div`
-flex w-full flex-col items-center justify-center grow pb-20
-font-sofiaprolight font-normal text-xs md:text-sm lg:text-base
+const Spacer = tw.div`
+w-full
 `
-const Image = tw.img`
-opacity-90 object-cover pointer-events-none
-h-full w-full backdrop-blur-xl object-[0px,-40px] xl:object-[-125px,0px] sm:object-[-75px,0px]
+const RelativeBox = tw.div`
+z-10 relative sm:bottom-1 bottom-12
+`
+const ProjectContainer = tw.div`
+oflow font-sofiapro overflow-y-hidden
+scroll-smooth oflow overflow-x-scroll h-full w-full m-auto p-[-2.5rem]
+flex flex-row snap-x snap-mandatory
+font-normal text-xs md:text-sm lg:text-sm
+justify-start items-stretch
+`
+const ContentBoxWrapper = tw.div`
+flex snap-center w-full h-full
+`
+const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
+oflow
+mx-5 mb-5 mt-10 w-[90vw] py-4
+rounded-3xl backdrop-blur-sm bg-noise-cards
+`
+const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
+self-center
+`
+const ListMotion: Motion.Tag<'li'> = tw(motion.li)`
+list-inside list-disc md:list-outside self-start
 `
 const ImageContainer = tw.div`
-overflow-hidden hidden sm:block
-h-full w-full sm:max-w-[100px] md:max-w-[200px] lg:max-w-[300px]
-sm:rounded-r-3xl rounded-t-3xl sm:rounded-tl-none
-`
-const Divider = tw.div`
-h-[1px] w-full bg-black/75 dark:bg-white/75
+flex items-center justify-center
+sm:block pt-4
+hover:opacity-60 transition-all duration-300
 `
 const ParagraphContainer = tw.div`
-flex h-full w-3/4 grow flex-col items-center justify-center
-gap-0 sm:flex-col sm:items-start sm:gap-8 sm:px-6 md:px-8
+flex h-full grow flex-col justify-start items-center sm:px-10 px-6 py-4 gap-2 sm:gap-8
 `
-
-const content = ['Work Experience:', 'CacheHeap LLC', 'MealBox App']
+const UnorgList = tw.ul`
+flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
+`
+const TextContainer = tw.div`
+flex w-full flex-col gap-2
+`
+const TechStack = tw.div`
+hidden w-full flex-row items-center justify-evenly sm:flex
+`
+const TechIconContainer = tw.div`
+rounded-full bg-red-500/25 p-2 text-center dark:bg-fuchsia-900/25
+`
+const twClasses =
+  'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
 
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -87,7 +146,32 @@ const paragraphVariant: Variants = {
   },
 }
 
-export default function Projects() {
+export default function ProjectSection({ data }: { data: ProjectsProps }) {
+  const scrollRef = useRef(null)
+  const { items } = data.projectItems
+  const [{ sectionTitle }] = data.projectsSection.data
+
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    const container = event.currentTarget
+    const maxScrollLeft = container.scrollWidth - container.clientWidth
+    if ((container.scrollLeft < maxScrollLeft && event.deltaY > 0) || (container.scrollLeft > 0 && event.deltaY < 0)) {
+      event.preventDefault()
+      container.scrollLeft += event.deltaY
+    }
+  }
+
+  useEffect(() => {
+    const container = scrollRef.current
+    if (container) {
+      container.addEventListener('wheel', handleWheel)
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener('wheel', handleWheel)
+      }
+    }
+  }, [])
+
   return (
     <Container id='projects'>
       <Wrapper>
@@ -98,42 +182,106 @@ export default function Projects() {
           viewport={{ once: true, amount: 0.8 }}
         >
           <MarqueeText
-            string={'projects'}
+            string={sectionTitle}
             textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
             separatorSize={'h-5 sm:h-10 md:h-12 lg:h-14'}
             directionLeft={false}
           />
         </MarqueeSubWrapper>
-        <AboutMeSection>
-          <ContentBoxMotion
-            initial='initial'
-            whileInView='animate'
-            viewport={{ once: true, amount: 0.8 }}
-            variants={contentBoxVariant}
-          >
-            <ParagraphContainer>
-              <Divider />
-              {content.map((paragraph, index) => {
-                return (
-                  <ParagraphMotion
-                    key={'experience' + index}
-                    variants={paragraphVariant}
-                    initial='initial'
-                    whileInView='animate'
-                    viewport={{ once: true, amount: 0.2 }}
-                  >
-                    {paragraph}
-                  </ParagraphMotion>
-                )
-              })}
-              <Divider />
-            </ParagraphContainer>
-            {/* <ImageContainer>
-              <Image src='./img/temp/julionunez.webp' alt='photo of julio nunez' />
-            </ImageContainer> */}
-          </ContentBoxMotion>
-        </AboutMeSection>
+        <Spacer className='h-36 sm:h-[350px]' />
+        <ProjectContainer ref={scrollRef}>
+          {items.map((project) => {
+            const { name, headline, description, imgUrl, techStack, tags, codeUrl, liveUrl, sys } = project
+            // const IconComponent = icons[svgIconName]
+            return (
+              <ContentBoxWrapper key={sys.id}>
+                <ContentBoxMotion
+                  initial='initial'
+                  whileInView='animate'
+                  viewport={{ once: true, amount: 0 }}
+                  variants={contentBoxVariant}
+                >
+                  <ParagraphContainer>
+                    {/* <ImageContainer title={name}>
+                      <IconComponent alt={name} twClasses={twClasses} />
+                    </ImageContainer> */}
+                    <ParagraphMotion className='text-2xl'>{name}</ParagraphMotion>
+                    <TextContainer>
+                      <ParagraphMotion
+                        variants={paragraphVariant}
+                        initial='initial'
+                        whileInView='animate'
+                        viewport={{ once: true, amount: 0 }}
+                        className='whitespace-nowrap text-center text-lg lg:text-xl'
+                      >
+                        {headline}
+                      </ParagraphMotion>
+                      <ParagraphMotion
+                        variants={paragraphVariant}
+                        initial='initial'
+                        whileInView='animate'
+                        viewport={{ once: true, amount: 0 }}
+                      >
+                        {headline}
+                      </ParagraphMotion>
+                      <ParagraphMotion
+                        variants={paragraphVariant}
+                        initial='initial'
+                        whileInView='animate'
+                        viewport={{ once: true, amount: 0 }}
+                      >
+                        {headline}
+                      </ParagraphMotion>
+                    </TextContainer>
+                    <ParagraphMotion
+                      variants={paragraphVariant}
+                      initial='initial'
+                      whileInView='animate'
+                      viewport={{ once: true, amount: 0 }}
+                      className='flex items-center justify-between gap-3 sm:text-base'
+                    >
+                      <>
+                        <span>{headline}</span>
+                        <span>{' - '}</span>
+                        <span>{headline}</span>
+                      </>
+                    </ParagraphMotion>
+                    <UnorgList>
+                      {description.map((bulletPoint, index) => {
+                        return (
+                          <ListMotion
+                            key={bulletPoint + index}
+                            variants={paragraphVariant}
+                            initial='initial'
+                            whileInView='animate'
+                            viewport={{ once: true, amount: 0 }}
+                          >
+                            {bulletPoint}
+                          </ListMotion>
+                        )
+                      })}
+                    </UnorgList>
+                    <TechStack>
+                      {techStack?.map((tech, index) => {
+                        const IconComponent = techStackIcons[tech]
+                        return (
+                          <TechIconContainer key={tech + index} title={tech} aria-label={tech}>
+                            <IconComponent twClasses={'h-6 w-6 text-black dark:text-white'} />
+                          </TechIconContainer>
+                        )
+                      })}
+                    </TechStack>
+                  </ParagraphContainer>
+                </ContentBoxMotion>
+              </ContentBoxWrapper>
+            )
+          })}
+        </ProjectContainer>
+        <Spacer className='h-11 sm:h-[70px]' />
       </Wrapper>
+      <RelativeBox>
+        <ScrollProgressBar containerRef={scrollRef} />
+      </RelativeBox>
     </Container>
   )
 }

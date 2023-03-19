@@ -33,19 +33,16 @@ export enum SkillStack {
   'Bootstrap',
   'BootstrapReact',
 }
-
 export interface SkillsProps {
   sectionTitle: string
   skillStack: SkillStack[]
 }
-
 export interface HeroBannerProps {
   siteTitle: string
   heroGreeting: string
   heroHeadline: string
   heroSlogan: string
 }
-
 type AboutMeDescription = {
   id: string
   text: string
@@ -60,20 +57,6 @@ export interface AboutMeProps {
   }
   description: AboutMeDescription[]
 }
-
-export interface ExperienceProps {
-  experienceSection: {
-    data: [
-      {
-        sectionTitle: string
-      },
-    ]
-  }
-  experienceItems: {
-    items: ExperienceItems[]
-  }
-}
-
 export type ExperienceItems = {
   name: string
   svgIconName: string
@@ -88,7 +71,48 @@ export type ExperienceItems = {
     id: string
   }
 }
-
+export interface ExperienceProps {
+  experienceSection: {
+    data: [
+      {
+        sectionTitle: string
+      },
+    ]
+  }
+  experienceItems: {
+    items: ExperienceItems[]
+  }
+}
+export interface ProjectsProps {
+  projectsSection: {
+    data: [
+      {
+        sectionTitle: string
+      },
+    ]
+  }
+  projectItems: {
+    items: ProjectItems[]
+  }
+}
+export type ProjectItems = {
+  name: string
+  headline: string
+  techStack: string[]
+  description: string[]
+  imgUrl: {
+    title: string
+    description: string
+    url: string
+  }
+  techStack: string[]
+  tags: string[]
+  codeUrl: string
+  liveUrl: string
+  sys: {
+    id: string
+  }
+}
 export interface Contentful {
   heroBannerSection?: {
     data: HeroBannerProps
@@ -102,19 +126,23 @@ export interface Contentful {
   skillsSection?: {
     data: SkillsProps
   }
+  projects?: {
+    data: ProjectsProps
+  }
 }
-
 export interface IndexProps {
   title: string
   herobanner: HeroBannerProps
   aboutme: AboutMeProps
   experience: ExperienceProps
+  skills: SkillsProps
+  projects: ProjectsProps
 }
-
 export interface FetchContentful {
   title: string
   herobanner: HeroBannerProps
   aboutme: AboutMeProps
   experience: ExperienceProps
   skills: SkillsProps
+  projects: ProjectsProps
 }

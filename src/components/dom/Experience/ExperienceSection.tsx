@@ -65,7 +65,7 @@ w-full
 const RelativeBox = tw.div`
 z-10 relative sm:bottom-1 bottom-12
 `
-const ExperienceSection = tw.div`
+const ExperienceContainer = tw.div`
 oflow font-sofiapro overflow-hidden
 scroll-smooth oflow overflow-x-scroll h-full w-full m-auto p-[-2.5rem]
 flex flex-row snap-x snap-mandatory
@@ -154,7 +154,7 @@ const paragraphVariant: Variants = {
   },
 }
 
-export default function Experience({ data }: { data: ExperienceProps }) {
+export default function ExperienceSection({ data }: { data: ExperienceProps }) {
   const scrollRef = useRef(null)
   const { items } = data.experienceItems
   const [{ sectionTitle }] = data.experienceSection.data
@@ -197,7 +197,7 @@ export default function Experience({ data }: { data: ExperienceProps }) {
           />
         </MarqueeSubWrapper>
         <Spacer className='h-36 sm:h-[350px]' />
-        <ExperienceSection ref={scrollRef}>
+        <ExperienceContainer ref={scrollRef}>
           {items.map((job) => {
             const { name, title, subHeadline, type, techStack, startDate, endDate, svgIconName, description, sys } = job
             const IconComponent = icons[svgIconName]
@@ -284,7 +284,7 @@ export default function Experience({ data }: { data: ExperienceProps }) {
               </ContentBoxWrapper>
             )
           })}
-        </ExperienceSection>
+        </ExperienceContainer>
         <Spacer className='h-11 sm:h-[70px]' />
       </Wrapper>
       <RelativeBox>
