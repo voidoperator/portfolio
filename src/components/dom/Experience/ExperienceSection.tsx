@@ -68,16 +68,16 @@ const TechStack = tw.div`
 flex flex-wrap items-center justify-evenly overflow-hidden rounded-b-2xl md:gap-1
 `
 const TechIconContainer = tw.div`
-rounded-full bg-red-500/25 p-2 text-center dark:bg-fuchsia-900/25
+rounded-full bg-slate-400/30 p-2 text-center dark:bg-slate-900/60
 `
 const ScrollLeftArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
-absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-red-500/40 dark:bg-fuchsia-900/40
+absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-slate-500/70 dark:bg-slate-900/75 shadow-2xl
 `
 const ScrollLeftArrow = tw.div`
 absolute top-[25%] right-0 h-10 w-10 -rotate-45 scale-50 border-t-4 border-l-4 bg-none
 `
 const ScrollRightArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
-absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-red-500/40 dark:bg-fuchsia-900/40
+absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-slate-500/70 dark:bg-slate-900/75 shadow-2xl
 `
 const ScrollRightArrow = tw.div`
 absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
@@ -162,7 +162,6 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
   }
 
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-    event.preventDefault()
     const container = event.currentTarget
     const maxScrollLeft = container.scrollWidth - container.clientWidth
 

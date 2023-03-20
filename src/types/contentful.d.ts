@@ -113,6 +113,13 @@ export type ProjectItems = {
     id: string
   }
 }
+export interface ContactProps {
+  sectionTitle: string
+  email: string
+  linkedInUrl: string
+  githubUrl: string
+  resumeUrl: string
+}
 export interface Contentful {
   heroBannerSection?: {
     data: HeroBannerProps
@@ -129,6 +136,9 @@ export interface Contentful {
   projects?: {
     data: ProjectsProps
   }
+  contactSection?: {
+    data: ContactProps
+  }
 }
 export interface IndexProps {
   title: string
@@ -137,6 +147,7 @@ export interface IndexProps {
   experience: ExperienceProps
   skills: SkillsProps
   projects: ProjectsProps
+  contact: ContactProps
 }
 export interface FetchContentful {
   title: string
@@ -145,4 +156,5 @@ export interface FetchContentful {
   experience: ExperienceProps
   skills: SkillsProps
   projects: ProjectsProps
+  contact: ContactProps
 }

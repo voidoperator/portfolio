@@ -12,7 +12,7 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import type { IndexProps } from '@/types/contentful'
 import fetchContentful from '@/graphql/fetchContentful'
 
-export default function Page({ herobanner, aboutme, experience, skills, projects }) {
+export default function Page({ herobanner, aboutme, experience, skills, projects, contact }) {
   return (
     <>
       <NavBar />
@@ -21,7 +21,7 @@ export default function Page({ herobanner, aboutme, experience, skills, projects
       <ExperienceSection data={experience} />
       <SkillSection data={skills} />
       <ProjectSection data={projects} />
-      <ContactSection />
+      <ContactSection data={contact} />
       <MobileNav />
     </>
   )
