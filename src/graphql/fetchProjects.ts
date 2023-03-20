@@ -10,7 +10,7 @@ async function fetchProjects(): Promise<ProjectsProps> {
           sectionTitle
         }
       }
-      projectItems: projectItemsCollection {
+      projectItems: projectItemsCollection(order: sys_firstPublishedAt_DESC) {
         items {
           name
           headline

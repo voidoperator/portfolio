@@ -32,8 +32,8 @@ const ContentBoxWrapper = tw.div`
 flex snap-center w-full h-full
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
-oflow
-mx-5 mb-5 mt-10 w-screen py-4
+oflow 2xl:w-full w-[calc(50vw-40px)]
+mx-5 mb-5 mt-10 py-4
 rounded-3xl backdrop-blur-sm bg-noise-cards
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
@@ -156,7 +156,6 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
         <ProjectContainer ref={scrollRef}>
           {items.map((project) => {
             const { name, headline, description, imgUrl, techStack, tags, codeUrl, liveUrl, sys } = project
-            // const IconComponent = icons[svgIconName]
             return (
               <ContentBoxWrapper key={sys.id}>
                 <ContentBoxMotion

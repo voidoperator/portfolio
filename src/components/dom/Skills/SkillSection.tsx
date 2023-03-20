@@ -21,7 +21,7 @@ sm:mx-10 mx-[20px] 2xl:max-w-[50%] xl:max-w-[60%] lg:max-w-[70%] md:max-w-[80%] 
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
 oflow relative flex h-full w-full flex-row flex-wrap items-center justify-center
-gap-1 py-4 md:gap-2 lg:gap-2 xl:gap-3 2xl:gap-6
+gap-1 py-4 md:gap-2 lg:gap-2 xl:gap-3 2xl:gap-6 sm:px-4
 `
 const Spacer = tw.div`
 w-full
