@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React, { createRef, useEffect, useMemo, useRef, useState } from 'react'
 import tw from 'tailwind-styled-components'
-import { motion, Variants } from 'framer-motion'
+import { AnimatePresence, motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
 import ScrollProgressBar from '../ScrollProgressBar'
 import type { ProjectsProps } from '@/types/contentful'
@@ -9,7 +9,7 @@ import TechIcon from '../Icons/TechStackIcons'
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
 z-10 w-full absolute top-24 left-0
 `
-const Container = tw.section`
+const Container = tw.section`relative
 w-full snap-center overflow-hidden oflow text-black dark:text-white h-true
 `
 const Wrapper = tw.div`
@@ -62,6 +62,18 @@ hidden w-full flex-row items-center justify-evenly sm:flex
 const TechIconContainer = tw.div`
 rounded-full bg-red-500/25 p-2 text-center dark:bg-fuchsia-900/25
 `
+const ScrollLeftArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
+absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-red-500/40 dark:bg-fuchsia-900/40
+`
+const ScrollLeftArrow = tw.div`
+absolute top-[25%] right-0 h-10 w-10 -rotate-45 scale-50 border-t-4 border-l-4 bg-none
+`
+const ScrollRightArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
+absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-red-500/40 dark:bg-fuchsia-900/40
+`
+const ScrollRightArrow = tw.div`
+absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
+`
 const twClasses =
   'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
 
@@ -111,13 +123,38 @@ const paragraphVariant: Variants = {
 }
 
 export default function ProjectSection({ data }: { data: ProjectsProps }) {
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
   const scrollRef = useRef(null)
   const { items } = data.projectItems
   const [{ sectionTitle }] = data.projectsSection.data
 
+  const itemRefs = useMemo(() => Array.from({ length: items.length }, () => createRef<HTMLDivElement>()), [items])
+
+  const checkArrowsVisibility = () => {
+    if (scrollRef.current) {
+      const container = scrollRef.current
+      const firstItem = itemRefs[0].current
+      const lastItem = itemRefs[itemRefs.length - 1].current
+      const tolerance = firstItem.clientWidth / 4
+
+      if (firstItem && lastItem) {
+        const firstItemPosition = firstItem.getBoundingClientRect().left
+        const lastItemPosition = lastItem.getBoundingClientRect().right
+
+        const containerPosition = container.getBoundingClientRect()
+
+        setCanScrollLeft(firstItemPosition < containerPosition.left - tolerance)
+        setCanScrollRight(lastItemPosition > containerPosition.right + tolerance)
+      }
+    }
+  }
+
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    event.preventDefault()
     const container = event.currentTarget
     const maxScrollLeft = container.scrollWidth - container.clientWidth
+
     if ((container.scrollLeft < maxScrollLeft && event.deltaY > 0) || (container.scrollLeft > 0 && event.deltaY < 0)) {
       event.preventDefault()
       container.scrollLeft += event.deltaY
@@ -127,14 +164,68 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
   useEffect(() => {
     const container = scrollRef.current
     if (container) {
+      const maxScrollLeft = container.scrollWidth - container.clientWidth
+      if (maxScrollLeft > 0) {
+        setCanScrollRight(true)
+      }
       container.addEventListener('wheel', handleWheel)
+      container.addEventListener('scroll', checkArrowsVisibility)
     }
     return () => {
       if (container) {
         container.removeEventListener('wheel', handleWheel)
+        container.removeEventListener('scroll', checkArrowsVisibility)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      checkArrowsVisibility()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollRef.current?.scrollLeft])
+
+  const scrollToNext = () => {
+    const container = scrollRef.current
+    if (container) {
+      const currentScrollLeft = container.scrollLeft
+
+      const nextItemIndex = itemRefs.findIndex(
+        (itemRef) => itemRef.current && itemRef.current.offsetLeft > currentScrollLeft,
+      )
+
+      if (nextItemIndex >= 0) {
+        container.scrollLeft = itemRefs[nextItemIndex].current.offsetLeft
+      }
+    }
+  }
+
+  const scrollToPrev = () => {
+    const container = scrollRef.current
+    if (container) {
+      const currentScrollLeft = container.scrollLeft
+
+      const prevItemIndex = itemRefs
+        .slice(0, -1)
+        .reverse()
+        .findIndex((itemRef) => {
+          itemRef.current && itemRef.current.offsetLeft + itemRef.current.clientWidth < currentScrollLeft
+        })
+
+      if (prevItemIndex >= 0) {
+        const targetIndex = itemRefs.length - 1 - prevItemIndex
+        container.scrollLeft = itemRefs[targetIndex].current.offsetLeft
+      } else if (container.scrollLeft > 0) {
+        container.scrollLeft = 0
+      }
+    }
+  }
+
+  function easeInExpo(progress: number): number {
+    return progress === 0 ? 0 : Math.pow(2, 10 * progress - 10)
+  }
 
   return (
     <Container id='projects'>
@@ -154,10 +245,10 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
         </MarqueeSubWrapper>
         <Spacer className='h-36 sm:h-[350px]' />
         <ProjectContainer ref={scrollRef}>
-          {items.map((project) => {
+          {items.map((project, index) => {
             const { name, headline, description, imgUrl, techStack, tags, codeUrl, liveUrl, sys } = project
             return (
-              <ContentBoxWrapper key={sys.id}>
+              <ContentBoxWrapper key={sys.id} ref={itemRefs[index]}>
                 <ContentBoxMotion
                   initial='initial'
                   whileInView='animate'
@@ -244,6 +335,34 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
       <RelativeBox>
         <ScrollProgressBar containerRef={scrollRef} />
       </RelativeBox>
+      <AnimatePresence mode='popLayout'>
+        <motion.span className='animate-pulse'>
+          {canScrollLeft && (
+            <ScrollLeftArrowContainer
+              key='left'
+              onClick={scrollToPrev}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: easeInExpo }}
+            >
+              <ScrollLeftArrow />
+            </ScrollLeftArrowContainer>
+          )}
+          {canScrollRight && (
+            <ScrollRightArrowContainer
+              key='right'
+              onClick={scrollToNext}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: easeInExpo }}
+            >
+              <ScrollRightArrow />
+            </ScrollRightArrowContainer>
+          )}
+        </motion.span>
+      </AnimatePresence>
     </Container>
   )
 }

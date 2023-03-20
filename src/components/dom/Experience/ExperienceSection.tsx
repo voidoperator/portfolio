@@ -70,11 +70,17 @@ flex flex-wrap items-center justify-evenly overflow-hidden rounded-b-2xl md:gap-
 const TechIconContainer = tw.div`
 rounded-full bg-red-500/25 p-2 text-center dark:bg-fuchsia-900/25
 `
-const ScrollArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
-
+const ScrollLeftArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
+absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-red-500/40 dark:bg-fuchsia-900/40
 `
-const ScrollArrow = tw.div`
-
+const ScrollLeftArrow = tw.div`
+absolute top-[25%] right-0 h-10 w-10 -rotate-45 scale-50 border-t-4 border-l-4 bg-none
+`
+const ScrollRightArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
+absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-red-500/40 dark:bg-fuchsia-900/40
+`
+const ScrollRightArrow = tw.div`
+absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
 `
 const twClasses =
   'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
@@ -340,30 +346,28 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
       <AnimatePresence mode='popLayout'>
         <motion.span className='animate-pulse'>
           {canScrollLeft && (
-            <ScrollArrowContainer
+            <ScrollLeftArrowContainer
               key='left'
               onClick={scrollToPrev}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: easeInExpo }}
-              className='absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-red-500/40 dark:bg-fuchsia-900/40'
             >
-              <ScrollArrow className='absolute top-[25%] right-0 h-10 w-10 -rotate-45 scale-50 border-t-4 border-l-4 bg-none' />
-            </ScrollArrowContainer>
+              <ScrollLeftArrow />
+            </ScrollLeftArrowContainer>
           )}
           {canScrollRight && (
-            <ScrollArrowContainer
+            <ScrollRightArrowContainer
               key='right'
               onClick={scrollToNext}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: easeInExpo }}
-              className='absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-red-500/40 dark:bg-fuchsia-900/40'
             >
-              <ScrollArrow className='absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none' />
-            </ScrollArrowContainer>
+              <ScrollRightArrow />
+            </ScrollRightArrowContainer>
           )}
         </motion.span>
       </AnimatePresence>
