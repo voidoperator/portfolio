@@ -10,7 +10,7 @@ async function fetchExperience(): Promise<ExperienceProps> {
           sectionTitle
         }
       }
-      experienceItems: experienceCollection {
+      experienceItems: experienceItemsCollection(order: sys_firstPublishedAt_DESC) {
         items {
           name
           title
