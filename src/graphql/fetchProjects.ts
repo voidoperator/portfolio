@@ -19,6 +19,8 @@ async function fetchProjects(): Promise<ProjectsProps> {
             title
             description
             url
+            width
+            height
           }
           techStack
           tags

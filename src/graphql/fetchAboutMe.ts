@@ -14,6 +14,8 @@ async function fetchAboutMe(): Promise<Contentful> {
             title
             description
             url
+            width
+            height
           }
         }
       }

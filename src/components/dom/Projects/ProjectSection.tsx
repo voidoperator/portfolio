@@ -5,6 +5,7 @@ import MarqueeText from '../MarqueeText'
 import ScrollProgressBar from '../ScrollProgressBar'
 import type { ProjectsProps } from '@/types/contentful'
 import TechIcon from '../Icons/TechStackIcons'
+import Image from 'next/image'
 
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
 z-10 w-full absolute top-24 left-0
@@ -47,8 +48,9 @@ flex items-center justify-center
 sm:block pt-4
 hover:opacity-60 transition-all duration-300
 `
+// sm:gap-8
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-start items-center sm:px-10 px-6 py-4 gap-2 sm:gap-8
+flex h-full grow flex-col justify-start items-center sm:px-10 px-6 gap-3
 `
 const UnorgList = tw.ul`
 flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
@@ -255,9 +257,15 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                   variants={contentBoxVariant}
                 >
                   <ParagraphContainer>
-                    {/* <ImageContainer title={name}>
-                      <IconComponent alt={name} twClasses={twClasses} />
-                    </ImageContainer> */}
+                    <ImageContainer>
+                      <Image
+                        src={imgUrl.url}
+                        alt={imgUrl.description}
+                        title={imgUrl.title}
+                        width={imgUrl.width}
+                        height={imgUrl.height}
+                      />
+                    </ImageContainer>
                     <ParagraphMotion className='text-2xl'>{name}</ParagraphMotion>
                     <TextContainer>
                       <ParagraphMotion
@@ -266,22 +274,6 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         whileInView='animate'
                         viewport={{ once: true, amount: 0 }}
                         className='whitespace-nowrap text-center text-lg lg:text-xl'
-                      >
-                        {headline}
-                      </ParagraphMotion>
-                      <ParagraphMotion
-                        variants={paragraphVariant}
-                        initial='initial'
-                        whileInView='animate'
-                        viewport={{ once: true, amount: 0 }}
-                      >
-                        {headline}
-                      </ParagraphMotion>
-                      <ParagraphMotion
-                        variants={paragraphVariant}
-                        initial='initial'
-                        whileInView='animate'
-                        viewport={{ once: true, amount: 0 }}
                       >
                         {headline}
                       </ParagraphMotion>
@@ -294,9 +286,16 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                       className='flex items-center justify-between gap-3 sm:text-base'
                     >
                       <>
-                        <span>{headline}</span>
-                        <span>{' - '}</span>
-                        <span>{headline}</span>
+                        <a
+                          target='_blank'
+                          href={codeUrl}
+                          className='rounded-full border-2 bg-transparent py-2 px-4'
+                        >{`<Code />`}</a>
+                        <a
+                          target='_blank'
+                          href={liveUrl}
+                          className='rounded-full border-2 bg-transparent py-2 px-4'
+                        >{`<LiveWebsite />`}</a>
                       </>
                     </ParagraphMotion>
                     <UnorgList>
@@ -323,6 +322,18 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         )
                       })}
                     </TechStack>
+                    <div className='flex h-full w-full flex-wrap items-center justify-center gap-4'>
+                      {tags.map((tag, index) => {
+                        return (
+                          <div
+                            key={tag + index}
+                            className='whitespace-nowrap rounded-full border border-red-400 px-4 py-2'
+                          >
+                            <span className='px-2 text-xs'>{`#${tag}`}</span>
+                          </div>
+                        )
+                      })}
+                    </div>
                   </ParagraphContainer>
                 </ContentBoxMotion>
               </ContentBoxWrapper>

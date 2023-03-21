@@ -14,7 +14,9 @@ const nextConfig = {
   // },
   productionBrowserSourceMaps: true,
   experimental: {},
-  images: {},
+  images: {
+    domains: ['images.ctfassets.net']
+  },
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   webpack(config, { isServer }) {
     // audio support

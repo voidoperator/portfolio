@@ -279,6 +279,7 @@ export default function ContactSection({ data }: { data: ContactProps[] }) {
           title='Home'
           href='#home'
           whileInView={getRngTransition()}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <HomeIcon twClasses={'h-7 w-7'} />
         </AbsoluteBox>

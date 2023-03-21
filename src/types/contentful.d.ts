@@ -54,6 +54,8 @@ export interface AboutMeProps {
     title: string
     description: string
     url: string
+    width: number
+    height: number
   }
   description: AboutMeDescription[]
 }
@@ -104,6 +106,8 @@ export type ProjectItems = {
     title: string
     description: string
     url: string
+    width: number
+    height: number
   }
   techStack: string[]
   tags: string[]
