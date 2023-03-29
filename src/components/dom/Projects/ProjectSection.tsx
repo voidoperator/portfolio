@@ -33,8 +33,8 @@ const ContentBoxWrapper = tw.div`
 flex snap-center w-full h-full
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
-oflow 2xl:w-full w-[calc(50vw-40px)]
-mx-5 mb-5 mt-10 py-4
+oflow 2xl:w-full sm:w-[calc(50vw-40px)] w-screen
+mx-5 sm:mb-5 mb-7 mt-10 sm:py-4 sm:pb-4 pb-2
 rounded-3xl backdrop-blur-sm bg-noise-cards
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
@@ -43,17 +43,17 @@ self-center
 const ListMotion: Motion.Tag<'li'> = tw(motion.li)`
 list-inside list-disc md:list-outside self-start
 `
-const ImageContainer = tw.div`
+const ImageContainer = tw.a`
 flex items-center justify-center
 sm:block pt-4
-hover:opacity-60 transition-all duration-300
+hover:opacity-80 transition-all duration-300
+sm:max-w-sm md:max-w-md lg:max-w-lg max-w-[14rem]
 `
-// sm:gap-8
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-start items-center sm:px-10 px-6 gap-3
+flex h-full grow flex-col justify-start items-center sm:px-10 px-6 sm:py-2 py-0 sm:gap-3 gap-2
 `
 const UnorgList = tw.ul`
-flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
+flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-1 gap-0 md:gap-3 xl:gap-5
 `
 const TextContainer = tw.div`
 flex w-full flex-col gap-2
@@ -75,6 +75,12 @@ absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-slate-50
 `
 const ScrollRightArrow = tw.div`
 absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
+`
+const HashTagContainer = tw.div`
+flex h-full w-full flex-wrap items-end justify-center gap-2 sm:gap-3 md:gap-4
+`
+const HashTagItem = tw.div`
+whitespace-nowrap rounded-full border border-red-400 bg-transparent py-1 px-3 sm:py-2 sm:px-4
 `
 const twClasses =
   'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
@@ -122,6 +128,10 @@ const paragraphVariant: Variants = {
       duration: 0.6,
     },
   },
+}
+
+function easeInExpo(progress: number): number {
+  return progress === 0 ? 0 : Math.pow(2, 10 * progress - 10)
 }
 
 export default function ProjectSection({ data }: { data: ProjectsProps }) {
@@ -224,10 +234,6 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
     }
   }
 
-  function easeInExpo(progress: number): number {
-    return progress === 0 ? 0 : Math.pow(2, 10 * progress - 10)
-  }
-
   return (
     <Container id='projects'>
       <Wrapper>
@@ -257,7 +263,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                   variants={contentBoxVariant}
                 >
                   <ParagraphContainer>
-                    <ImageContainer>
+                    <ImageContainer href={liveUrl} target='_blank'>
                       <Image
                         src={imgUrl.url}
                         alt={imgUrl.description}
@@ -273,7 +279,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         initial='initial'
                         whileInView='animate'
                         viewport={{ once: true, amount: 0 }}
-                        className='whitespace-nowrap text-center text-lg lg:text-xl'
+                        className='whitespace-nowrap text-center text-sm sm:text-base md:text-lg lg:text-xl'
                       >
                         {headline}
                       </ParagraphMotion>
@@ -289,13 +295,13 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         <a
                           target='_blank'
                           href={codeUrl}
-                          className='rounded-full border-2 bg-transparent py-2 px-4'
+                          className='rounded-full border bg-transparent py-1 px-3 sm:py-2 sm:px-4'
                         >{`<Code />`}</a>
                         <a
                           target='_blank'
                           href={liveUrl}
-                          className='rounded-full border-2 bg-transparent py-2 px-4'
-                        >{`<LiveWebsite />`}</a>
+                          className='rounded-full border bg-transparent py-1 px-3 sm:py-2 sm:px-4'
+                        >{`Live Website`}</a>
                       </>
                     </ParagraphMotion>
                     <UnorgList>
@@ -322,18 +328,15 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         )
                       })}
                     </TechStack>
-                    <div className='flex h-full w-full flex-wrap items-center justify-center gap-4'>
+                    <HashTagContainer>
                       {tags.map((tag, index) => {
                         return (
-                          <div
-                            key={tag + index}
-                            className='whitespace-nowrap rounded-full border border-red-400 px-4 py-2'
-                          >
+                          <HashTagItem key={tag + index} className=''>
                             <span className='px-2 text-xs'>{`#${tag}`}</span>
-                          </div>
+                          </HashTagItem>
                         )
                       })}
-                    </div>
+                    </HashTagContainer>
                   </ParagraphContainer>
                 </ContentBoxMotion>
               </ContentBoxWrapper>
