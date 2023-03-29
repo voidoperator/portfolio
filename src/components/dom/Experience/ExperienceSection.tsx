@@ -56,7 +56,7 @@ sm:block pt-4
 hover:opacity-60 transition-all duration-300
 `
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-start items-center sm:px-10 px-6 py-4 gap-2 sm:gap-8
+flex h-full grow flex-col justify-start items-center sm:px-10 px-6 sm:py-4 py-2 gap-2 sm:gap-8
 `
 const UnorgList = tw.ul`
 flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
@@ -326,7 +326,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                       {techStack?.map((tech, index) => {
                         return (
                           <TechIconContainer key={tech + index} title={tech} aria-label={tech}>
-                            <TechIcon icon={tech} twClasses={'h-6 w-6 text-black dark:text-white'} />
+                            <TechIcon icon={tech} twClasses={'h-3 w-3 sm:h-5 sm:w-5 text-black dark:text-white'} />
                           </TechIconContainer>
                         )
                       })}
