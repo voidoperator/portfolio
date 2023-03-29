@@ -1,11 +1,11 @@
 import React, { createRef, useEffect, useMemo, useRef, useState } from 'react'
-import tw from 'tailwind-styled-components'
+import Image from 'next/image'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
+import tw from 'tailwind-styled-components'
 import MarqueeText from '../MarqueeText'
 import ScrollProgressBar from '../ScrollProgressBar'
-import type { ProjectsProps } from '@/types/contentful'
 import TechIcon from '../Icons/TechStackIcons'
-import Image from 'next/image'
+import type { ProjectsProps } from '@/types/contentful'
 
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
 z-10 w-full absolute top-24 left-0
@@ -36,9 +36,6 @@ const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
 oflow 2xl:w-full sm:w-[calc(50vw-40px)] w-screen
 mx-5 sm:mb-5 mb-7 mt-10 sm:py-4 sm:pb-4 pb-2
 rounded-3xl backdrop-blur-sm bg-noise-cards
-`
-const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
-self-center
 `
 const ListMotion: Motion.Tag<'li'> = tw(motion.li)`
 list-inside list-disc md:list-outside self-start
@@ -82,9 +79,18 @@ flex h-full w-full flex-wrap items-end justify-center gap-2 sm:gap-3 md:gap-4
 const HashTagItem = tw.div`
 whitespace-nowrap rounded-full border border-red-400 bg-transparent py-1 px-3 sm:py-2 sm:px-4
 `
-const twClasses =
-  'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
-
+const CodeSiteButton = tw.a`
+rounded-full border bg-transparent py-1 px-3 sm:py-2 sm:px-4
+`
+const HeadlineMotion: Motion.Tag<'p'> = tw(motion.p)`
+self-center whitespace-nowrap text-center text-sm sm:text-base md:text-lg lg:text-xl
+`
+const CodeButtonContainer: Motion.Tag<'div'> = tw(motion.div)`
+self-center flex items-center justify-between gap-3 sm:text-sm md:text-base
+`
+const ProjectNameContainer: Motion.Tag<'p'> = tw(motion.p)`
+self-center text-2xl
+`
 const marqueeWrapperVariant: Variants = {
   initial: {
     opacity: 0,
@@ -272,38 +278,26 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         height={imgUrl.height}
                       />
                     </ImageContainer>
-                    <ParagraphMotion className='text-2xl'>{name}</ParagraphMotion>
+                    <ProjectNameContainer className=''>{name}</ProjectNameContainer>
                     <TextContainer>
-                      <ParagraphMotion
+                      <HeadlineMotion
                         variants={paragraphVariant}
                         initial='initial'
                         whileInView='animate'
                         viewport={{ once: true, amount: 0 }}
-                        className='whitespace-nowrap text-center text-sm sm:text-base md:text-lg lg:text-xl'
                       >
                         {headline}
-                      </ParagraphMotion>
+                      </HeadlineMotion>
                     </TextContainer>
-                    <ParagraphMotion
+                    <CodeButtonContainer
                       variants={paragraphVariant}
                       initial='initial'
                       whileInView='animate'
                       viewport={{ once: true, amount: 0 }}
-                      className='flex items-center justify-between gap-3 sm:text-base'
                     >
-                      <>
-                        <a
-                          target='_blank'
-                          href={codeUrl}
-                          className='rounded-full border bg-transparent py-1 px-3 sm:py-2 sm:px-4'
-                        >{`<Code />`}</a>
-                        <a
-                          target='_blank'
-                          href={liveUrl}
-                          className='rounded-full border bg-transparent py-1 px-3 sm:py-2 sm:px-4'
-                        >{`Live Website`}</a>
-                      </>
-                    </ParagraphMotion>
+                      <CodeSiteButton target='_blank' href={codeUrl}>{`<Code />`}</CodeSiteButton>
+                      <CodeSiteButton target='_blank' href={liveUrl}>{`Live Website`}</CodeSiteButton>
+                    </CodeButtonContainer>
                     <UnorgList>
                       {description.map((bulletPoint, index) => {
                         return (
