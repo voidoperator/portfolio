@@ -79,14 +79,14 @@ flex h-full w-full flex-wrap items-end justify-center gap-2 sm:gap-3 md:gap-4
 const HashTagItem = tw.div`
 whitespace-nowrap rounded-full border border-red-400 bg-transparent py-1 px-3 sm:py-2 sm:px-4
 `
-const CodeSiteButton = tw.a`
-rounded-full border bg-transparent py-1 px-3 sm:py-2 sm:px-4
-`
 const HeadlineMotion: Motion.Tag<'p'> = tw(motion.p)`
 self-center whitespace-nowrap text-center text-sm sm:text-base md:text-lg lg:text-xl
 `
 const CodeButtonContainer: Motion.Tag<'div'> = tw(motion.div)`
 self-center flex items-center justify-between gap-3 sm:text-sm md:text-base
+`
+const CodeSiteButton = tw.a`
+rounded-full border bg-transparent py-1 px-3 sm:py-2 sm:px-4 hover:scale-90 transition-all hover:opacity-100 opacity-80
 `
 const ProjectNameContainer: Motion.Tag<'p'> = tw(motion.p)`
 self-center text-2xl
@@ -326,7 +326,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                       {tags.map((tag, index) => {
                         return (
                           <HashTagItem key={tag + index} className=''>
-                            <span className='px-2 text-xs'>{`#${tag}`}</span>
+                            <span className='cursor-default px-2 text-xs'>{`#${tag}`}</span>
                           </HashTagItem>
                         )
                       })}
