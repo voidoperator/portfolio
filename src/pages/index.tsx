@@ -1,5 +1,5 @@
 import React from 'react'
-import JulioNunezLogo from '@/components/canvas/JulioNunezLogo'
+import FullScene from '@/components/canvas/FullScene'
 import NavBar from '@/components/dom/Nav/NavBar'
 import MobileNav from '@/components/dom/MobileNav/MobileNav'
 import HeroBanner from '@/components/dom/Hero/HeroBanner'
@@ -26,7 +26,7 @@ export default function Page({ herobanner, aboutme, experience, skills, projects
     </>
   )
 }
-Page.canvas = (props: IndexProps) => <JulioNunezLogo position={[0.25, -0.21, -5.5]} scale={0.025} />
+Page.canvas = (props: IndexProps) => <FullScene position={[0, -2.5, 0]} />
 
 export const getStaticProps: GetStaticProps<IndexProps> = async (): Promise<GetStaticPropsResult<IndexProps>> => {
   const data = await fetchContentful()

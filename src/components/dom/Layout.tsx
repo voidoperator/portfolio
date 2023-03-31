@@ -7,7 +7,7 @@ const Container = tw.div`
 z-10 overflow-y-auto overflow-x-hidden bg-noise-double
 `
 const Wrapper = tw.div`
-h-screen snap-y snap-mandatory overflow-y-auto
+h-true snap-y snap-mandatory overflow-y-auto
 `
 
 const defaultColorModeContext = {

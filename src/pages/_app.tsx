@@ -10,7 +10,7 @@ import type { ScrollOffsetContextProps } from '@/types/context.types'
 import '@/styles/global.css'
 
 const LoadingWrapper: Motion.Tag<'div'> = tw(motion.div)`
-flex h-screen flex-col items-center justify-center overflow-hidden text-center text-white
+flex h-true flex-col items-center justify-center overflow-hidden text-center text-white
 `
 const LoadingMotion: Motion.Tag<'div'> = tw(motion.div)`
 py-10 font-titlingstand text-xs text-white
