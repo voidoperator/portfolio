@@ -18,7 +18,7 @@ const ContactForm = tw.div`oflow font-sofiaprolight overflow-hidden sm:w-full w-
 flex grow bg-noise-cards rounded-3xl shadow-2xl backdrop-blur-sm
 font-normal text-xs md:text-sm lg:text-sm
 sm:mx-10 mx-[20px] sm:max-w-[75%]
-h-[62.5vh]
+h-[62.5svh]
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
 oflow relative flex flex-col items-center grow
