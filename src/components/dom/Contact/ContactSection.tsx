@@ -261,7 +261,7 @@ export default function ContactSection({ data }: { data: ContactProps[] }) {
                   initial='initial'
                   variants={transitionVariants}
                   target='_blank'
-                  title='LinkedIn'
+                  title='Resume'
                   href={resumeUrl}
                   whileInView={getRngTransition()}
                   viewport={{ once: true, amount: 0.2 }}
