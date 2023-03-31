@@ -4,77 +4,132 @@
 
 @font-face {
   font-family: SofiaPro;
-  src: url(/fonts/SofiaPro.otf) format('opentype');
+  src: url(/fonts/SofiaPro.eot);
+  src: url(/fonts/SofiaPro.eot?#iefix) format('embedded-opentype'), url(/fonts/SofiaPro.svg#SofiaPro) format('svg'),
+    url(/fonts/SofiaPro.ttf) format('truetype'), url(/fonts/SofiaPro.woff) format('woff'),
+    url(/fonts/SofiaPro.woff2) format('woff2'), url(/fonts/SofiaPro.otf) format('otf');
   font-weight: 100 200 300 400 500 600 700 800 900;
 }
 
 @font-face {
   font-family: SofiaProLight;
-  src: url(/fonts/SofiaPro-Light.otf) format('opentype');
+  src: url(/fonts/SofiaPro-Light.eot);
+  src: url(/fonts/SofiaPro-Light.eot?#iefix) format('embedded-opentype'), url(/fonts/SofiaPro-Light.otf) format('otf'),
+    url(/fonts/SofiaPro-Light.svg#SofiaPro-Light) format('svg'), url(/fonts/SofiaPro-Light.ttf) format('truetype'),
+    url(/fonts/SofiaPro-Light.woff) format('woff'), url(/fonts/SofiaPro-Light.woff2) format('woff2');
   font-weight: 100 200 300 400 500 600 700 800 900;
 }
 
 @font-face {
   font-family: Druk;
-  src: url(/fonts/Druk-WideMedium.otf) format('opentype');
+  src: url(/fonts/Druk-WideMedium.eot);
+  src: url(/fonts/Druk-WideMedium.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/Druk-WideMedium.svg#Druk-WideMedium) format('svg'), url(/fonts/Druk-WideMedium.ttf) format('truetype'),
+    url(/fonts/Druk-WideMedium.woff) format('woff'), url(/fonts/Druk-WideMedium.woff2) format('woff2');
   font-weight: 100 200 300 400 500 600 700 800 900;
 }
 
 @font-face {
   font-family: TitlingGothicFBExtThin;
-  src: url(/fonts/TitlingGothicFBExtThin.otf) format('opentype');
+  src: url(/fonts/TitlingGothicFBExtThin.eot);
+  src: url(/fonts/TitlingGothicFBExtThin.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/TitlingGothicFBExtThin.otf) format('otf'),
+    url(/fonts/TitlingGothicFBExtThin.svg#TitlingGothicFBExtThin) format('svg'),
+    url(/fonts/TitlingGothicFBExtThin.ttf) format('truetype'), url(/fonts/TitlingGothicFBExtThin.woff) format('woff'),
+    url(/fonts/TitlingGothicFBExtThin.woff2) format('woff2');
   font-weight: 100;
 }
 
 @font-face {
   font-family: TitlingGothicFBExtLight;
-  src: url(/fonts/TitlingGothicFBExtLight.otf) format('opentype');
+  src: url(/fonts/TitlingGothicFBExtLight.eot);
+  src: url(/fonts/TitlingGothicFBExtLight.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/TitlingGothicFBExtLight.otf) format('otf'),
+    url(/fonts/TitlingGothicFBExtLight.svg#TitlingGothicFBExtLight) format('svg'),
+    url(/fonts/TitlingGothicFBExtLight.ttf) format('truetype'), url(/fonts/TitlingGothicFBExtLight.woff) format('woff'),
+    url(/fonts/TitlingGothicFBExtLight.woff2) format('woff2');
   font-weight: 200;
 }
 
 @font-face {
   font-family: TitlingGothicFBExtReg;
-  src: url(/fonts/TitlingGothicFBExtReg.otf) format('opentype');
+  src: url(/fonts/TitlingGothicFBExtReg.eot);
+  src: url(/fonts/TitlingGothicFBExtReg.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/TitlingGothicFBExtReg.otf) format('otf'),
+    url(/fonts/TitlingGothicFBExtReg.svg#TitlingGothicFBExtReg) format('svg'),
+    url(/fonts/TitlingGothicFBExtReg.ttf) format('truetype'), url(/fonts/TitlingGothicFBExtReg.woff) format('woff'),
+    url(/fonts/TitlingGothicFBExtReg.woff2) format('woff2');
   font-weight: 300;
 }
 
 @font-face {
   font-family: TitlingGothicFBExtStand;
-  src: url(/fonts/TitlingGothicFBExtStand.otf) format('opentype');
+  src: url(/fonts/TitlingGothicFBExtStand.eot);
+  src: url(/fonts/TitlingGothicFBExtStand.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/TitlingGothicFBExtStand.otf) format('otf'),
+    url(/fonts/TitlingGothicFBExtStand.svg#TitlingGothicFBExtStand) format('svg'),
+    url(/fonts/TitlingGothicFBExtStand.ttf) format('truetype'), url(/fonts/TitlingGothicFBExtStand.woff) format('woff'),
+    url(/fonts/TitlingGothicFBExtStand.woff2) format('woff2');
   font-weight: 400;
 }
 
 @font-face {
   font-family: TitlingGothicFBExtMed;
-  src: url(/fonts/TitlingGothicFBExtMed.otf) format('opentype');
+  src: url(/fonts/TitlingGothicFBExtMed.eot);
+  src: url(/fonts/TitlingGothicFBExtMed.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/TitlingGothicFBExtMed.otf) format('otf'),
+    url(/fonts/TitlingGothicFBExtMed.svg#TitlingGothicFBExtMed) format('svg'),
+    url(/fonts/TitlingGothicFBExtMed.ttf) format('truetype'), url(/fonts/TitlingGothicFBExtMed.woff) format('woff'),
+    url(/fonts/TitlingGothicFBExtMed.woff2) format('woff2');
   font-weight: 500;
 }
 
 @font-face {
   font-family: TitlingGothicFBExtBold;
-  src: url(/fonts/TitlingGothicFBExtBold.otf) format('opentype');
+  src: url(/fonts/TitlingGothicFBExtBold.eot);
+  src: url(/fonts/TitlingGothicFBExtBold.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/TitlingGothicFBExtBold.otf) format('otf'),
+    url(/fonts/TitlingGothicFBExtBold.svg#TitlingGothicFBExtBold) format('svg'),
+    url(/fonts/TitlingGothicFBExtBold.ttf) format('truetype'), url(/fonts/TitlingGothicFBExtBold.woff) format('woff'),
+    url(/fonts/TitlingGothicFBExtBold.woff2) format('woff2');
   font-weight: 600;
 }
 
 @font-face {
   font-family: TitlingGothicFBExtBlack;
-  src: url(/fonts/TitlingGothicFBExtBlack.otf) format('opentype');
+  src: url(/fonts/TitlingGothicFBExtBlack.eot);
+  src: url(/fonts/TitlingGothicFBExtBlack.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/TitlingGothicFBExtBlack.otf) format('otf'),
+    url(/fonts/TitlingGothicFBExtBlack.svg#TitlingGothicFBExtBlack) format('svg'),
+    url(/fonts/TitlingGothicFBExtBlack.ttf) format('truetype'), url(/fonts/TitlingGothicFBExtBlack.woff) format('woff'),
+    url(/fonts/TitlingGothicFBExtBlack.woff2) format('woff2');
   font-weight: 700 800 900;
 }
 
 @font-face {
   font-family: Turnpike;
-  src: url(/fonts/turnpike.ttf) format('truetype');
+  src: url(/fonts/Turnpike.eot);
+  src: url(/fonts/Turnpike.eot?#iefix) format('embedded-opentype'), url(/fonts/Turnpike.otf) format('otf'),
+    url(/fonts/Turnpike.svg#Turnpike) format('svg'), url(/fonts/Turnpike.ttf) format('truetype'),
+    url(/fonts/Turnpike.woff) format('woff'), url(/fonts/Turnpike.woff2) format('woff2');
 }
 
 @font-face {
   font-family: Urban-Starblues;
-  src: url(/fonts/Urban-Starblues.ttf) format('truetype');
+  src: url(/fonts/Urban-Starblues.eot);
+  src: url(/fonts/Urban-Starblues.eot?#iefix) format('embedded-opentype'), url(/fonts/Urban-Starblues.otf) format('otf'),
+    url(/fonts/Urban-Starblues.svg#Urban-Starblues) format('svg'), url(/fonts/Urban-Starblues.ttf) format('truetype'),
+    url(/fonts/Urban-Starblues.woff) format('woff'), url(/fonts/Urban-Starblues.woff2) format('woff2');
+  font-weight: 100 200 300 400 500 600 700 800 900;
 }
 
 @font-face {
   font-family: VHS;
-  src: url(/fonts/VCR-OSD-VHS.ttf) format('truetype');
+  src: url(/fonts/VCR-OSD-VHS.eot);
+  src: url(/fonts/VCR-OSD-VHS.eot?#iefix) format('embedded-opentype'), url(/fonts/VCR-OSD-VHS.otf) format('otf'),
+    url(/fonts/VCR-OSD-VHS.svg#VCR-OSD-VHS) format('svg'), url(/fonts/VCR-OSD-VHS.ttf) format('truetype'),
+    url(/fonts/VCR-OSD-VHS.woff) format('woff'), url(/fonts/VCR-OSD-VHS.woff2) format('woff2');
+  font-weight: 100 200 300 400 500 600 700 800 900;
 }
 
 @layer base {
@@ -138,7 +193,6 @@
     height: 0;
   }
 
-  /* true viewport height for mobile */
   .h-true {
     height: 100svh;
     /* height: calc(100 * var(--svh)); */

@@ -66,7 +66,7 @@ type GLTFResult = GLTF & {
 }
 
 export default function FullScene(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/vzscene-transformed.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('/3d/vzscene-transformed.glb') as GLTFResult
   const texture = useLoader(THREE.TextureLoader, '/img/vzbg.webp')
 
   const hdrMaterial = useMemo(
@@ -215,4 +215,4 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/vzscene-transformed.glb')
+useGLTF.preload('/3d/vzscene-transformed.glb')

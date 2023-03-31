@@ -8,9 +8,9 @@ import ExperienceSection from '@/components/dom/Experience/ExperienceSection'
 import SkillSection from '@/components/dom/Skills/SkillSection'
 import ProjectSection from '@/components/dom/Projects/ProjectSection'
 import ContactSection from '@/components/dom/Contact/ContactSection'
+import fetchContentful from '@/graphql/fetchContentful'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import type { IndexProps } from '@/types/contentful'
-import fetchContentful from '@/graphql/fetchContentful'
 
 export default function Page({ herobanner, aboutme, experience, skills, projects, contact }) {
   return (
