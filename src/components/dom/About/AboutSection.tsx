@@ -16,7 +16,7 @@ const AboutMeSection = tw.div`oflow font-sofiaprolight overflow-hidden
 flex grow bg-noise-cards rounded-3xl shadow-2xl backdrop-blur-sm
 font-normal text-xs md:text-sm lg:text-sm
 sm:mx-10 mx-[20px] sm:max-w-[75%]
-h-[62.5vh]
+sm:h-[62.5vh] h-1/2
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
 oflow relative flex flex-row items-center grow
@@ -33,7 +33,7 @@ const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
 z-10 w-full absolute top-24 left-0
 `
 const TextContainer = tw.div`
-flex flex-col items-center sm:gap-2 gap-1 sm:pb-0 sm:pt-0 pt-2 pb-4
+flex flex-col items-center sm:gap-2 gap-[3px] sm:py-4 py-5
 `
 const ParagraphMotion: Motion.Tag<'p'> = tw(motion.p)`
 self-start px-6 sm:px-0
