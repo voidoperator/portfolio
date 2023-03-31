@@ -140,7 +140,8 @@
 
   /* true viewport height for mobile */
   .h-true {
-    height: calc(100 * var(--vh));
+    height: 100svh;
+    /* height: calc(100 * var(--svh)); */
   }
 
   .oflow::-webkit-scrollbar {

@@ -7,7 +7,7 @@ import JNSignatureMotion from '../Icons/Icons'
 import { HeroBannerProps } from '@/types/contentful'
 
 const Container = tw.section`
-h-screen snap-center overflow-hidden oflow
+h-true snap-center overflow-hidden oflow
 `
 const Wrapper = tw.div`
 flex flex-col justify-center py-[72px] w-full h-full uppercase
