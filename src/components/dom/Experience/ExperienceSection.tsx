@@ -15,16 +15,13 @@ const icons = {
 }
 
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-z-10 w-full absolute top-24 left-0
+z-10 w-full pt-24 md:pt-[68px]
 `
 const Container = tw.section`relative
 w-full snap-center overflow-hidden oflow text-black dark:text-white h-true
 `
 const Wrapper = tw.div`
 flex flex-col relative w-full h-true
-`
-const Spacer = tw.div`
-w-full
 `
 const RelativeBox = tw.div`
 z-10 relative sm:bottom-1 bottom-12
@@ -37,7 +34,7 @@ font-normal text-xs md:text-sm lg:text-sm
 justify-start items-stretch
 `
 const ContentBoxWrapper = tw.div`
-flex snap-center w-full h-full
+flex snap-center w-full h-[95%]
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
 oflow
@@ -52,20 +49,20 @@ list-inside list-disc md:list-outside self-start
 `
 const ImageContainer = tw.div`
 flex items-center justify-center
-sm:block pt-4
+sm:block 2xl:pt-2
 hover:opacity-60 transition-all duration-300
 `
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-start items-center sm:px-10 px-6 sm:py-4 py-2 gap-2 sm:gap-8
+flex h-full grow flex-col justify-evenly items-center sm:px-10 px-6 sm:py-2 py-1 gap-2 sm:gap-1
 `
 const UnorgList = tw.ul`
-flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-6 gap-3
+flex list-disc flex-col justify-center font-sofiaprolight sm:gap-3 gap-1
 `
 const TextContainer = tw.div`
 flex w-full flex-col gap-2
 `
 const TechStack = tw.div`
-flex flex-wrap items-center justify-evenly overflow-hidden rounded-b-2xl md:gap-1
+flex flex-wrap items-center justify-center overflow-hidden rounded-b-2xl md:gap-1
 `
 const TechIconContainer = tw.div`
 rounded-full bg-slate-400/30 p-2 text-center dark:bg-slate-900/60
@@ -83,7 +80,7 @@ const ScrollRightArrow = tw.div`
 absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
 `
 const twClasses =
-  'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-32'
+  'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-[10svh]'
 
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -249,7 +246,6 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
             directionLeft={false}
           />
         </MarqueeSubWrapper>
-        <Spacer className='h-36 sm:h-[350px]' />
         <ExperienceContainer ref={scrollRef}>
           {items.map((job, index) => {
             const { name, title, subHeadline, type, techStack, startDate, endDate, svgIconName, description, sys } = job
@@ -266,7 +262,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                     <ImageContainer title={name}>
                       <IconComponent alt={name} twClasses={twClasses} />
                     </ImageContainer>
-                    <ParagraphMotion className='text-2xl'>{name}</ParagraphMotion>
+                    {/* <ParagraphMotion className='text-2xl'>{name}</ParagraphMotion> */}
                     <TextContainer>
                       <ParagraphMotion
                         variants={paragraphVariant}
@@ -337,7 +333,6 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
             )
           })}
         </ExperienceContainer>
-        <Spacer className='h-11 sm:h-[70px]' />
       </Wrapper>
       <RelativeBox>
         <ScrollProgressBar containerRef={scrollRef} />

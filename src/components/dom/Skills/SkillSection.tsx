@@ -10,38 +10,35 @@ const Container = tw.section`
 w-full h-true
 snap-center text-black dark:text-white overflow-hidden oflow
 `
-const Wrapper = tw.div`
+const Wrapper = tw.div`sm:h-full sm:pb-10
 relative overflow-hidden oflow
-flex flex-col items-center justify-center
+flex flex-col items-center justify-between
 `
-const SkillsSection = tw.div`oflow font-sofiaprolight overflow-hidden
+const SkillsSection = tw.div`oflow font-sofiaprolight overflow-hidden sm:my-7
 flex grow bg-noise-cards rounded-3xl shadow-2xl backdrop-blur-sm
 font-normal text-xs md:text-sm lg:text-sm
 sm:mx-10 mx-[20px] 2xl:max-w-[50%] xl:max-w-[60%] lg:max-w-[70%] md:max-w-[80%] sm:max-w-[80%]
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
-oflow relative flex h-full w-full flex-row flex-wrap items-center justify-center
+oflow flex w-full flex-row flex-wrap items-center justify-center
 gap-1 py-4 md:gap-2 lg:gap-2 xl:gap-3 2xl:gap-6 sm:px-4
 `
-const Spacer = tw.div`
-w-full
-`
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-z-10 w-full absolute top-24 left-0
+z-10 w-full pt-24 md:pt-[68px]
 `
 const IconWrapper: Motion.Tag<'div'> = tw(motion.div)`
-
+flex flex-row flex-wrap
 `
 const Divider = tw.div`
-h-[1px] w-full bg-black/75 dark:bg-white/75 my-0 sm:my-10 hidden sm:block
+h-[1px] w-full bg-black/75 dark:bg-white/75 my-0 sm:my-2 hidden sm:block
 `
 const IconButton = tw.div`
 flex flex-row items-center gap-1 rounded-full bg-slate-100/70
 text-black dark:bg-slate-900/75 dark:text-white
-py-1 px-4 lg:gap-3
+py-1 px-3 lg:gap-1
 `
 const IconName = tw.span`
-cursor-default whitespace-nowrap text-xs lg:text-base xl:text-lg
+cursor-default whitespace-nowrap text-xs lg:text-base xl:text-base
 `
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -106,7 +103,6 @@ export default function SkillSection({ data }: { data: SkillsProps[] }) {
             textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
           />
         </MarqueeSubWrapper>
-        <Spacer className='h-44 sm:h-[350px]' />
         <SkillsSection>
           <ContentBoxMotion
             initial='initial'
@@ -124,13 +120,12 @@ export default function SkillSection({ data }: { data: SkillsProps[] }) {
                   initial='initial'
                   whileInView='animate'
                   viewport={{ once: true, amount: 0.2 }}
-                  className='flex flex-row flex-wrap'
                   title={skillName}
                 >
                   <RubberBandElements key={skillName + index}>
                     <IconButton>
                       <IconName>{skillName}</IconName>
-                      <TechIcon icon={skillName} twClasses='h-7 p-1 md:h-9 lg:h-11' />
+                      <TechIcon icon={skillName} twClasses='h-7 p-1 md:h-7 lg:h-8' />
                     </IconButton>
                   </RubberBandElements>
                 </IconWrapper>
@@ -139,7 +134,6 @@ export default function SkillSection({ data }: { data: SkillsProps[] }) {
             <Divider />
           </ContentBoxMotion>
         </SkillsSection>
-        <Spacer className='h-[210px] sm:h-[70px]' />
       </Wrapper>
     </Container>
   )

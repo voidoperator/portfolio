@@ -77,7 +77,7 @@ export default function MarqueeText({
   }
 
   return (
-    <div className='absolute w-full overflow-hidden'>
+    <div className='w-full overflow-hidden'>
       <MarqueeContainer whileHover={{ opacity: 0.9 }}>
         <MarqueeWrapper variants={marqueeVariant} whileInView='left' ref={marqueeRef}>
           <span className={twClasses + ' ' + textSize}>{string}</span>

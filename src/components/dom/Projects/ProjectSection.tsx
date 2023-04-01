@@ -8,34 +8,31 @@ import TechIcon from '../Icons/TechStackIcons'
 import type { ProjectsProps } from '@/types/contentful'
 
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-z-10 w-full absolute top-24 left-0
+z-10 w-full pt-24 md:pt-[68px]
 `
-const Container = tw.section`relative
+const Container = tw.section`
 w-full snap-center overflow-hidden oflow text-black dark:text-white h-true
 `
 const Wrapper = tw.div`
 flex flex-col relative w-full h-true
-`
-const Spacer = tw.div`
-w-full
 `
 const RelativeBox = tw.div`
 z-10 relative sm:bottom-1 bottom-12
 `
 const ProjectContainer = tw.div`
 oflow font-sofiapro overflow-y-hidden
-scroll-smooth oflow overflow-x-scroll h-full w-full m-auto p-[-2.5rem]
+scroll-smooth oflow overflow-x-auto h-full w-full m-auto p-[-2.5rem]
 flex flex-row snap-x snap-mandatory
 font-normal text-xs md:text-sm lg:text-sm
 justify-start items-stretch
 `
 const ContentBoxWrapper = tw.div`
-flex snap-center w-full h-full
+flex snap-center w-full h-[95%]
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
 oflow 2xl:w-full sm:w-[calc(50vw-40px)] w-screen
 mx-5 sm:mb-5 mb-7 mt-10 sm:py-4 sm:pb-4 pb-2
-rounded-3xl backdrop-blur-sm bg-noise-cards
+rounded-3xl backdrop-blur-sm bg-noise-cards overflow-y-hidden
 `
 const ListMotion: Motion.Tag<'li'> = tw(motion.li)`
 list-inside list-disc md:list-outside self-start
@@ -44,19 +41,19 @@ const ImageContainer = tw.a`
 flex items-center justify-center
 sm:block pt-4
 hover:opacity-80 transition-all duration-300
-sm:max-w-sm md:max-w-md lg:max-w-lg max-w-[14rem]
+w-1/2
 `
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-start items-center sm:px-10 px-6 sm:py-2 py-0 sm:gap-3 gap-2
+flex h-full grow flex-col justify-around items-center sm:px-10 px-6 sm:py-2 py-0 sm:gap-3 gap-2
 `
 const UnorgList = tw.ul`
-flex list-disc flex-col justify-evenly font-sofiaprolight sm:gap-1 gap-0 md:gap-3 xl:gap-5
+flex list-disc flex-col justify-center font-sofiaprolight sm:gap-1 gap-0 md:gap-3 xl:gap-5
 `
 const TextContainer = tw.div`
 flex w-full flex-col gap-2
 `
 const TechStack = tw.div`
-hidden w-full flex-row items-center justify-evenly sm:flex
+hidden w-full flex-row items-center justify-center sm:flex gap-2
 `
 const TechIconContainer = tw.div`
 rounded-full bg-slate-400/30 p-2 text-center dark:bg-slate-900/60
@@ -74,22 +71,22 @@ const ScrollRightArrow = tw.div`
 absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
 `
 const HashTagContainer = tw.div`
-flex h-full w-full flex-wrap items-end justify-center gap-2 sm:gap-3 md:gap-4
+hidden lg:flex w-full flex-wrap items-end justify-center gap-2 sm:gap-3 md:gap-4
 `
 const HashTagItem = tw.div`
-whitespace-nowrap rounded-full border border-red-400 bg-transparent py-1 px-3 sm:py-2 sm:px-4
+whitespace-nowrap rounded-full border border-red-400 bg-transparent py-1 px-3 sm:py-1 sm:px-2
 `
 const HeadlineMotion: Motion.Tag<'p'> = tw(motion.p)`
 self-center whitespace-nowrap text-center text-sm sm:text-base md:text-lg lg:text-xl
 `
 const CodeButtonContainer: Motion.Tag<'div'> = tw(motion.div)`
-self-center flex items-center justify-between gap-3 sm:text-sm md:text-base
+self-center flex items-center justify-center gap-3 sm:text-sm md:text-sm
 `
 const CodeSiteButton = tw.a`
-rounded-full border bg-transparent py-1 px-3 sm:py-2 sm:px-4 hover:scale-90 transition-all hover:opacity-100 opacity-80
+rounded-full border bg-transparent py-1 px-3 sm:py-1 sm:px-2 hover:scale-90 transition-all hover:opacity-100 opacity-80
 `
 const ProjectNameContainer: Motion.Tag<'p'> = tw(motion.p)`
-self-center text-2xl
+self-center 2xl:text-2xl text-lg
 `
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -256,7 +253,6 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
             directionLeft={false}
           />
         </MarqueeSubWrapper>
-        <Spacer className='h-36 sm:h-[350px]' />
         <ProjectContainer ref={scrollRef}>
           {items.map((project, index) => {
             const { name, headline, description, imgUrl, techStack, tags, codeUrl, liveUrl, sys } = project
@@ -278,7 +274,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         height={imgUrl.height}
                       />
                     </ImageContainer>
-                    <ProjectNameContainer className=''>{name}</ProjectNameContainer>
+                    <ProjectNameContainer>{name}</ProjectNameContainer>
                     <TextContainer>
                       <HeadlineMotion
                         variants={paragraphVariant}
@@ -337,7 +333,6 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
             )
           })}
         </ProjectContainer>
-        <Spacer className='h-11 sm:h-[70px]' />
       </Wrapper>
       <RelativeBox>
         <ScrollProgressBar containerRef={scrollRef} />

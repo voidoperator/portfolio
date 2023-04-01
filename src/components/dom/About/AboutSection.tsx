@@ -8,11 +8,11 @@ const Container = tw.section`
 w-full h-true
 snap-center text-black dark:text-white overflow-hidden oflow
 `
-const Wrapper = tw.div`
+const Wrapper = tw.div`sm:h-full
 relative overflow-hidden oflow
 flex flex-col items-center justify-center
 `
-const AboutMeSection = tw.div`oflow font-sofiaprolight overflow-hidden
+const AboutMeSection = tw.div`oflow font-sofiaprolight overflow-hidden sm:my-36
 flex grow bg-noise-cards rounded-3xl shadow-2xl backdrop-blur-sm
 font-normal text-xs md:text-sm lg:text-sm
 sm:mx-10 mx-[20px] sm:max-w-[75%]
@@ -26,11 +26,8 @@ h-full
 flex flex-col items-center justify-evenly
 gap-0 sm:flex-col sm:items-start sm:px-6 md:px-8
 `
-const Spacer = tw.div`
-w-full
-`
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-z-10 w-full absolute top-24 left-0
+z-10 w-full pt-24 md:pt-[68px] pb-4 2xl:pb-8
 `
 const TextContainer = tw.div`
 flex flex-col items-center sm:gap-2 gap-[3px] sm:py-4 py-5
@@ -114,7 +111,6 @@ export default function AboutSection({ data }: { data: AboutMeProps[] }) {
             textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
           />
         </MarqueeSubWrapper>
-        <Spacer className='h-44 sm:h-[350px]' />
         <AboutMeSection>
           <ContentBoxMotion
             initial='initial'
@@ -156,7 +152,6 @@ export default function AboutSection({ data }: { data: AboutMeProps[] }) {
             </ImageContainer>
           </ContentBoxMotion>
         </AboutMeSection>
-        <Spacer className='h-[210px] sm:h-[70px]' />
       </Wrapper>
     </Container>
   )
