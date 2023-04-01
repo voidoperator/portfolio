@@ -82,9 +82,11 @@ export default function Scene({ children, ...props }) {
         <Environment files={'/img/QuasarEnv.hdr'} background={true} />
         {children}
         <fog attach='fog' args={[`${fogColor}`, 0, 175]} />
-        <EffectComposer>
-          <Bloom intensity={bloomIntensity} kernelSize={5} luminanceThreshold={0.5} luminanceSmoothing={0.35} />
-        </EffectComposer>
+        {!isMobile && (
+          <EffectComposer>
+            <Bloom intensity={bloomIntensity} kernelSize={5} luminanceThreshold={0.5} luminanceSmoothing={0.35} />
+          </EffectComposer>
+        )}
       </Canvas>
       <Loader
         containerStyles={container}

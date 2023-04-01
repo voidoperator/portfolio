@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin
+Disallow: /private
+Disallow: /search
+Sitemap: https://julionunez.dev/sitemap.xml

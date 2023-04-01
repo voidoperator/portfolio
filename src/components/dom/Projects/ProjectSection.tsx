@@ -10,7 +10,7 @@ import type { ProjectsProps } from '@/types/contentful'
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
 z-10 w-full pt-24 md:pt-[68px]
 `
-const Container = tw.section`
+const Container = tw.section`relative
 w-full snap-center overflow-hidden oflow text-black dark:text-white h-true
 `
 const Wrapper = tw.div`
