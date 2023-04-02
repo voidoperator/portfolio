@@ -92,7 +92,7 @@ export default function Scene({ children, ...props }) {
       </Canvas>
       {isServer && (
         <Loader
-          key={'canvasLoader101'}
+          key={'canvasLoader'}
           containerStyles={container}
           innerStyles={inner}
           barStyles={bar}
