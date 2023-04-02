@@ -53,34 +53,34 @@ sm:block 2xl:pt-2
 hover:opacity-60 transition-all duration-300
 `
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-evenly items-center sm:px-10 px-6 sm:py-2 py-1 gap-2 sm:gap-1
+flex h-full grow flex-col items-center sm:px-10 px-6 sm:py-2 py-1 gap-2 sm:gap-1
 `
 const UnorgList = tw.ul`
 flex list-disc flex-col justify-center font-sofiaprolight sm:gap-3 gap-1
 `
-const TextContainer = tw.div`
+const TextContainer = tw.div`my-auto
 flex w-full flex-col gap-2
 `
-const TechStack = tw.div`
+const TechStack = tw.div`mt-auto
 flex flex-wrap items-center justify-center overflow-hidden rounded-b-2xl md:gap-1
 `
 const TechIconContainer = tw.div`
-rounded-full bg-slate-400/30 p-2 text-center dark:bg-slate-900/60
+rounded-full bg-zinc-400/30 p-2 text-center dark:bg-zinc-900/60
 `
 const ScrollLeftArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
-absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-slate-500/70 dark:bg-slate-900/75 shadow-2xl
+absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-zinc-500/70 dark:bg-zinc-900/75 shadow-2xl
 `
 const ScrollLeftArrow = tw.div`
 absolute top-[25%] right-0 h-10 w-10 -rotate-45 scale-50 border-t-4 border-l-4 bg-none
 `
 const ScrollRightArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
-absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-slate-500/70 dark:bg-slate-900/75 shadow-2xl
+absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-zinc-500/70 dark:bg-zinc-900/75 shadow-2xl
 `
 const ScrollRightArrow = tw.div`
 absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
 `
 const twClasses =
-  'transition-all text-gray-900 hover:text-gray-800 dark:text-gray-100 hover:dark:text-gray-400 h-[72px] sm:h-[10svh]'
+  'transition-all text-zinc-900 hover:text-zinc-800 dark:text-zinc-100 hover:dark:text-zinc-400 h-[72px] sm:h-[10svh]'
 
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -145,13 +145,10 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
       const firstItem = itemRefs[0].current
       const lastItem = itemRefs[itemRefs.length - 1].current
       const tolerance = firstItem.clientWidth / 4
-
       if (firstItem && lastItem) {
         const firstItemPosition = firstItem.getBoundingClientRect().left
         const lastItemPosition = lastItem.getBoundingClientRect().right
-
         const containerPosition = container.getBoundingClientRect()
-
         setCanScrollLeft(firstItemPosition < containerPosition.left - tolerance)
         setCanScrollRight(lastItemPosition > containerPosition.right + tolerance)
       }
@@ -161,7 +158,6 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
     const container = event.currentTarget
     const maxScrollLeft = container.scrollWidth - container.clientWidth
-
     if ((container.scrollLeft < maxScrollLeft && event.deltaY > 0) || (container.scrollLeft > 0 && event.deltaY < 0)) {
       event.preventDefault()
       container.scrollLeft += event.deltaY
@@ -198,11 +194,9 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
     const container = scrollRef.current
     if (container) {
       const currentScrollLeft = container.scrollLeft
-
       const nextItemIndex = itemRefs.findIndex(
         (itemRef) => itemRef.current && itemRef.current.offsetLeft > currentScrollLeft,
       )
-
       if (nextItemIndex >= 0) {
         container.scrollLeft = itemRefs[nextItemIndex].current.offsetLeft
       }
@@ -213,14 +207,12 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
     const container = scrollRef.current
     if (container) {
       const currentScrollLeft = container.scrollLeft
-
       const prevItemIndex = itemRefs
         .slice(0, -1)
         .reverse()
         .findIndex((itemRef) => {
           itemRef.current && itemRef.current.offsetLeft + itemRef.current.clientWidth < currentScrollLeft
         })
-
       if (prevItemIndex >= 0) {
         const targetIndex = itemRefs.length - 1 - prevItemIndex
         container.scrollLeft = itemRefs[targetIndex].current.offsetLeft

@@ -33,8 +33,8 @@ const Divider = tw.div`
 h-[1px] w-full bg-black/75 dark:bg-white/75 my-0 sm:my-2 hidden sm:block
 `
 const IconButton = tw.div`
-flex flex-row items-center gap-1 rounded-full bg-slate-100/70
-text-black dark:bg-slate-900/75 dark:text-white
+flex flex-row items-center gap-1 rounded-full bg-zinc-100/60
+text-black dark:bg-zinc-900/75 dark:text-white
 py-1 px-3 lg:gap-1
 `
 const IconName = tw.span`

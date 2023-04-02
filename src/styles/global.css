@@ -191,7 +191,7 @@
   }
 
   .bg-noise-cards {
-    @apply bg-noise bg-[length:200px] bg-[0px_0px] bg-repeat bg-slate-50/75 dark:bg-slate-800/40;
+    @apply bg-noise bg-[length:200px] bg-[0px_0px] bg-repeat bg-neutral-50/60 dark:bg-neutral-800/40;
   }
 
   #sb {

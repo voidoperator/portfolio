@@ -4,35 +4,11 @@ Command: npx gltfjsx vzscene.glb -t -k s -T -R --weld
 */
 
 import React, { useMemo, useRef } from 'react'
-import { Edges, MeshTransmissionMaterial, useGLTF, Loader } from '@react-three/drei'
+import { Edges, MeshTransmissionMaterial, useGLTF } from '@react-three/drei'
 import { useFrame, useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
 import { GLTF } from 'three-stdlib'
-
-const container = {
-  display: 'flex',
-  height: '100svh',
-  width: '100vw',
-  fontSize: '1.25rem',
-  alignItems: 'center',
-  justifyContent: 'center',
-  overflow: 'hidden',
-  fontFamily: 'TitlingGothicFBExtLight',
-}
-const data = {
-  textAlign: 'center',
-  width: '100%',
-  fontFamily: 'TitlingGothicFBExtLight',
-}
-const inner = {
-  width: '50vw',
-  fontFamily: 'TitlingGothicFBExtLight',
-}
-const bar = {
-  borderRadius: '16px',
-  height: '1rem',
-  fontFamily: 'TitlingGothicFBExtLight',
-}
+import LoadingScreen from '../dom/LoadingScreen/LoadingScreen'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -124,78 +100,74 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
     const refLogoCurrent = refLogo.current
 
     if (refLogoCurrent) {
-      refLogo.current.rotation.y += 0.005
+      refLogo.current.rotation.y += 0.01
     }
     if (refGlassOrbsCurrent) {
-      refGlassOrbs.current.rotation.y += 0.0005
+      refGlassOrbs.current.rotation.y += 0.001
     }
     if (refCircsConstTwoCurrent) {
-      refCircsConstTwo.current.rotation.x -= 0.0025
+      refCircsConstTwo.current.rotation.x -= 0.003
     }
     if (refCircsConstOneCurrent) {
-      refCircsConstOne.current.rotation.x += 0.0025
+      refCircsConstOne.current.rotation.x += 0.003
     }
     if (refsHoloFillOneCurrent) {
-      refsHoloFillOne.current.rotation.x -= 0.0025
+      refsHoloFillOne.current.rotation.x -= 0.003
     }
     if (refsHoloFillTwoCurrent) {
-      refsHoloFillTwo.current.rotation.x += 0.0025
+      refsHoloFillTwo.current.rotation.x += 0.003
     }
     if (refsMainFrameCurrent) {
-      refsMainFrame.current.rotation.x += 0.00175
-      refsMainFrame.current.rotation.y += 0.00175
-      refsMainFrame.current.rotation.z += 0.00175
+      refsMainFrame.current.rotation.x += 0.002
+      refsMainFrame.current.rotation.y += 0.002
+      refsMainFrame.current.rotation.z += 0.002
     }
   })
 
   if (!nodes) {
-    return (
-      <Loader
-        key={'canvasLoader'}
-        containerStyles={container}
-        innerStyles={inner}
-        barStyles={bar}
-        dataStyles={data}
-        initialState={(active) => active}
-        dataInterpolation={(percent) => `Loading ${percent.toFixed(0)}%`}
-      />
-    )
+    return <LoadingScreen identifier='fullSceneLoader' />
   }
 
   return (
-    <group {...props} dispose={null}>
-      <group name='scifiRotate' position={[-0.39, 12.05, -7.22]} scale={5}>
+    <group {...props} dispose={null} key='fullScene'>
+      <group key='scifiRotate' name='scifiRotate' position={[-0.39, 12.05, -7.22]} scale={5}>
         <mesh
           ref={refCircsConstOne}
+          key='circle1_constant2_0'
           name='circle1_constant2_0'
           geometry={nodes.circle1_constant2_0.geometry}
           material={materials.constant2}
         />
         <mesh
           ref={refCircsConstTwo}
+          key='circle2_constant2_0'
           name='circle2_constant2_0'
           geometry={nodes.circle2_constant2_0.geometry}
           material={materials.constant2}
         />
         <mesh
           ref={refsHoloFillOne}
+          key='circle_constant1_0'
           name='circle_constant1_0'
           geometry={nodes.circle_constant1_0.geometry}
           material={materials.constant1}
         />
         <mesh
           ref={refsHoloFillTwo}
+          key='circle_HoloFillDark_0'
           name='circle_HoloFillDark_0'
           geometry={nodes.circle_HoloFillDark_0.geometry}
           material={materials.HoloFillDark}
         />
         <group ref={refsMainFrame}>
           <mesh
+            key='geo1_HoloFillDark_0_1'
             name='geo1_HoloFillDark_0_1'
             geometry={nodes.geo1_HoloFillDark_0_1.geometry}
             material={materials.HoloFillDark}
           />
           <mesh
+            key='geo1_HoloFillDark_0_2'
             name='geo1_HoloFillDark_0_2'
             geometry={nodes.geo1_HoloFillDark_0_2.geometry}
             material={materials.constant1}
@@ -204,6 +176,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
       </group>
       <mesh
         ref={refLogo}
+        key='JNLogo'
         name='JNLogo'
         geometry={nodes.JNLogo.geometry}
         position={[-4.32, 7.7, 5.04]}
@@ -225,46 +198,53 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
         </Edges>
       </mesh>
       <mesh
+        key='vzHumanoid'
         name='vzHumanoid'
         geometry={nodes.vzHumanoid.geometry}
         material={materials.TransMetal}
         position={[-1.46, 9.02, 1.72]}
         rotation={[-Math.PI, 0, -Math.PI]}
       />
-      <mesh name='dome' geometry={nodes.dome.geometry} material={hdrMaterial} position={[-1.52, 7.17, 0]} />
+      <mesh key='dome' name='dome' geometry={nodes.dome.geometry} material={hdrMaterial} position={[-1.52, 7.17, 0]} />
       <mesh
+        key='handOrb'
         name='handOrb'
         geometry={nodes.handOrb.geometry}
         material={materials.Core}
         position={[6.1, 4.9, -1.16]}
         scale={2}
       />
-      <group name='lightOrbs' position={[0, 7.51, 0]}>
+      <group key='lightOrbs' name='lightOrbs' position={[0, 7.51, 0]}>
         <mesh
+          key='Sphere_Core_0001'
           name='Sphere_Core_0001'
           geometry={nodes.Sphere_Core_0001.geometry}
           material={materials['Core.001']}
           position={[-5.57, -10.15, 0.93]}
         />
         <mesh
+          key='Sphere_Core_0002'
           name='Sphere_Core_0002'
           geometry={nodes.Sphere_Core_0002.geometry}
           material={materials['Core.001']}
           position={[-8.36, -3.35, -1.14]}
         />
         <mesh
+          key='Sphere_Core_0003'
           name='Sphere_Core_0003'
           geometry={nodes.Sphere_Core_0003.geometry}
           material={materials['Core.001']}
           position={[6.62, -4.46, 2.4]}
         />
         <mesh
+          key='Sphere_Core_0004'
           name='Sphere_Core_0004'
           geometry={nodes.Sphere_Core_0004.geometry}
           material={materials['Core.001']}
           position={[3.94, -8.47, 6.16]}
         />
         <mesh
+          key='Sphere_Core_0005'
           name='Sphere_Core_0005'
           geometry={nodes.Sphere_Core_0005.geometry}
           material={materials['Core.001']}
@@ -272,6 +252,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           rotation={[0, -1.21, 0]}
         />
         <mesh
+          key='Sphere_Core_0006'
           name='Sphere_Core_0006'
           geometry={nodes.Sphere_Core_0006.geometry}
           material={materials['Core.001']}
@@ -279,6 +260,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           rotation={[0, -1.21, 0]}
         />
         <mesh
+          key='Sphere_Core_0007'
           name='Sphere_Core_0007'
           geometry={nodes.Sphere_Core_0007.geometry}
           material={materials['Core.001']}
@@ -286,6 +268,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           rotation={[0, -1.21, 0]}
         />
         <mesh
+          key='Sphere_Core_0008'
           name='Sphere_Core_0008'
           geometry={nodes.Sphere_Core_0008.geometry}
           material={materials['Core.001']}
@@ -293,6 +276,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           rotation={[0, -1.21, 0]}
         />
         <mesh
+          key='Sphere_Core_0009'
           name='Sphere_Core_0009'
           geometry={nodes.Sphere_Core_0009.geometry}
           material={materials['Core.001']}
@@ -300,6 +284,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           rotation={[0, -1.21, 0]}
         />
         <mesh
+          key='Sphere_Core_0010'
           name='Sphere_Core_0010'
           geometry={nodes.Sphere_Core_0010.geometry}
           material={materials['Core.001']}
@@ -307,6 +292,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           rotation={[0, -1.21, 0]}
         />
         <mesh
+          key='Sphere_Core_0011'
           name='Sphere_Core_0011'
           geometry={nodes.Sphere_Core_0011.geometry}
           material={materials['Core.001']}
@@ -314,6 +300,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           rotation={[0, -1.21, 0]}
         />
         <mesh
+          key='Sphere_Core_0012'
           name='Sphere_Core_0012'
           geometry={nodes.Sphere_Core_0012.geometry}
           material={materials['Core.001']}
@@ -321,32 +308,37 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           rotation={[0, -1.21, 0]}
         />
         <mesh
+          key='Sphere_Core_0013'
           name='Sphere_Core_0013'
           geometry={nodes.Sphere_Core_0013.geometry}
           material={materials['Core.001']}
           position={[3.94, 2.11, 3.05]}
         />
         <mesh
+          key='Sphere_Core_0014'
           name='Sphere_Core_0014'
           geometry={nodes.Sphere_Core_0014.geometry}
           material={materials['Core.001']}
           position={[4.36, 6.12, -0.71]}
         />
         <mesh
+          key='Sphere_Core_0015'
           name='Sphere_Core_0015'
           geometry={nodes.Sphere_Core_0015.geometry}
           material={materials['Core.001']}
           position={[-6.41, 7.23, 2.81]}
         />
         <mesh
+          key='Sphere_Core_0016'
           name='Sphere_Core_0016'
           geometry={nodes.Sphere_Core_0016.geometry}
           material={materials['Core.001']}
           position={[-5.57, 0.43, -2.19]}
         />
       </group>
-      <group ref={refGlassOrbs} name='glassOrbs' position={[0, 7.51, 0]}>
+      <group ref={refGlassOrbs} key='glassOrbs' name='glassOrbs' position={[0, 7.51, 0]}>
         <mesh
+          key='Sphere_Core_0017'
           name='Sphere_Core_0017'
           geometry={nodes.Sphere_Core_0017.geometry}
           material={nodes.Sphere_Core_0017.material}
@@ -364,6 +356,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0018'
           name='Sphere_Core_0018'
           geometry={nodes.Sphere_Core_0018.geometry}
           material={nodes.Sphere_Core_0018.material}
@@ -381,6 +374,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0019'
           name='Sphere_Core_0019'
           geometry={nodes.Sphere_Core_0019.geometry}
           material={nodes.Sphere_Core_0019.material}
@@ -398,6 +392,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0020'
           name='Sphere_Core_0020'
           geometry={nodes.Sphere_Core_0020.geometry}
           material={nodes.Sphere_Core_0020.material}
@@ -415,6 +410,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0021'
           name='Sphere_Core_0021'
           geometry={nodes.Sphere_Core_0021.geometry}
           material={nodes.Sphere_Core_0021.material}
@@ -433,6 +429,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0022'
           name='Sphere_Core_0022'
           geometry={nodes.Sphere_Core_0022.geometry}
           material={nodes.Sphere_Core_0022.material}
@@ -451,6 +448,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0023'
           name='Sphere_Core_0023'
           geometry={nodes.Sphere_Core_0023.geometry}
           material={nodes.Sphere_Core_0023.material}
@@ -469,6 +467,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0024'
           name='Sphere_Core_0024'
           geometry={nodes.Sphere_Core_0024.geometry}
           material={nodes.Sphere_Core_0024.material}
@@ -487,6 +486,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0025'
           name='Sphere_Core_0025'
           geometry={nodes.Sphere_Core_0025.geometry}
           material={nodes.Sphere_Core_0025.material}
@@ -505,6 +505,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0026'
           name='Sphere_Core_0026'
           geometry={nodes.Sphere_Core_0026.geometry}
           material={nodes.Sphere_Core_0026.material}
@@ -523,6 +524,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0027'
           name='Sphere_Core_0027'
           geometry={nodes.Sphere_Core_0027.geometry}
           material={nodes.Sphere_Core_0027.material}
@@ -541,6 +543,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0028'
           name='Sphere_Core_0028'
           geometry={nodes.Sphere_Core_0028.geometry}
           material={nodes.Sphere_Core_0028.material}
@@ -559,6 +562,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0029'
           name='Sphere_Core_0029'
           geometry={nodes.Sphere_Core_0029.geometry}
           material={nodes.Sphere_Core_0029.material}
@@ -576,6 +580,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0030'
           name='Sphere_Core_0030'
           geometry={nodes.Sphere_Core_0030.geometry}
           material={nodes.Sphere_Core_0030.material}
@@ -593,6 +598,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0031'
           name='Sphere_Core_0031'
           geometry={nodes.Sphere_Core_0031.geometry}
           material={nodes.Sphere_Core_0031.material}
@@ -610,6 +616,7 @@ export default function FullScene(props: JSX.IntrinsicElements['group']) {
           />
         </mesh>
         <mesh
+          key='Sphere_Core_0032'
           name='Sphere_Core_0032'
           geometry={nodes.Sphere_Core_0032.geometry}
           material={nodes.Sphere_Core_0032.material}

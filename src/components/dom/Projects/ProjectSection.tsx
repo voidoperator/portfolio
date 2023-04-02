@@ -56,16 +56,16 @@ const TechStack = tw.div`
 hidden w-full flex-row items-center justify-center sm:flex gap-2
 `
 const TechIconContainer = tw.div`
-rounded-full bg-slate-400/30 p-2 text-center dark:bg-slate-900/60
+rounded-full bg-zinc-400/30 p-2 text-center dark:bg-zinc-900/60
 `
 const ScrollLeftArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
-absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-slate-500/70 dark:bg-slate-900/75 shadow-2xl
+absolute top-2/4 left-[-40px] h-20 w-20 cursor-pointer rounded-full bg-zinc-500/70 dark:bg-zinc-900/75 shadow-2xl
 `
 const ScrollLeftArrow = tw.div`
 absolute top-[25%] right-0 h-10 w-10 -rotate-45 scale-50 border-t-4 border-l-4 bg-none
 `
 const ScrollRightArrowContainer: Motion.Tag<'div'> = tw(motion.div)`
-absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-slate-500/70 dark:bg-slate-900/75 shadow-2xl
+absolute top-2/4 right-[-40px] h-20 w-20 cursor-pointer rounded-full bg-zinc-500/70 dark:bg-zinc-900/75 shadow-2xl
 `
 const ScrollRightArrow = tw.div`
 absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
@@ -77,16 +77,16 @@ const HashTagItem = tw.div`
 whitespace-nowrap rounded-full border border-red-400 bg-transparent py-1 px-3 sm:py-1 sm:px-2
 `
 const HeadlineMotion: Motion.Tag<'p'> = tw(motion.p)`
-self-center whitespace-nowrap text-center text-sm sm:text-base md:text-lg lg:text-xl
+self-center whitespace-nowrap text-center text-sm sm:text-base md:text-md lg:text-lg
 `
 const CodeButtonContainer: Motion.Tag<'div'> = tw(motion.div)`
 self-center flex items-center justify-center gap-3 sm:text-sm md:text-sm
 `
-const CodeSiteButton = tw.a`
-rounded-full border bg-transparent py-1 px-3 sm:py-1 sm:px-2 hover:scale-90 transition-all hover:opacity-100 opacity-80
+const CodeSiteButton = tw.a`text-black dark:text-white dark:bg-zinc-900/50 bg-zinc-100/50
+rounded-full border py-1 px-3 sm:py-1 sm:px-2 hover:scale-90 transition-all hover:opacity-100 opacity-80
 `
 const ProjectNameContainer: Motion.Tag<'p'> = tw(motion.p)`
-self-center 2xl:text-2xl text-lg
+self-center 2xl:text-2xl text-xl
 `
 const marqueeWrapperVariant: Variants = {
   initial: {
@@ -220,14 +220,12 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
     const container = scrollRef.current
     if (container) {
       const currentScrollLeft = container.scrollLeft
-
       const prevItemIndex = itemRefs
         .slice(0, -1)
         .reverse()
         .findIndex((itemRef) => {
           itemRef.current && itemRef.current.offsetLeft + itemRef.current.clientWidth < currentScrollLeft
         })
-
       if (prevItemIndex >= 0) {
         const targetIndex = itemRefs.length - 1 - prevItemIndex
         container.scrollLeft = itemRefs[targetIndex].current.offsetLeft
