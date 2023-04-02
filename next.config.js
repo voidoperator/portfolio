@@ -8,51 +8,28 @@ const withPWA = require('next-pwa')({
 })
 
 const nextConfig = {
-  // uncomment the following snippet if using styled components
-  // compiler: {
-  //   styledComponents: true,
-  // },
   productionBrowserSourceMaps: true,
   experimental: {},
   images: {
     domains: ['images.ctfassets.net']
   },
-  reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
+  reactStrictMode: false,
   webpack(config, { isServer }) {
-    // audio support
-    config.module.rules.push({
-      test: /\.(ogg|mp3|wav|mpe?g)$/i,
-      exclude: config.exclude,
-      use: [
-        {
-          loader: require.resolve('url-loader'),
-          options: {
-            limit: config.inlineImageLimit,
-            fallback: require.resolve('file-loader'),
-            publicPath: `${config.assetPrefix}/_next/static/images/`,
-            outputPath: `${isServer ? '../' : ''}static/images/`,
-            name: '[name]-[hash].[ext]',
-            esModule: config.esModule || false,
-          },
-        },
-      ],
-    })
-
+    // source map for dev - cheap for prod
+    config.devtool = isServer ? 'eval-source-map' : false
     // shader support
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
       exclude: /node_modules/,
       use: ['raw-loader', 'glslify-loader'],
     })
-
     return config
   },
 }
-
 // manage i18n
 if (process.env.EXPORT !== 'true') {
   nextConfig.i18n = {
-    locales: ['en', 'jp'],
+    locales: ['en'],
     defaultLocale: 'en',
   }
 }

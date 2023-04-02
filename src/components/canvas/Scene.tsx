@@ -51,13 +51,15 @@ function Controls({ look = new THREE.Vector3() }) {
 }
 
 export default function Scene({ children, ...props }) {
+  const [isServer, setIsServer] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const { isDarkMode } = useColorModeContext()
   const fogColor = isDarkMode ? '#420606' : '#e7e7e7'
-  const bloomIntensity = isDarkMode ? 2 : 1
+  const bloomIntensity = isDarkMode ? 10 : 1
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= 768)
+    setIsServer(true)
   }, [])
 
   return (
@@ -68,33 +70,37 @@ export default function Scene({ children, ...props }) {
         <pointLight position={[-10, -10, -10]} />
         <Controls />
         <OrbitControls
+          autoRotate
           autoRotateSpeed={0.35}
           maxDistance={50}
           minDistance={18}
-          autoRotate
           enableRotate={!isMobile}
           enableZoom={false}
           enablePan={false}
           dampingFactor={1}
           zoomSpeed={0}
-          rotateSpeed={0.035}
+          rotateSpeed={1.035} //0.035
         />
         <Environment files={'/img/QuasarEnv.hdr'} background={true} />
         {children}
         <fog attach='fog' args={[`${fogColor}`, 0, 175]} />
         {!isMobile && (
           <EffectComposer>
-            <Bloom intensity={bloomIntensity} kernelSize={5} luminanceThreshold={0.5} luminanceSmoothing={0.35} />
+            <Bloom intensity={bloomIntensity} luminanceThreshold={0.85} levels={9} mipmapBlur />
           </EffectComposer>
         )}
       </Canvas>
-      <Loader
-        containerStyles={container}
-        innerStyles={inner}
-        barStyles={bar}
-        dataStyles={data}
-        dataInterpolation={(percent) => `Loading ${percent.toFixed(0)}%`}
-      />
+      {isServer && (
+        <Loader
+          key={'canvasLoader101'}
+          containerStyles={container}
+          innerStyles={inner}
+          barStyles={bar}
+          dataStyles={data}
+          initialState={(active) => active}
+          dataInterpolation={(percent) => `Loading ${percent.toFixed(0)}%`}
+        />
+      )}
     </>
   )
 }

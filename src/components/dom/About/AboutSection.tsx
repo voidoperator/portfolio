@@ -148,7 +148,7 @@ export default function AboutSection({ data }: { data: AboutMeProps[] }) {
               <Divider />
             </ParagraphContainer>
             <ImageContainer>
-              <Image src={imgUrl.url} alt={imgUrl.title} />
+              <Image src={imgUrl.url} alt={imgUrl.title} width={imgUrl.width} height={imgUrl.height} />
             </ImageContainer>
           </ContentBoxMotion>
         </AboutMeSection>

@@ -321,7 +321,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                     <TechStack>
                       {techStack?.map((tech, index) => {
                         return (
-                          <TechIconContainer key={tech + index} title={tech} aria-label={tech}>
+                          <TechIconContainer key={tech + index} title={tech}>
                             <TechIcon icon={tech} twClasses={'h-3 w-3 sm:h-5 sm:w-5 text-black dark:text-white'} />
                           </TechIconContainer>
                         )

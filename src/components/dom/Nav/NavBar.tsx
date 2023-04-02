@@ -9,14 +9,14 @@ import ScrollProgressBar from '../ScrollProgressBar'
 
 const MotionHeader: Motion.Tag<'header'> = tw(motion.header)`
 fixed top-0 left-0 z-20 w-full px-2 py-2.5 sm:px-4 bg-noise bg-[length:150px] bg-[0px_0px]
-backdrop-blur-md bg-neutral-50/60 dark:bg-neutral-900/50 font-titlingreg min-h-[64px]
+backdrop-blur-[8px] bg-neutral-50/10 dark:bg-neutral-900/50 font-titlingreg min-h-[64px]
 `
 const LogoMotion: Motion.Tag<'a'> = tw(motion.a)`
 flex items-center sm:pl-3 pl-2
 `
 const AnchorMotion: Motion.Tag<'a'> = tw(motion.a)`
 transition-all text-[10px] md:text-[11px] block py-2 pl-3 pr-4 rounded md:p-0 cursor-pointer
-text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-gray-200
+text-gray-900 hover:text-black dark:text-gray-200 dark:hover:text-gray-200
 `
 const IconMotion: Motion.Tag<'a'> = tw(motion.a)`
 flex items-center justify-center p-[2px] sm:p-2 rounded-full cursor-pointer focus:ring-4
