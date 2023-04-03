@@ -229,7 +229,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
           variants={marqueeWrapperVariant}
           initial='initial'
           whileInView='animate'
-          viewport={{ once: true, amount: 0.8 }}
+          viewport={{ once: true }}
         >
           <MarqueeText
             string={sectionTitle}
@@ -247,7 +247,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                 <ContentBoxMotion
                   initial='initial'
                   whileInView='animate'
-                  viewport={{ once: true, amount: 0 }}
+                  viewport={{ once: true }}
                   variants={contentBoxVariant}
                 >
                   <ParagraphContainer>
@@ -260,7 +260,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                         variants={paragraphVariant}
                         initial='initial'
                         whileInView='animate'
-                        viewport={{ once: true, amount: 0 }}
+                        viewport={{ once: true }}
                         className='whitespace-nowrap text-center text-lg lg:text-xl'
                       >
                         {title}
@@ -269,7 +269,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                         variants={paragraphVariant}
                         initial='initial'
                         whileInView='animate'
-                        viewport={{ once: true, amount: 0 }}
+                        viewport={{ once: true }}
                       >
                         {type}
                       </ParagraphMotion>
@@ -277,7 +277,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                         variants={paragraphVariant}
                         initial='initial'
                         whileInView='animate'
-                        viewport={{ once: true, amount: 0 }}
+                        viewport={{ once: true }}
                       >
                         {subHeadline}
                       </ParagraphMotion>
@@ -286,7 +286,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                       variants={paragraphVariant}
                       initial='initial'
                       whileInView='animate'
-                      viewport={{ once: true, amount: 0 }}
+                      viewport={{ once: true }}
                       className='flex items-center justify-between gap-3 sm:text-base'
                     >
                       <>
@@ -303,7 +303,7 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                             variants={paragraphVariant}
                             initial='initial'
                             whileInView='animate'
-                            viewport={{ once: true, amount: 0 }}
+                            viewport={{ once: true }}
                           >
                             {bulletPoint}
                           </ListMotion>

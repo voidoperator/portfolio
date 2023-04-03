@@ -15,7 +15,7 @@ import type { IndexProps } from '@/types/contentful'
 export default function Page({ herobanner, aboutme, experience, skills, projects, contact }) {
   return (
     <>
-      <NavBar />
+      <NavBar data={contact} />
       <HeroBanner data={herobanner} />
       <AboutSection data={aboutme} />
       <ExperienceSection data={experience} />

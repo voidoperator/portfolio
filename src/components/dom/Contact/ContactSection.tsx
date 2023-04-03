@@ -7,14 +7,14 @@ import { LinkedInIcon, GithubIcon, EmailIcon, ResumeIcon, HomeIcon } from '../Ic
 import getRngTransition from '@/utility/getRngTransitions'
 
 const Container = tw.section`
-w-full h-true relative
+w-full h-true
 snap-center text-black dark:text-white overflow-hidden oflow
 `
-const Wrapper = tw.div`
-relative overflow-hidden oflow sm:w-full self-center w-screen
+const Wrapper = tw.div`sm:h-full
+relative overflow-hidden oflow
 flex flex-col items-center justify-center
 `
-const ContactForm = tw.div`oflow font-sofiaprolight overflow-hidden sm:w-full w-[80vw] self-center
+const ContactForm = tw.div`oflow font-sofiaprolight overflow-hidden sm:w-full w-[80vw] sm:my-24
 flex grow bg-noise-cards rounded-3xl shadow-2xl backdrop-blur-sm
 font-normal text-xs md:text-sm lg:text-sm
 sm:mx-10 mx-[20px] sm:max-w-[75%]
@@ -28,11 +28,8 @@ h-full w-full
 flex flex-col items-center justify-evenly
 gap-0 sm:flex-col sm:items-center sm:px-6 md:px-8
 `
-const Spacer = tw.div`
-w-full
-`
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
-z-10 w-full absolute top-24 left-0
+z-10 w-full pt-24 md:pt-[68px] pb-4 2xl:pb-8
 `
 const Form = tw.form`
 flex flex-col items-center sm:gap-2 space-y-2 sm:pb-0 sm:pt-0 pt-2 pb-4 w-4/5 self-center
@@ -51,9 +48,15 @@ rounded-md bg-slate-800/75 py-2 px-6 text-base text-white dark:text-white shadow
 const Divider = tw.div`
 h-[1px] w-full bg-black/75 dark:bg-white/75 my-0 sm:my-10 hidden sm:block
 `
+const HomeContainer = tw.div`
+top-0 left-0 flex w-full items-center justify-center
+`
+const HomeWrapper = tw.div`
+flex items-center justify-center
+`
 const AbsoluteBox: Motion.Tag<'a'> = tw(motion.a)`border-white/50 dark:border-white/30 hover:border-white/10
 text-gray-50 hover:text-gray-200 dark:text-gray-200 hover:dark:text-gray-500
-absolute bottom-0 left-1/2 border bg-slate-800/10 bg-blend-color-burn
+absolute bottom-6 border bg-slate-800/10 bg-blend-color-burn
 hidden sm:flex items-center justify-center p-[2px] sm:p-2 rounded-full cursor-pointer focus:ring-2
 focus:outline-none focus:ring-neutral-900/25 dark:focus:ring-white/50
 transition-all duration-500
@@ -64,6 +67,12 @@ focus:outline-none focus:ring-neutral-900/25 dark:focus:ring-white/50
 `
 const FlexRow = tw.div`
 flex flex-row gap-10 sm:gap-20 align-center justify-center w-full max-h-10
+`
+const EmailSentContainer = tw.div`
+flex h-full w-full flex-col items-center justify-center rounded-3xl text-center font-sofiapro text-lg
+`
+const EmailSentText = tw.div`
+rounded-full bg-slate-200/75 py-4 px-6 shadow-lg dark:bg-slate-800/75 dark:text-white
 `
 const twClasses =
   'transition-all h-10 w-10 text-gray-800 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400 duration-300'
@@ -128,23 +137,29 @@ const paragraphVariant: Variants = {
   },
 }
 
-const links = [
-  { title: 'LinkedIn', href: 'https://www.linkedin.com/in/julio-nunez/' },
-  { title: 'GitHub', href: 'https://github.com/voidoperator' },
-  { title: 'Email', href: 'mailto:julionunez@me.com' },
-  { title: 'Resume', href: 'https://github.com/voidoperator' },
-]
+const icons = {
+  LinkedIn: LinkedInIcon,
+  GitHub: GithubIcon,
+  Email: EmailIcon,
+  Resume: ResumeIcon,
+}
 
 export default function ContactSection({ data }: { data: ContactProps[] }) {
   const [{ sectionTitle, email, linkedInUrl, githubUrl, resumeUrl }] = data
   const [emailSent, setEmailSent] = useState(false)
+  const links = [
+    { title: 'LinkedIn', href: linkedInUrl },
+    { title: 'GitHub', href: githubUrl },
+    { title: 'Email', href: `mailto:${email}` },
+    { title: 'Resume', href: resumeUrl },
+  ]
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const { target } = event
     const name = target.elements[0]
     const subject = target.elements[1]
     const message = target.elements[2]
-
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject.value)}&body=${encodeURIComponent(
       `Name: ${name.value}\n\nMessage: ${message.value}`,
     )}`
@@ -162,7 +177,7 @@ export default function ContactSection({ data }: { data: ContactProps[] }) {
           variants={marqueeWrapperVariant}
           initial='initial'
           whileInView='animate'
-          viewport={{ once: true, amount: 0 }}
+          viewport={{ once: true }}
         >
           <MarqueeText
             string={sectionTitle}
@@ -171,23 +186,22 @@ export default function ContactSection({ data }: { data: ContactProps[] }) {
             textSize={'text-[48px] sm:text-[72px] md:text-[82px] lg:text-[100px]'}
           />
         </MarqueeSubWrapper>
-        <Spacer className='h-44 sm:h-[350px]' />
         <ContactForm>
           <ContentBoxMotion
             initial='initial'
             whileInView='animate'
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: true }}
             variants={contentBoxVariant}
           >
             <ParagraphContainer>
               <Divider />
-              {emailSent || (
+              {!emailSent && (
                 <Form onSubmit={handleSubmit}>
                   <InputMotion
                     variants={paragraphVariant}
                     initial='initial'
                     whileInView='animate'
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: true }}
                     placeholder='Name'
                     autoComplete='false'
                     type='text'
@@ -197,7 +211,7 @@ export default function ContactSection({ data }: { data: ContactProps[] }) {
                     variants={paragraphVariant}
                     initial='initial'
                     whileInView='animate'
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: true }}
                     placeholder='Subject'
                     autoComplete='false'
                     type='text'
@@ -207,7 +221,7 @@ export default function ContactSection({ data }: { data: ContactProps[] }) {
                     variants={paragraphVariant}
                     initial='initial'
                     whileInView='animate'
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: true }}
                     placeholder='Message'
                     autoComplete='false'
                     required
@@ -216,74 +230,48 @@ export default function ContactSection({ data }: { data: ContactProps[] }) {
                 </Form>
               )}
               {emailSent && (
-                <div className='flex h-full w-full flex-col items-center justify-center rounded-3xl text-center font-sofiapro text-lg'>
-                  <h4 className='rounded-full bg-slate-200/75 py-4 px-6 shadow-lg dark:bg-slate-800/75 dark:text-white'>
-                    Thank you for reaching out! I will get back to you ASAP :)
-                  </h4>
-                </div>
+                <EmailSentContainer>
+                  <EmailSentText>Thank you for reaching out! I will get back to you ASAP :)</EmailSentText>
+                </EmailSentContainer>
               )}
               <Divider />
               <FlexRow>
-                <IconMotion
-                  initial='initial'
-                  variants={transitionVariants}
-                  target='_blank'
-                  title='LinkedIn'
-                  href={linkedInUrl}
-                  whileInView={getRngTransition()}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
-                  <LinkedInIcon twClasses={twClasses} />
-                </IconMotion>
-                <IconMotion
-                  initial='initial'
-                  variants={transitionVariants}
-                  target='_blank'
-                  title='GitHub'
-                  href={githubUrl}
-                  whileInView={getRngTransition()}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
-                  <GithubIcon twClasses={twClasses} />
-                </IconMotion>
-                <IconMotion
-                  initial='initial'
-                  variants={transitionVariants}
-                  target='_blank'
-                  title='Email'
-                  href={`mailto:${email}`}
-                  whileInView={getRngTransition()}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
-                  <EmailIcon twClasses={twClasses} />
-                </IconMotion>
-                <IconMotion
-                  initial='initial'
-                  variants={transitionVariants}
-                  target='_blank'
-                  title='Resume'
-                  href={resumeUrl}
-                  whileInView={getRngTransition()}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
-                  <ResumeIcon twClasses={twClasses} />
-                </IconMotion>
+                {links.map((link, index) => {
+                  const IconComponent = icons[link.title]
+                  return (
+                    <IconMotion
+                      key={link.title + (index + 1)}
+                      initial='initial'
+                      variants={transitionVariants}
+                      target='_blank'
+                      title={link.title}
+                      href={link.href}
+                      whileInView={getRngTransition()}
+                      viewport={{ once: true }}
+                    >
+                      <IconComponent twClasses={twClasses} />
+                    </IconMotion>
+                  )
+                })}
               </FlexRow>
               <Divider />
             </ParagraphContainer>
           </ContentBoxMotion>
         </ContactForm>
-        <AbsoluteBox
-          initial='initial'
-          variants={transitionVariants}
-          title='Home'
-          href='#home'
-          whileInView={getRngTransition()}
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <HomeIcon twClasses={'h-7 w-7'} />
-        </AbsoluteBox>
-        <Spacer className='h-[210px] sm:h-[70px]' />
+        <HomeContainer>
+          <HomeWrapper>
+            <AbsoluteBox
+              initial='initial'
+              variants={transitionVariants}
+              title='Home'
+              href='#home'
+              whileInView={getRngTransition()}
+              viewport={{ once: true }}
+            >
+              <HomeIcon twClasses={'h-7 w-7'} />
+            </AbsoluteBox>
+          </HomeWrapper>
+        </HomeContainer>
       </Wrapper>
     </Container>
   )

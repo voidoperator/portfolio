@@ -6,6 +6,7 @@ import { EmailIcon, GithubIcon, JNLogo, LinkedInIcon, ResumeIcon } from '../Icon
 import getRngTransition from '@/utility/getRngTransitions'
 import { useScrollOffset } from '@/templates/hooks/useScrollOffset'
 import ScrollProgressBar from '../ScrollProgressBar'
+import { ContactProps } from '@/types/contentful'
 
 const MotionHeader: Motion.Tag<'header'> = tw(motion.header)`
 fixed top-0 left-0 z-20 w-full px-2 py-2.5 sm:px-4 bg-noise bg-[length:150px] bg-[0px_0px]
@@ -77,17 +78,17 @@ const icons = {
   Resume: ResumeIcon,
 }
 
-const links = [
-  { title: 'LinkedIn', href: 'https://www.linkedin.com/in/julio-nunez/' },
-  { title: 'GitHub', href: 'https://github.com/voidoperator' },
-  { title: 'Email', href: 'mailto:julionunez@me.com' },
-  { title: 'Resume', href: 'https://github.com/voidoperator' },
-]
-
 const sections = ['About', 'Experience', 'Skills', 'Projects', 'Contact']
 
-export default function NavBar() {
+export default function NavBar({ data }: { data: ContactProps[] }) {
+  const [{ email, linkedInUrl, githubUrl, resumeUrl }] = data
   const { scroll, size } = useScrollOffset()
+  const links = [
+    { title: 'LinkedIn', href: linkedInUrl },
+    { title: 'GitHub', href: githubUrl },
+    { title: 'Email', href: `mailto:${email}` },
+    { title: 'Resume', href: resumeUrl },
+  ]
   return (
     <MotionHeader initial='initial' whileInView='onScreen' variants={headerVariants}>
       <Nav>

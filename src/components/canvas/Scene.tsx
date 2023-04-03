@@ -35,7 +35,7 @@ export default function Scene({ children, ...props }) {
   const rotateSpeed = isMobile ? 0.8 : 0.375
 
   useEffect(() => {
-    setIsMobile(window.innerWidth <= 768)
+    setIsMobile(window.innerWidth <= 900)
     setIsServer(true)
   }, [])
 

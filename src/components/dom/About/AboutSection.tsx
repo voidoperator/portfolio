@@ -102,7 +102,7 @@ export default function AboutSection({ data }: { data: AboutMeProps[] }) {
           variants={marqueeWrapperVariant}
           initial='initial'
           whileInView='animate'
-          viewport={{ once: true, amount: 0 }}
+          viewport={{ once: true }}
         >
           <MarqueeText
             string={sectionTitle}
@@ -115,7 +115,7 @@ export default function AboutSection({ data }: { data: AboutMeProps[] }) {
           <ContentBoxMotion
             initial='initial'
             whileInView='animate'
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: true }}
             variants={contentBoxVariant}
           >
             <ParagraphContainer>
@@ -125,7 +125,7 @@ export default function AboutSection({ data }: { data: AboutMeProps[] }) {
                   variants={paragraphVariant}
                   initial='initial'
                   whileInView='animate'
-                  viewport={{ once: true, amount: 0.2 }}
+                  viewport={{ once: true }}
                   className='text-xl font-bold'
                 >
                   {greeting}
@@ -138,7 +138,7 @@ export default function AboutSection({ data }: { data: AboutMeProps[] }) {
                       variants={paragraphVariant}
                       initial='initial'
                       whileInView='animate'
-                      viewport={{ once: true, amount: 0.2 }}
+                      viewport={{ once: true }}
                     >
                       {text}
                     </ParagraphMotion>

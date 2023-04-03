@@ -94,7 +94,7 @@ export default function SkillSection({ data }: { data: SkillsProps[] }) {
           variants={marqueeWrapperVariant}
           initial='initial'
           whileInView='animate'
-          viewport={{ once: true, amount: 0 }}
+          viewport={{ once: true }}
         >
           <MarqueeText
             string={sectionTitle}
@@ -107,7 +107,7 @@ export default function SkillSection({ data }: { data: SkillsProps[] }) {
           <ContentBoxMotion
             initial='initial'
             whileInView='animate'
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: true }}
             variants={contentBoxVariant}
           >
             <Divider />
@@ -119,7 +119,7 @@ export default function SkillSection({ data }: { data: SkillsProps[] }) {
                   variants={paragraphVariant}
                   initial='initial'
                   whileInView='animate'
-                  viewport={{ once: true, amount: 0.2 }}
+                  viewport={{ once: true }}
                   title={skillName}
                 >
                   <RubberBandElements key={skillName + index}>

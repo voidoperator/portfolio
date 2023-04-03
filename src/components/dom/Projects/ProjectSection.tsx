@@ -242,7 +242,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
           variants={marqueeWrapperVariant}
           initial='initial'
           whileInView='animate'
-          viewport={{ once: true, amount: 0.8 }}
+          viewport={{ once: true }}
         >
           <MarqueeText
             string={sectionTitle}
@@ -259,7 +259,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                 <ContentBoxMotion
                   initial='initial'
                   whileInView='animate'
-                  viewport={{ once: true, amount: 0 }}
+                  viewport={{ once: true }}
                   variants={contentBoxVariant}
                 >
                   <ParagraphContainer>
@@ -278,7 +278,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         variants={paragraphVariant}
                         initial='initial'
                         whileInView='animate'
-                        viewport={{ once: true, amount: 0 }}
+                        viewport={{ once: true }}
                       >
                         {headline}
                       </HeadlineMotion>
@@ -287,7 +287,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                       variants={paragraphVariant}
                       initial='initial'
                       whileInView='animate'
-                      viewport={{ once: true, amount: 0 }}
+                      viewport={{ once: true }}
                     >
                       <CodeSiteButton target='_blank' href={codeUrl}>{`<Code />`}</CodeSiteButton>
                       <CodeSiteButton target='_blank' href={liveUrl}>{`Live Website`}</CodeSiteButton>
@@ -300,7 +300,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                             variants={paragraphVariant}
                             initial='initial'
                             whileInView='animate'
-                            viewport={{ once: true, amount: 0 }}
+                            viewport={{ once: true }}
                           >
                             {bulletPoint}
                           </ListMotion>
