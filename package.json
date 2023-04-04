@@ -2,9 +2,6 @@
   "name": "jv-portfolio",
   "version": "0.0.1",
   "license": "MIT",
-  "engines": {
-    "node": ">=14"
-  },
   "scripts": {
     "dev": "yarn open-browser && next dev",
     "lint": "yarn prettier && yarn eslint",
