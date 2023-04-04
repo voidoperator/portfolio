@@ -42,7 +42,7 @@ hidden sm:block overflow-hidden
 sm:rounded-r-3xl rounded-t-3xl sm:rounded-tl-none
 `
 const ImageNext: typeof Image = tw(Image)`
-min-h-full
+min-h-full select-none
 opacity-90 object-cover pointer-events-none
 `
 const Divider = tw.div`
