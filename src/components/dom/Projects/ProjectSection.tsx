@@ -27,10 +27,10 @@ font-normal text-xs md:text-sm lg:text-sm
 justify-start items-stretch
 `
 const ContentBoxWrapper = tw.div`
-flex snap-center w-full h-[95%]
+flex snap-center w-full h-[95%] items-stretch justify-center
 `
 const ContentBoxMotion: Motion.Tag<'div'> = tw(motion.div)`
-oflow 2xl:w-full sm:w-[calc(50vw-40px)] w-screen
+oflow 2xl:w-3/4 sm:w-[calc(50vw-40px)] w-screen
 mx-5 sm:mb-5 mb-7 mt-10 sm:py-4 sm:pb-4 pb-2
 rounded-3xl backdrop-blur-sm bg-noise-cards overflow-y-hidden
 `
@@ -41,13 +41,13 @@ const ImageContainer = tw.a`
 flex items-center justify-center
 sm:block pt-4
 hover:opacity-80 transition-all duration-300
-w-1/2
+max-w-[275px] sm:max-w-xs md:max-w-sm
 `
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-around items-center sm:px-10 px-6 sm:py-2 py-0 sm:gap-3 gap-2
+flex h-full grow flex-col justify-center items-center sm:px-10 px-6 sm:py-2 py-0 sm:gap-4 gap-[2.5%] md:gap-6
 `
 const UnorgList = tw.ul`
-flex list-disc flex-col justify-center font-sofiaprolight sm:gap-1 gap-0 md:gap-3 xl:gap-5
+flex list-disc flex-col justify-center font-sofiaprolight gap-1 md:gap-2 xl:gap-3
 `
 const TextContainer = tw.div`
 flex w-full flex-col gap-2
@@ -152,13 +152,10 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
       const firstItem = itemRefs[0].current
       const lastItem = itemRefs[itemRefs.length - 1].current
       const tolerance = firstItem.clientWidth / 4
-
       if (firstItem && lastItem) {
         const firstItemPosition = firstItem.getBoundingClientRect().left
         const lastItemPosition = lastItem.getBoundingClientRect().right
-
         const containerPosition = container.getBoundingClientRect()
-
         setCanScrollLeft(firstItemPosition < containerPosition.left - tolerance)
         setCanScrollRight(lastItemPosition > containerPosition.right + tolerance)
       }
@@ -168,7 +165,6 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
     const container = event.currentTarget
     const maxScrollLeft = container.scrollWidth - container.clientWidth
-
     if ((container.scrollLeft < maxScrollLeft && event.deltaY > 0) || (container.scrollLeft > 0 && event.deltaY < 0)) {
       event.preventDefault()
       container.scrollLeft += event.deltaY
@@ -205,11 +201,9 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
     const container = scrollRef.current
     if (container) {
       const currentScrollLeft = container.scrollLeft
-
       const nextItemIndex = itemRefs.findIndex(
         (itemRef) => itemRef.current && itemRef.current.offsetLeft > currentScrollLeft,
       )
-
       if (nextItemIndex >= 0) {
         container.scrollLeft = itemRefs[nextItemIndex].current.offsetLeft
       }

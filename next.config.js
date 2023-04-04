@@ -15,7 +15,7 @@ const nextConfig = {
   },
   reactStrictMode: false,
   webpack(config, { isServer }) {
-    // source map for dev - cheap for prod
+    // source map options
     config.devtool = isServer ? 'eval-source-map' : false
     // shader support
     config.module.rules.push({
