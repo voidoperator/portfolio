@@ -56,10 +56,10 @@ const ParagraphContainer = tw.div`
 flex h-full grow flex-col items-center sm:px-10 px-6 sm:py-2 py-1 gap-2 sm:gap-1
 `
 const UnorgList = tw.ul`
-flex list-disc flex-col justify-center font-sofiaprolight sm:gap-3 gap-1
+flex list-disc flex-col justify-center font-sofiaprolight space-y-2 md:space-y-6
 `
 const TextContainer = tw.div`my-auto
-flex w-full flex-col gap-2
+flex w-full flex-col gap-2 2xl:space-y-2
 `
 const TechStack = tw.div`mt-auto
 flex flex-wrap items-center justify-center overflow-hidden rounded-b-2xl md:gap-1
@@ -281,20 +281,20 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                       >
                         {subHeadline}
                       </ParagraphMotion>
+                      <ParagraphMotion
+                        variants={paragraphVariant}
+                        initial='initial'
+                        whileInView='animate'
+                        viewport={{ once: true }}
+                        className='flex items-center justify-between gap-3 sm:text-base'
+                      >
+                        <>
+                          <span>{startDate}</span>
+                          <span>{' - '}</span>
+                          <span>{endDate}</span>
+                        </>
+                      </ParagraphMotion>
                     </TextContainer>
-                    <ParagraphMotion
-                      variants={paragraphVariant}
-                      initial='initial'
-                      whileInView='animate'
-                      viewport={{ once: true }}
-                      className='flex items-center justify-between gap-3 sm:text-base'
-                    >
-                      <>
-                        <span>{startDate}</span>
-                        <span>{' - '}</span>
-                        <span>{endDate}</span>
-                      </>
-                    </ParagraphMotion>
                     <UnorgList>
                       {description.map((bulletPoint, index) => {
                         return (

@@ -264,6 +264,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                         title={imgUrl.title}
                         width={imgUrl.width}
                         height={imgUrl.height}
+                        loading='lazy'
                       />
                     </ImageContainer>
                     <ProjectNameContainer>{name}</ProjectNameContainer>

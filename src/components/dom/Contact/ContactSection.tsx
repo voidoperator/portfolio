@@ -35,15 +35,15 @@ const Form = tw.form`
 flex flex-col items-center sm:gap-2 space-y-2 sm:pb-0 sm:pt-0 pt-2 pb-4 w-4/5 self-center
 `
 const InputMotion: Motion.Tag<'input'> = tw(motion.input)`focus:outline-none
-h-10 rounded-md px-2 w-full bg-slate-100/90 dark:bg-slate-900/75 shadow-xl
+h-10 rounded-md px-2 w-full bg-gray-100/90 dark:bg-gray-900/75 shadow-xl
 bg-noise-half
 `
 const TextAreaMotion: Motion.Tag<'textarea'> = tw(motion.input)`focus:outline-none
-h-28 rounded-md w-full text-start align-top pb-20 px-2 bg-slate-100/90 dark:bg-slate-900/75 shadow-xl
+h-28 rounded-md w-full text-start align-top pb-20 px-2 bg-gray-100/90 dark:bg-gray-900/75 shadow-xl
 bg-noise-half
 `
 const Button = tw.button`
-rounded-md bg-slate-800/75 py-2 px-6 text-base text-white dark:text-white shadow-2xl hover:opacity-75 transition-all duration-300
+rounded-md bg-gray-800/75 py-2 px-6 text-base text-white dark:text-white shadow-2xl hover:opacity-75 transition-all duration-300
 `
 const Divider = tw.div`
 h-[1px] w-full bg-black/75 dark:bg-white/75 my-0 sm:my-10 hidden sm:block
@@ -56,7 +56,7 @@ flex items-center justify-center
 `
 const AbsoluteBox: Motion.Tag<'a'> = tw(motion.a)`border-white/50 dark:border-white/30 hover:border-white/10
 text-gray-50 hover:text-gray-200 dark:text-gray-200 hover:dark:text-gray-500
-absolute bottom-6 border bg-slate-800/10 bg-blend-color-burn
+absolute bottom-6 border bg-gray-800/10 bg-blend-color-burn
 hidden sm:flex items-center justify-center p-[2px] sm:p-2 rounded-full cursor-pointer focus:ring-2
 focus:outline-none focus:ring-neutral-900/25 dark:focus:ring-white/50
 transition-all duration-500
@@ -72,7 +72,7 @@ const EmailSentContainer = tw.div`
 flex h-full w-full flex-col items-center justify-center rounded-3xl text-center font-sofiapro text-lg
 `
 const EmailSentText = tw.div`
-rounded-full bg-slate-200/75 py-4 px-6 shadow-lg dark:bg-slate-800/75 dark:text-white
+rounded-full bg-gray-200/75 py-4 px-6 shadow-lg dark:bg-gray-800/75 dark:text-white
 `
 const twClasses =
   'transition-all h-10 w-10 text-gray-800 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400 duration-300'

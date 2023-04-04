@@ -1,5 +1,6 @@
 import React from 'react'
 import tw from 'tailwind-styled-components'
+import Image from 'next/image'
 import { motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
 import { AboutMeProps } from '@/types/contentful'
@@ -40,7 +41,7 @@ h-full
 hidden sm:block overflow-hidden
 sm:rounded-r-3xl rounded-t-3xl sm:rounded-tl-none
 `
-const Image = tw.img`
+const ImageNext: typeof Image = tw(Image)`
 min-h-full
 opacity-90 object-cover pointer-events-none
 `
@@ -148,7 +149,13 @@ export default function AboutSection({ data }: { data: AboutMeProps[] }) {
               <Divider />
             </ParagraphContainer>
             <ImageContainer>
-              <Image src={imgUrl.url} alt={imgUrl.title} width={imgUrl.width} height={imgUrl.height} />
+              <ImageNext
+                src={imgUrl.url}
+                alt={imgUrl.title}
+                width={imgUrl.width}
+                height={imgUrl.height}
+                loading='lazy'
+              />
             </ImageContainer>
           </ContentBoxMotion>
         </AboutMeSection>
