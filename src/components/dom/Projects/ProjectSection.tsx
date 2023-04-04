@@ -41,13 +41,13 @@ const ImageContainer = tw.a`
 flex items-center justify-center
 sm:block pt-4
 hover:opacity-80 transition-all duration-300
-max-w-[275px] sm:max-w-xs md:max-w-sm
+max-w-[275px]
 `
 const ParagraphContainer = tw.div`
-flex h-full grow flex-col justify-center items-center sm:px-10 px-6 sm:py-2 py-0 sm:gap-4 gap-[2.5%] md:gap-6
+flex h-full grow flex-col justify-center items-center sm:px-10 px-6 sm:py-2 py-0 gap-[2.5%] sm:gap-2 md:gap-3 2xl:justify-around
 `
 const UnorgList = tw.ul`
-flex list-disc flex-col justify-center font-sofiaprolight gap-1 md:gap-2 xl:gap-3
+flex list-disc flex-col justify-center font-sofiaprolight gap-1 md:gap-2 xl:gap-3 sm:my-auto
 `
 const TextContainer = tw.div`
 flex w-full flex-col gap-2
@@ -71,7 +71,7 @@ const ScrollRightArrow = tw.div`
 absolute top-[25%] left-0 h-10 w-10 rotate-45 scale-50 border-t-4 border-r-4 bg-none
 `
 const HashTagContainer = tw.div`
-hidden lg:flex w-full flex-wrap items-end justify-center gap-2 sm:gap-3 md:gap-4
+hidden lg:flex w-full flex-wrap items-end justify-center gap-2 sm:gap-3 md:gap-4 sm:my-auto
 `
 const HashTagItem = tw.div`
 whitespace-nowrap rounded-full border border-red-400 bg-transparent py-1 px-3 sm:py-1 sm:px-2
@@ -80,7 +80,7 @@ const HeadlineMotion: Motion.Tag<'p'> = tw(motion.p)`
 self-center whitespace-nowrap text-center text-sm sm:text-base md:text-md lg:text-lg
 `
 const CodeButtonContainer: Motion.Tag<'div'> = tw(motion.div)`
-self-center flex items-center justify-center gap-3 sm:text-sm md:text-sm
+self-center flex items-center justify-center gap-3 sm:text-sm md:text-sm sm:my-auto
 `
 const CodeSiteButton = tw.a`text-black dark:text-white dark:bg-zinc-900/50 bg-zinc-100/50
 rounded-full border py-1 px-3 sm:py-1 sm:px-2 hover:scale-90 transition-all hover:opacity-100 opacity-80
