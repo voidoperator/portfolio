@@ -247,7 +247,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
         </MarqueeSubWrapper>
         <ProjectContainer ref={scrollRef}>
           {items.map((project, index) => {
-            const { name, headline, description, imgUrl, techStack, tags, codeUrl, liveUrl, sys } = project
+            const { name, headline, description, imgUrl, techStack, tags, codeUrl, liveUrl, demoUrl, sys } = project
             return (
               <ContentBoxWrapper key={sys.id} ref={itemRefs[index]}>
                 <ContentBoxMotion
@@ -285,8 +285,9 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                       whileInView='animate'
                       viewport={{ once: true }}
                     >
-                      <CodeSiteButton target='_blank' href={codeUrl}>{`<Code />`}</CodeSiteButton>
-                      <CodeSiteButton target='_blank' href={liveUrl}>{`Live Website`}</CodeSiteButton>
+                      {codeUrl && <CodeSiteButton target='_blank' href={codeUrl}>{`<Code />`}</CodeSiteButton>}
+                      {liveUrl && <CodeSiteButton target='_blank' href={liveUrl}>{`Live Website`}</CodeSiteButton>}
+                      {demoUrl && <CodeSiteButton target='_blank' href={demoUrl}>{`Demo Video`}</CodeSiteButton>}
                     </CodeButtonContainer>
                     <UnorgList>
                       {description.map((bulletPoint, index) => {
@@ -315,7 +316,7 @@ export default function ProjectSection({ data }: { data: ProjectsProps }) {
                     <HashTagContainer>
                       {tags.map((tag, index) => {
                         return (
-                          <HashTagItem key={tag + index} className=''>
+                          <HashTagItem key={tag + index}>
                             <span className='cursor-default px-2 text-xs'>{`#${tag}`}</span>
                           </HashTagItem>
                         )
