@@ -111,8 +111,9 @@ export type ProjectItems = {
   }
   techStack: string[]
   tags: string[]
-  codeUrl: string
-  liveUrl: string
+  codeUrl?: string
+  liveUrl?: string
+  demoUrl?: string
   sys: {
     id: string
   }

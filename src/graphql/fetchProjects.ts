@@ -26,6 +26,7 @@ async function fetchProjects(): Promise<ProjectsProps> {
           tags
           codeUrl
           liveUrl
+          demoUrl
           sys {
             id
           }
