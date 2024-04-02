@@ -6,7 +6,7 @@ import HeroBanner from '@/components/dom/Hero/HeroBanner'
 import AboutSection from '@/components/dom/About/AboutSection'
 import ExperienceSection from '@/components/dom/Experience/ExperienceSection'
 import SkillSection from '@/components/dom/Skills/SkillSection'
-import ProjectSection from '@/components/dom/Projects/ProjectSection'
+// import ProjectSection from '@/components/dom/Projects/ProjectSection'
 import ContactSection from '@/components/dom/Contact/ContactSection'
 import fetchContentful from '@/graphql/fetchContentful'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
@@ -20,7 +20,7 @@ export default function Page({ herobanner, aboutme, experience, skills, projects
       <AboutSection data={aboutme} />
       <ExperienceSection data={experience} />
       <SkillSection data={skills} />
-      <ProjectSection data={projects} />
+      {/* <ProjectSection data={projects} /> */}
       <ContactSection data={contact} />
       <MobileNav />
     </>

@@ -55,11 +55,18 @@ const icons = {
   About: AboutIcon,
   Experience: ExperienceIcon,
   Skills: SkillsIcon,
-  Projects: ProjectsIcon,
+  // Projects: ProjectsIcon,
   Contact: ContactIcon,
 }
 
-const sections = ['Home', 'About', 'Experience', 'Skills', 'Projects', 'Contact']
+const sections = [
+  'Home',
+  'About',
+  'Experience',
+  'Skills',
+  // 'Projects',
+  'Contact',
+]
 
 export default function MobileNav() {
   return (

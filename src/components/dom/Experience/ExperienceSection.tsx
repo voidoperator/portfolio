@@ -3,7 +3,15 @@ import tw from 'tailwind-styled-components'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import MarqueeText from '../MarqueeText'
 import ScrollProgressBar from '../ScrollProgressBar'
-import { CacheHeapIcon, BlackTiesIcon, MealBoxIcon, TwitterIcon } from '../Icons/Icons'
+import {
+  CacheHeapIcon,
+  BlackTiesIcon,
+  MealBoxIcon,
+  TwitterIcon,
+  DatabotIcon,
+  AlliedWorldIcon,
+  AssureForLifeIcon,
+} from '../Icons/Icons'
 import type { ExperienceProps } from '@/types/contentful'
 import TechIcon from '../Icons/TechStackIcons'
 
@@ -12,6 +20,9 @@ const icons = {
   Twitter: TwitterIcon,
   BlackTies: BlackTiesIcon,
   MealBox: MealBoxIcon,
+  Databot: DatabotIcon,
+  AlliedWorld: AlliedWorldIcon,
+  AssureForLife: AssureForLifeIcon,
 }
 
 const MarqueeSubWrapper: Motion.Tag<'div'> = tw(motion.div)`
@@ -254,8 +265,8 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                     <ImageContainer title={name}>
                       <IconComponent alt={name} twClasses={twClasses} />
                     </ImageContainer>
-                    {/* <ParagraphMotion className='text-2xl'>{name}</ParagraphMotion> */}
                     <TextContainer>
+                      <ParagraphMotion className='text-2xl'>{name}</ParagraphMotion>
                       <ParagraphMotion
                         variants={paragraphVariant}
                         initial='initial'
@@ -296,7 +307,8 @@ export default function ExperienceSection({ data }: { data: ExperienceProps }) {
                       </ParagraphMotion>
                     </TextContainer>
                     <UnorgList>
-                      {description.map((bulletPoint, index) => {
+                      {description?.split('- ').map((bulletPoint, index) => {
+                        if (index === 0) return null
                         return (
                           <ListMotion
                             key={bulletPoint + index}

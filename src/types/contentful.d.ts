@@ -68,7 +68,7 @@ export type ExperienceItems = {
   startDate: string
   endDate: string
   techStack: string[]
-  description: string[]
+  description: string
   sys: {
     id: string
   }

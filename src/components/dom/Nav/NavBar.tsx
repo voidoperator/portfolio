@@ -78,7 +78,13 @@ const icons = {
   Resume: ResumeIcon,
 }
 
-const sections = ['About', 'Experience', 'Skills', 'Projects', 'Contact']
+const sections = [
+  'About',
+  'Experience',
+  'Skills',
+  // 'Projects',
+  'Contact',
+]
 
 export default function NavBar({ data }: { data: ContactProps[] }) {
   const [{ email, linkedInUrl, githubUrl, resumeUrl }] = data
